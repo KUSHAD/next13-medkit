@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String
+  mobileNumber String        @unique
+  Appointment  Appointment[]
+  Payment      Payment[]
+}
+
+model Appointment {
+  id                Int       @id @default(autoincrement())
+  dateOfAppointment DateTime
+  userId            Int
+  slot              SLOT      @default(MORNING)
+  problemType       TREATMENT @default(DENTAL)
+  description       String?
+  address           String?
+  createdAt         DateTime  @default(now())
+  user              User      @relation(fields: [userId], references: [id], onDelete: NoAction)
+  doctorID          Int?
+  doctor            Doctor?   @relation(fields: [doctorID], references: [id], onDelete: NoAction)
+}
+
+model Doctor {
+  id             Int           @id @default(autoincrement())
+  name           String
+  specialization TREATMENT     @default(DENTAL)
+  schedules      Schedule[]
+  createdAt      DateTime      @default(now())
+  Appointment    Appointment[]
+}
+
+model Schedule {
+  id        Int      @id @default(autoincrement())
+  day       Int      @default(1)
+  slot      SLOT     @default(MORNING)
+  doctorId  Int
+  createdAt DateTime @default(now())
+  doctor    Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+}
+
+model Procedure {
+  id              Int       @id @default(autoincrement())
+  name            String
+  treatment       TREATMENT @default(DENTAL)
+  rate            Int
+  doctorRate      Int
+  officeRate      Int
+  technicianRate  Int
+  variableRate    Boolean   @default(false)
+  percentageValue Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  Bill            Bill[]
+}
+
+model Bill {
+  id          Int       @id @default(autoincrement())
+  procedureID Int
+  finalValue  Int
+  paymentId   Int
+  createdAt   DateTime  @default(now())
+  procedure   Procedure @relation(fields: [procedureID], references: [id], onDelete: NoAction)
+  payment     Payment   @relation(fields: [paymentId], references: [id], onDelete: NoAction)
+}
+
+model Payment {
+  id            Int           @id @default(autoincrement())
+  bills         Bill[]
+  isPartPayment Boolean       @default(false)
+  partPaymentId Int?
+  userId        Int
+  createdAt     DateTime      @default(now())
+  partPayment   PartPayment[]
+  user          User          @relation(fields: [userId], references: [id], onDelete: NoAction)
+}
+
+model PartPayment {
+  id        Int      @id @default(autoincrement())
+  ammount   Int
+  date      DateTime @default(now())
+  paymentId Int
+  createdAt DateTime @default(now())
+  payment   Payment  @relation(fields: [paymentId], references: [id])
+}
+
+enum SLOT {
+  MORNING
+  EVENING
+}
+
+enum TREATMENT {
+  DENTAL
+  OPTICS
+}
