@@ -14,8 +14,10 @@ model User {
   id           Int           @id @default(autoincrement())
   name         String
   mobileNumber String        @unique
-  Appointment  Appointment[]
-  Payment      Payment[]
+  isTrashed    Boolean       @default(false)
+  appointment  Appointment[]
+  payment      Payment[]
+  createdAt    DateTime      @default(now())
 }
 
 model Appointment {
@@ -26,6 +28,7 @@ model Appointment {
   problemType       TREATMENT @default(DENTAL)
   description       String?
   address           String?
+  isTrashed         Boolean   @default(false)
   createdAt         DateTime  @default(now())
   user              User      @relation(fields: [userId], references: [id], onDelete: NoAction)
   doctorID          Int?
@@ -36,9 +39,10 @@ model Doctor {
   id             Int           @id @default(autoincrement())
   name           String
   specialization TREATMENT     @default(DENTAL)
-  schedules      Schedule[]
+  isTrashed      Boolean       @default(false)
   createdAt      DateTime      @default(now())
-  Appointment    Appointment[]
+  schedules      Schedule[]
+  appointment    Appointment[]
 }
 
 model Schedule {
@@ -46,22 +50,26 @@ model Schedule {
   day       Int      @default(1)
   slot      SLOT     @default(MORNING)
   doctorId  Int
+  isTrashed Boolean  @default(false)
   createdAt DateTime @default(now())
   doctor    Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
 }
 
 model Procedure {
-  id              Int       @id @default(autoincrement())
-  name            String
-  treatment       TREATMENT @default(DENTAL)
-  rate            Int
-  doctorRate      Int
-  officeRate      Int
-  technicianRate  Int
-  variableRate    Boolean   @default(false)
-  percentageValue Boolean   @default(false)
-  createdAt       DateTime  @default(now())
-  Bill            Bill[]
+  id                             Int       @id @default(autoincrement())
+  name                           String
+  treatment                      TREATMENT @default(DENTAL)
+  rate                           Int
+  doctorRate                     Int
+  officeRate                     Int
+  technicianRate                 Int
+  variableRate                   Boolean   @default(false)
+  isDoctorRatePercetageValue     Boolean   @default(false)
+  isOfficeRatePercetageValue     Boolean   @default(false)
+  isTechnicianRatePercetageValue Boolean   @default(false)
+  isTrashed                      Boolean   @default(false)
+  createdAt                      DateTime  @default(now())
+  Bill                           Bill[]
 }
 
 model Bill {
@@ -69,6 +77,7 @@ model Bill {
   procedureID Int
   finalValue  Int
   paymentId   Int
+  isTrashed   Boolean   @default(false)
   createdAt   DateTime  @default(now())
   procedure   Procedure @relation(fields: [procedureID], references: [id], onDelete: NoAction)
   payment     Payment   @relation(fields: [paymentId], references: [id], onDelete: NoAction)
@@ -80,6 +89,7 @@ model Payment {
   isPartPayment Boolean       @default(false)
   partPaymentId Int?
   userId        Int
+  isTrashed     Boolean       @default(false)
   createdAt     DateTime      @default(now())
   partPayment   PartPayment[]
   user          User          @relation(fields: [userId], references: [id], onDelete: NoAction)
@@ -90,6 +100,7 @@ model PartPayment {
   ammount   Int
   date      DateTime @default(now())
   paymentId Int
+  isTrashed Boolean  @default(false)
   createdAt DateTime @default(now())
   payment   Payment  @relation(fields: [paymentId], references: [id])
 }
