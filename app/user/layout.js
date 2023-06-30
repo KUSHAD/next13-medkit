@@ -1,16 +1,17 @@
 import ClientOnly from '@/components/client-only';
 import AppBar from '@/components/navbar/app-bar';
-import AddUserForm from '@/components/user/add-user-form';
+import UserTabs from '@/components/navbar/user/user-tabs';
 
-const UserPage = () => {
+const UserLayout = ({ children }) => {
 	return (
 		<>
 			<ClientOnly>
 				<AppBar isBack backHref='/' title='Manage Users' />
-				<AddUserForm />
+				<UserTabs />
 			</ClientOnly>
+			{children}
 		</>
 	);
 };
 
-export default UserPage;
+export default UserLayout;

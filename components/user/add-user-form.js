@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const validationSchema = yup.object({
 	mobile: yup
@@ -33,16 +34,18 @@ const validationSchema = yup.object({
 });
 
 const AddUserForm = () => {
+	const router = useRouter();
 	const resolver = yupResolver(validationSchema);
 	const form = useForm({ resolver });
 
 	async function onSubmit(data) {
 		try {
-			await axios.post('/api/create-user', data);
+			await axios.post('/api/user', data);
 			toast({
 				title: 'User Created',
 			});
 			form.reset();
+			router.refresh();
 		} catch (error) {
 			toast({
 				title: error.response.data.message,
