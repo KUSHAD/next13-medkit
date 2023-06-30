@@ -16,17 +16,10 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+
 import { Button } from '../ui/button';
 import { Input } from '@/components/ui/input';
-import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-
+import UserTableActions from './user-table-actions';
 const columns = [
 	{
 		accessorKey: 'name',
@@ -41,31 +34,12 @@ const columns = [
 		header: 'Actions',
 		cell: ({ row }) => {
 			const user = row.original;
-			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant='ghost'>
-							<span className='sr-only'>Actions</span>
-							<DotsHorizontalIcon className='h-4 w-4' />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align='end'>
-						<DropdownMenuItem>
-							<DropdownMenuLabel>Edit User Details</DropdownMenuLabel>
-						</DropdownMenuItem>
-						<DropdownMenuItem>
-							<DropdownMenuLabel className='text-destructive'>
-								Move to Trash
-							</DropdownMenuLabel>
-						</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
-			);
+			return <UserTableActions user={user} />;
 		},
 	},
 ];
 
-const ManageUsersTable = ({ data }) => {
+const UsersTable = ({ data }) => {
 	const [columnFilters, setColumnFilters] = useState([]);
 	const table = useReactTable({
 		data,
@@ -167,4 +141,4 @@ const ManageUsersTable = ({ data }) => {
 	);
 };
 
-export default ManageUsersTable;
+export default UsersTable;

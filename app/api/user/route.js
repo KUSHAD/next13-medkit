@@ -36,7 +36,6 @@ export async function POST(req) {
 
 		return NextResponse.json({
 			message: 'User created',
-			user: newUser,
 		});
 	} catch (error) {
 		NextResponse.json(

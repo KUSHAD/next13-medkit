@@ -19,7 +19,7 @@ import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-const validationSchema = yup.object({
+export const addUserValidationSchema = yup.object({
 	mobile: yup
 		.string()
 		.required('Mobile Required')
@@ -35,16 +35,17 @@ const validationSchema = yup.object({
 
 const AddUserForm = () => {
 	const router = useRouter();
-	const resolver = yupResolver(validationSchema);
+	const resolver = yupResolver(addUserValidationSchema);
 	const form = useForm({ resolver });
 
 	async function onSubmit(data) {
 		try {
 			await axios.post('/api/user', data);
+			form.setValue('mobile', '');
+			form.setValue('name', '');
 			toast({
 				title: 'User Created',
 			});
-			form.reset();
 			router.refresh();
 		} catch (error) {
 			toast({
