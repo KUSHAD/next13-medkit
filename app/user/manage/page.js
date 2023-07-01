@@ -6,7 +6,7 @@ import { getUsers } from '@/lib/get-users';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-const UserManagePage = async () => {
+const Page = async () => {
 	const users = await getUsers();
 	if (users.length === 0)
 		return (
@@ -21,4 +21,4 @@ const UserManagePage = async () => {
 	);
 };
 
-export default UserManagePage;
+export default Page;

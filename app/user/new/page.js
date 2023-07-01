@@ -1,6 +1,5 @@
+import ClientOnly from '@/components/client-only';
 import AddUserForm from '@/components/user/add-user-form';
-
-const { default: ClientOnly } = require('@/components/client-only');
 
 const NewUserPage = () => {
 	return (

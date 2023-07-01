@@ -15,6 +15,7 @@ const ErrorContainer = ({
 	desc = 'There was some error',
 	showReset = false,
 	onClick,
+	btnText = 'Retry',
 }) => {
 	return (
 		<Card className='px-4 py-2'>
@@ -27,7 +28,7 @@ const ErrorContainer = ({
 			{showReset && (
 				<CardFooter>
 					<Button className='w-full' variant='secondary' onClick={onClick}>
-						Retry
+						{btnText}
 					</Button>
 				</CardFooter>
 			)}

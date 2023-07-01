@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/table';
 import { Skeleton } from '@/components/ui/skeleton';
 
-const UserManageLoading = () => {
+const Loading = () => {
 	return (
 		<div className='rounded-md border'>
 			<Table>
@@ -81,4 +81,4 @@ const UserManageLoading = () => {
 	);
 };
 
-export default UserManageLoading;
+export default Loading;

@@ -27,13 +27,6 @@ export async function POST(req) {
 				{ status: 400 }
 			);
 
-		const newUser = await client.user.create({
-			data: {
-				name,
-				mobileNumber: mobile,
-			},
-		});
-
 		return NextResponse.json({
 			message: 'User created',
 		});

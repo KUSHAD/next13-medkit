@@ -4,36 +4,36 @@ import DynamicLink from '@/components/dynamic-link';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 
-const UserTabs = () => {
+const DoctorTabs = () => {
 	const location = usePathname();
 	return (
 		<div className='flex flex-row justify-between w-full px-4 py-2 rounded'>
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/user/new' && 'bg-white'
+					location === '/doctor/new' && 'bg-white'
 				)}
-				href='/user/new'>
-				New User
+				href='/doctor/new'>
+				New Doctor
 			</DynamicLink>
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/user/manage' && 'bg-white'
+					location === '/doctor/manage' && 'bg-white'
 				)}
-				href='/user/manage'>
-				Manage User
+				href='/doctor/manage'>
+				Manage Doctor
 			</DynamicLink>
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/user/trash' && 'bg-white'
+					location === '/doctor/trash' && 'bg-white'
 				)}
-				href='/user/trash'>
+				href='/doctor/trash'>
 				Trash
 			</DynamicLink>
 		</div>
 	);
 };
 
-export default UserTabs;
+export default DoctorTabs;
