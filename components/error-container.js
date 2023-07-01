@@ -18,7 +18,7 @@ const ErrorContainer = ({
 	btnText = 'Retry',
 }) => {
 	return (
-		<Card className='px-4 py-2'>
+		<Card className='px-4 py-2 mt-4'>
 			<CardHeader>
 				<CardTitle>{title}</CardTitle>
 			</CardHeader>

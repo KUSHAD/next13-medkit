@@ -12,12 +12,20 @@ datasource db {
 
 model User {
   id           Int           @id @default(autoincrement())
-  name         String
-  mobileNumber String        @unique
-  isTrashed    Boolean       @default(false)
+  name         String        @db.VarChar(25)
+  mobileNumber String        @unique @db.Char(10)
+  isTrashed    Boolean?      @default(false)
+  createdAt    DateTime?     @default(now())
   appointment  Appointment[]
   payment      Payment[]
-  createdAt    DateTime      @default(now())
+}
+
+model AdminUser {
+  id           Int       @id @default(autoincrement())
+  name         String    @db.VarChar(25)
+  mobileNumber String    @unique @db.Char(10)
+  isTrashed    Boolean?  @default(false)
+  createdAt    DateTime? @default(now())
 }
 
 model Appointment {
@@ -26,10 +34,10 @@ model Appointment {
   userId            Int
   slot              SLOT      @default(MORNING)
   problemType       TREATMENT @default(DENTAL)
-  description       String?
-  address           String?
-  isTrashed         Boolean   @default(false)
-  createdAt         DateTime  @default(now())
+  description       String?   @db.VarChar(250)
+  address           String?   @db.VarChar(250)
+  isTrashed         Boolean?  @default(false)
+  createdAt         DateTime? @default(now())
   user              User      @relation(fields: [userId], references: [id], onDelete: NoAction)
   doctorID          Int?
   doctor            Doctor?   @relation(fields: [doctorID], references: [id], onDelete: NoAction)
@@ -37,38 +45,39 @@ model Appointment {
 
 model Doctor {
   id             Int           @id @default(autoincrement())
-  name           String
+  name           String        @db.VarChar(25)
   specialization TREATMENT     @default(DENTAL)
-  isTrashed      Boolean       @default(false)
-  createdAt      DateTime      @default(now())
+  isTrashed      Boolean?      @default(false)
+  createdAt      DateTime?     @default(now())
   schedules      Schedule[]
   appointment    Appointment[]
+  attendance     Attendance[]
 }
 
 model Schedule {
-  id        Int      @id @default(autoincrement())
-  day       Int      @default(1)
-  slot      SLOT     @default(MORNING)
+  id        Int       @id @default(autoincrement())
+  day       Int       @default(1)
+  slot      SLOT      @default(MORNING)
   doctorId  Int
-  isTrashed Boolean  @default(false)
-  createdAt DateTime @default(now())
-  doctor    Doctor   @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  isTrashed Boolean?  @default(false)
+  createdAt DateTime? @default(now())
+  doctor    Doctor    @relation(fields: [doctorId], references: [id], onDelete: Cascade)
 }
 
 model Procedure {
   id                             Int       @id @default(autoincrement())
-  name                           String
+  name                           String    @db.VarChar(25)
   treatment                      TREATMENT @default(DENTAL)
   rate                           Int
   doctorRate                     Int
   officeRate                     Int
   technicianRate                 Int
-  variableRate                   Boolean   @default(false)
-  isDoctorRatePercetageValue     Boolean   @default(false)
-  isOfficeRatePercetageValue     Boolean   @default(false)
-  isTechnicianRatePercetageValue Boolean   @default(false)
-  isTrashed                      Boolean   @default(false)
-  createdAt                      DateTime  @default(now())
+  variableRate                   Boolean?  @default(false)
+  isDoctorRatePercetageValue     Boolean?  @default(false)
+  isOfficeRatePercetageValue     Boolean?  @default(false)
+  isTechnicianRatePercetageValue Boolean?  @default(false)
+  isTrashed                      Boolean?  @default(false)
+  createdAt                      DateTime? @default(now())
   Bill                           Bill[]
 }
 
@@ -77,8 +86,8 @@ model Bill {
   procedureID Int
   finalValue  Int
   paymentId   Int
-  isTrashed   Boolean   @default(false)
-  createdAt   DateTime  @default(now())
+  isTrashed   Boolean?  @default(false)
+  createdAt   DateTime? @default(now())
   procedure   Procedure @relation(fields: [procedureID], references: [id], onDelete: NoAction)
   payment     Payment   @relation(fields: [paymentId], references: [id], onDelete: NoAction)
 }
@@ -86,23 +95,57 @@ model Bill {
 model Payment {
   id            Int           @id @default(autoincrement())
   bills         Bill[]
-  isPartPayment Boolean       @default(false)
+  isPartPayment Boolean?      @default(false)
   partPaymentId Int?
   userId        Int
-  isTrashed     Boolean       @default(false)
-  createdAt     DateTime      @default(now())
+  isTrashed     Boolean?      @default(false)
+  createdAt     DateTime?     @default(now())
   partPayment   PartPayment[]
   user          User          @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
 
 model PartPayment {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   ammount   Int
-  date      DateTime @default(now())
+  date      DateTime? @default(now())
   paymentId Int
-  isTrashed Boolean  @default(false)
-  createdAt DateTime @default(now())
-  payment   Payment  @relation(fields: [paymentId], references: [id])
+  isTrashed Boolean?  @default(false)
+  createdAt DateTime? @default(now())
+  payment   Payment   @relation(fields: [paymentId], references: [id])
+}
+
+model Attendance {
+  id        Int       @id @default(autoincrement())
+  doctorId  Int
+  date      DateTime?
+  createdAt DateTime? @default(now())
+  doctor    Doctor    @relation(fields: [doctorId], references: [id])
+}
+
+model ExpenditureType {
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(25)
+  price       Int
+  isTrashed   Boolean?      @default(false)
+  createdAt   DateTime?     @default(now())
+  Expenditure Expenditure[]
+}
+
+model Expenditure {
+  id                Int             @id @default(autoincrement())
+  expenditureTypeId Int
+  finalPrice        Int
+  modeOfPayment     MODE_OF_PAYMENT @default(CASH)
+  cashContact       String?         @db.Char(10)
+  chequeNo          String?
+  ddNo              String?
+  bankName          String?
+  upiID             String?
+  issueDate         DateTime?
+  description       String?         @db.VarChar(250)
+  isTrashed         Boolean?        @default(false)
+  createdAt         DateTime?       @default(now())
+  purpose           ExpenditureType @relation(fields: [expenditureTypeId], references: [id])
 }
 
 enum SLOT {
@@ -113,4 +156,12 @@ enum SLOT {
 enum TREATMENT {
   DENTAL
   OPTICS
+}
+
+enum MODE_OF_PAYMENT {
+  CASH
+  CHEQUE
+  DEMAND_DRAFT
+  UPI
+  BANK_TRANSFER
 }
