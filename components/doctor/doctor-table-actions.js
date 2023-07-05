@@ -22,17 +22,18 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from '../ui/sheet';
-import EditUserForm from './edit-user-form';
+import EditDoctorForm from './edit-doctor-form';
+import DoctorScheduleTabs from './schedule/doctor-schedule-tabs';
 
-const UserTableActions = ({ user }) => {
+const DoctorTableActions = ({ doctor }) => {
 	const [disabled, setDisabled] = useState(false);
 	const router = useRouter();
 	const moveToTrash = async () => {
 		try {
 			setDisabled(true);
-			await axios.patch(`/api/user/${user.id}/trash`);
+			await axios.patch(`/api/doctor/${doctor.id}/trash`);
 			toast({
-				title: 'User moved to trash',
+				title: 'Doctor moved to trash',
 			});
 			router.refresh();
 		} catch (error) {
@@ -48,9 +49,9 @@ const UserTableActions = ({ user }) => {
 	const restore = async () => {
 		try {
 			setDisabled(true);
-			await axios.patch(`/api/user/${user.id}/restore`);
+			await axios.patch(`/api/doctor/${doctor.id}/restore`);
 			toast({
-				title: 'User restored',
+				title: 'Doctor restored',
 			});
 			router.refresh();
 		} catch (error) {
@@ -62,7 +63,7 @@ const UserTableActions = ({ user }) => {
 			setDisabled(false);
 		}
 	};
-	return user.isTrashed ? (
+	return doctor.isTrashed ? (
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button>Restore</Button>
@@ -71,7 +72,7 @@ const UserTableActions = ({ user }) => {
 				<DialogHeader>
 					<DialogTitle>Are you sure ?</DialogTitle>
 				</DialogHeader>
-				<DialogDescription>Restore {user.name} ?</DialogDescription>
+				<DialogDescription>Restore {doctor.name} ?</DialogDescription>
 				<DialogFooter>
 					<Button disabled={disabled} onClick={restore} className='w-full'>
 						Restore
@@ -83,14 +84,29 @@ const UserTableActions = ({ user }) => {
 		<div className='flex flex-row justify-between max-w-sm w-full'>
 			<Sheet>
 				<SheetTrigger asChild>
-					<Button className='scale-90'>Edit User Details</Button>
+					<Button className='scale-90'>Edit Doctor Details</Button>
 				</SheetTrigger>
 				<SheetContent side='bottom'>
 					<SheetHeader>
-						<SheetTitle>Edit User Details</SheetTitle>
+						<SheetTitle>Edit Doctor Details</SheetTitle>
 					</SheetHeader>
 					<SheetDescription>
-						<EditUserForm user={user} />
+						<EditDoctorForm doctor={doctor} />
+					</SheetDescription>
+				</SheetContent>
+			</Sheet>
+			<Sheet>
+				<SheetTrigger asChild>
+					<Button variant='outline' className='scale-90'>
+						Doctor Schedule
+					</Button>
+				</SheetTrigger>
+				<SheetContent side='bottom'>
+					<SheetHeader>
+						<SheetTitle>Doctor Schedule</SheetTitle>
+					</SheetHeader>
+					<SheetDescription>
+						<DoctorScheduleTabs doctorID={doctor.id} />
 					</SheetDescription>
 				</SheetContent>
 			</Sheet>
@@ -104,7 +120,7 @@ const UserTableActions = ({ user }) => {
 					<DialogHeader>
 						<DialogTitle>Are you sure?</DialogTitle>
 					</DialogHeader>
-					<DialogDescription>Move {user.name} to trash</DialogDescription>
+					<DialogDescription>Move {doctor.name} to trash</DialogDescription>
 					<DialogFooter>
 						<Button disabled={disabled} onClick={moveToTrash}>
 							Move to trash
@@ -116,4 +132,4 @@ const UserTableActions = ({ user }) => {
 	);
 };
 
-export default UserTableActions;
+export default DoctorTableActions;

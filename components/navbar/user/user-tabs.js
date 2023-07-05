@@ -11,18 +11,18 @@ const UserTabs = () => {
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/user/new' && 'bg-white'
-				)}
-				href='/user/new'>
-				New User
-			</DynamicLink>
-			<DynamicLink
-				className={cn(
-					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
 					location === '/user/manage' && 'bg-white'
 				)}
 				href='/user/manage'>
 				Manage User
+			</DynamicLink>
+			<DynamicLink
+				className={cn(
+					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
+					location === '/user/new' && 'bg-white'
+				)}
+				href='/user/new'>
+				New User
 			</DynamicLink>
 			<DynamicLink
 				className={cn(

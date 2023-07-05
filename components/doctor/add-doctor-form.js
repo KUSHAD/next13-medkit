@@ -25,12 +25,13 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { specializations } from '@/lib/specializations';
 
-export const addUserValidationSchema = yup.object({
+export const addDoctorValidationSchema = yup.object({
 	specialization: yup
 		.string()
 		.required('Specialization Required')
-		.oneOf(['DENTAL', 'OPTICS']),
+		.oneOf(specializations, 'Doctor specialization is not valid'),
 	name: yup
 		.string()
 		.required('Name Required')
@@ -40,7 +41,7 @@ export const addUserValidationSchema = yup.object({
 
 const AddDoctorForm = () => {
 	const router = useRouter();
-	const resolver = yupResolver(addUserValidationSchema);
+	const resolver = yupResolver(addDoctorValidationSchema);
 	const form = useForm({ resolver });
 
 	async function onSubmit(data) {
@@ -98,9 +99,13 @@ const AddDoctorForm = () => {
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
-											<SelectItem value=''></SelectItem>
-											<SelectItem value='DENTAL'>Dental </SelectItem>
-											<SelectItem value='OPTICS'>Optics</SelectItem>
+											{specializations.map(_specialization => (
+												<SelectItem
+													value={_specialization}
+													key={_specialization}>
+													{_specialization.toLocaleUpperCase()}
+												</SelectItem>
+											))}
 										</SelectContent>
 									</Select>
 									<FormDescription>

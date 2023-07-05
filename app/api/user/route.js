@@ -27,11 +27,15 @@ export async function POST(req) {
 				{ status: 400 }
 			);
 
+		await client.user.create({
+			data: { name, mobileNumber: mobile },
+		});
+
 		return NextResponse.json({
 			message: 'User created',
 		});
 	} catch (error) {
-		NextResponse.json(
+		return NextResponse.json(
 			{
 				message: error.message,
 			},

@@ -11,31 +11,39 @@ import {
 	FormLabel,
 	FormMessage,
 } from '@/components/ui/form';
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { addUserValidationSchema } from './add-user-form';
+import { addDoctorValidationSchema } from './add-doctor-form';
+import { specializations } from '@/lib/specializations';
 
-const EditUserForm = ({ user }) => {
+const EditDoctorForm = ({ doctor }) => {
 	const router = useRouter();
-	const resolver = yupResolver(addUserValidationSchema);
+	const resolver = yupResolver(addDoctorValidationSchema);
 	const form = useForm({
 		defaultValues: {
-			name: user.name,
-			mobile: user.mobileNumber,
+			name: doctor.name,
+			specialization: doctor.specialization,
 		},
 		resolver,
 	});
 
 	async function onSubmit(data) {
 		try {
-			await axios.patch(`/api/user/${user.id}/edit`, data);
+			await axios.patch(`/api/doctor/${user.id}/edit`, data);
 			form.setValue('mobile', data.mobile);
-			form.setValue('name', data.name);
+			form.setValue('specialization', data.specialization);
 			toast({
-				title: 'User Updated. You may close this sheet',
+				title: 'Doctor Updated. You may close this sheet',
 			});
 			router.refresh();
 		} catch (error) {
@@ -51,25 +59,6 @@ const EditUserForm = ({ user }) => {
 			<form onSubmit={form.handleSubmit(onSubmit)}>
 				<FormField
 					control={form.control}
-					name='mobile'
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Mobile Number</FormLabel>
-							<FormControl>
-								<Input
-									type='tel'
-									disabled={form.formState.isSubmitting}
-									placeholder='Mobile number'
-									{...field}
-								/>
-							</FormControl>
-							<FormDescription>User&apos;s Mobile Number </FormDescription>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
 					name='name'
 					render={({ field }) => (
 						<FormItem>
@@ -82,7 +71,32 @@ const EditUserForm = ({ user }) => {
 									{...field}
 								/>
 							</FormControl>
-							<FormDescription>Name of the user</FormDescription>
+							<FormDescription>Doctor&apos;s name</FormDescription>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name='specialization'
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Specialization</FormLabel>
+							<Select onValueChange={field.onChange} defaultValue={field.value}>
+								<FormControl>
+									<SelectTrigger>
+										<SelectValue placeholder="Select Doctor's Specialization" />
+									</SelectTrigger>
+								</FormControl>
+								<SelectContent>
+									{specializations.map(_specialization => (
+										<SelectItem value={_specialization} key={_specialization}>
+											{_specialization.toLocaleUpperCase()}
+										</SelectItem>
+									))}
+								</SelectContent>
+							</Select>
+							<FormDescription>Doctor&apos;s Specialization</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
@@ -91,11 +105,11 @@ const EditUserForm = ({ user }) => {
 					disabled={form.formState.isSubmitting}
 					className='w-full my-2'
 					type='submit'>
-					Edit User
+					Edit Doctor
 				</Button>
 			</form>
 		</Form>
 	);
 };
 
-export default EditUserForm;
+export default EditDoctorForm;

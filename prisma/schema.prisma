@@ -56,7 +56,7 @@ model Doctor {
 
 model Schedule {
   id        Int       @id @default(autoincrement())
-  day       Int       @default(1)
+  day       DAY       @default(MONDAY)
   slot      SLOT      @default(MORNING)
   doctorId  Int
   isTrashed Boolean?  @default(false)
@@ -146,6 +146,16 @@ model Expenditure {
   isTrashed         Boolean?        @default(false)
   createdAt         DateTime?       @default(now())
   purpose           ExpenditureType @relation(fields: [expenditureTypeId], references: [id])
+}
+
+enum DAY {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
 }
 
 enum SLOT {

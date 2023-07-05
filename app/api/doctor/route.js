@@ -13,7 +13,7 @@ export async function POST(req) {
 			message: 'Doctor created',
 		});
 	} catch (error) {
-		NextResponse.json(
+		return NextResponse.json(
 			{
 				message: error.message,
 			},
