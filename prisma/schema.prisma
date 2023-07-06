@@ -20,7 +20,7 @@ model User {
   payment      Payment[]
 }
 
-model AdminUser {
+model Staff {
   id           Int       @id @default(autoincrement())
   name         String    @db.VarChar(25)
   mobileNumber String    @unique @db.Char(10)
