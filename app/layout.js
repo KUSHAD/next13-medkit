@@ -1,6 +1,7 @@
 import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 import { Nunito } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
 
 const nunito = Nunito({ subsets: ['latin'] });
 
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
 					<div className='w-full'>{children}</div>
 					<Toaster />
 				</div>
+				<Analytics />
 			</body>
 		</html>
 	);
