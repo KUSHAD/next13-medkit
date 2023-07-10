@@ -90,6 +90,8 @@ const AuthForm = () => {
 				data: { token },
 			} = await axios.post('/api/auth/set-session', data);
 
+			toast({ title: 'Authenticated' });
+
 			setCookie('staffToken', token, { path: '/' });
 			router.push('/');
 		} catch (error) {
@@ -151,7 +153,7 @@ const AuthForm = () => {
 						disabled={form.formState.isSubmitting}
 						className='w-full my-2'
 						type='submit'>
-						{showOTP ? 'Verify OTP' : 'Show OTP'}
+						{showOTP ? 'Verify OTP' : 'Send OTP'}
 					</Button>
 				</form>
 			</Form>
