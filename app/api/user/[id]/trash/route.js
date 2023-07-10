@@ -1,4 +1,4 @@
-import client from '@/lib/prisma';
+import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 export async function PATCH(_, { params: { id } }) {
@@ -10,7 +10,7 @@ export async function PATCH(_, { params: { id } }) {
 				message: 'Invalid User ID',
 			});
 
-		const userExists = await client.user.findFirst({
+		const userExists = await prisma.user.findFirst({
 			where: {
 				id: userID,
 			},
@@ -32,7 +32,7 @@ export async function PATCH(_, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		await client.user.update({
+		await prisma.user.update({
 			where: {
 				id: userExists.id,
 			},

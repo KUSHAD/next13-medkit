@@ -1,4 +1,4 @@
-import client from '@/lib/prisma';
+import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 export async function GET(_, { params: { id } }) {
@@ -10,7 +10,7 @@ export async function GET(_, { params: { id } }) {
 				message: 'Invalid Doctor ID',
 			});
 
-		const doctorExists = await client.doctor.findFirst({
+		const doctorExists = await prisma.doctor.findFirst({
 			where: {
 				id: doctorID,
 			},
@@ -32,7 +32,7 @@ export async function GET(_, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		const schedule = await client.schedule.findMany({
+		const schedule = await prisma.schedule.findMany({
 			where: {
 				isTrashed: true,
 				doctorId: doctorID,

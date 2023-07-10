@@ -1,4 +1,4 @@
-import client from '@/lib/prisma';
+import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 export async function POST(req, { params: { id } }) {
@@ -12,7 +12,7 @@ export async function POST(req, { params: { id } }) {
 				message: 'Invalid Doctor ID',
 			});
 
-		const doctorExists = await client.doctor.findFirst({
+		const doctorExists = await prisma.doctor.findFirst({
 			where: {
 				id: doctorID,
 			},
@@ -34,7 +34,7 @@ export async function POST(req, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		const schedule = await client.schedule.create({
+		const schedule = await prisma.schedule.create({
 			data: {
 				...body,
 				doctorId: doctorID,
@@ -68,7 +68,7 @@ export async function GET(_, { params: { id } }) {
 				message: 'Invalid Doctor ID',
 			});
 
-		const doctorExists = await client.doctor.findFirst({
+		const doctorExists = await prisma.doctor.findFirst({
 			where: {
 				id: doctorID,
 			},
@@ -90,7 +90,7 @@ export async function GET(_, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		const schedule = await client.schedule.findMany({
+		const schedule = await prisma.schedule.findMany({
 			where: {
 				isTrashed: false,
 				doctorId: doctorID,

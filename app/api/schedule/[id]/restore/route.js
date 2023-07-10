@@ -1,4 +1,4 @@
-import client from '@/lib/prisma';
+import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 export async function PATCH(_, { params: { id } }) {
@@ -10,7 +10,7 @@ export async function PATCH(_, { params: { id } }) {
 				message: 'Invalid Schedule ID',
 			});
 
-		const scheduleExists = await client.schedule.findFirst({
+		const scheduleExists = await prisma.schedule.findFirst({
 			where: {
 				id: scheduleID,
 			},
@@ -32,7 +32,7 @@ export async function PATCH(_, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		await client.schedule.update({
+		await prisma.schedule.update({
 			where: {
 				id: scheduleExists.id,
 			},

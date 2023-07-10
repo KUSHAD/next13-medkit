@@ -1,4 +1,4 @@
-import client from '@/lib/prisma';
+import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {
@@ -13,7 +13,7 @@ export async function POST(req) {
 				},
 				{ status: 400 }
 			);
-		const mobileExists = await client.user.findUnique({
+		const mobileExists = await prisma.user.findUnique({
 			where: {
 				mobileNumber: mobile,
 			},
@@ -27,7 +27,7 @@ export async function POST(req) {
 				{ status: 400 }
 			);
 
-		await client.user.create({
+		await prisma.user.create({
 			data: { name, mobileNumber: mobile },
 		});
 

@@ -1,4 +1,4 @@
-import client from '@/lib/prisma';
+import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 export async function PATCH(req, { params: { id } }) {
@@ -13,7 +13,7 @@ export async function PATCH(req, { params: { id } }) {
 				message: 'Invalid Staff ID',
 			});
 
-		const staffExists = await client.staff.findFirst({
+		const staffExists = await prisma.staff.findFirst({
 			where: {
 				id: staffID,
 			},
@@ -35,7 +35,7 @@ export async function PATCH(req, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		const mobileExists = await client.staff.findFirst({
+		const mobileExists = await prisma.staff.findFirst({
 			where: {
 				mobileNumber: mobile,
 				NOT: {
@@ -52,7 +52,7 @@ export async function PATCH(req, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		await client.staff.update({
+		await prisma.staff.update({
 			where: {
 				id: staffID,
 			},

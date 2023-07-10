@@ -1,4 +1,4 @@
-import client from '@/lib/prisma';
+import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 export async function PATCH(req, { params: { id } }) {
@@ -12,7 +12,7 @@ export async function PATCH(req, { params: { id } }) {
 				message: 'Invalid Doctor ID',
 			});
 
-		const doctorExists = await client.doctor.findFirst({
+		const doctorExists = await prisma.doctor.findFirst({
 			where: {
 				id: doctorID,
 			},
@@ -34,7 +34,7 @@ export async function PATCH(req, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		await client.doctor.update({
+		await prisma.doctor.update({
 			where: {
 				id: doctorID,
 			},
