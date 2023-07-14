@@ -16,7 +16,12 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import {
+	RecaptchaVerifier,
+	inMemoryPersistence,
+	setPersistence,
+	signInWithPhoneNumber,
+} from 'firebase/auth';
 import { firebaseAuth } from '@/lib/firebase';
 import { setCookie } from 'cookies-next';
 const authValidationSchema = yup.object({
@@ -63,6 +68,8 @@ const AuthForm = () => {
 
 			const fullNumber = `+91${data.mobile}`;
 			const appVerifier = window.appVerifier;
+
+			await setPersistence(firebaseAuth, inMemoryPersistence);
 
 			const result = await signInWithPhoneNumber(
 				firebaseAuth,

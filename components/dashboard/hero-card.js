@@ -1,4 +1,4 @@
-import { dashboardLinks } from '@/lib/dasboard-links';
+import { dashboardLinks } from '@/lib/dashboard-links';
 import {
 	Card,
 	CardContent,
