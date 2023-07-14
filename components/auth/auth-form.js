@@ -22,7 +22,7 @@ import {
 	setPersistence,
 	signInWithPhoneNumber,
 } from 'firebase/auth';
-import { firebaseAuth } from '@/lib/firebase';
+import { firebaseAuth } from '@/lib/db/firebase';
 import { setCookie } from 'cookies-next';
 
 export const authValidationSchema = yup.object({

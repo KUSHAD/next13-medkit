@@ -25,7 +25,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { specializations } from '@/lib/specializations';
+import { specializations } from '@/lib/constants/specializations';
 
 export const addDoctorValidationSchema = yup.object({
 	specialization: yup

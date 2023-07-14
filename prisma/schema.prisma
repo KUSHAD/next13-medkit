@@ -65,20 +65,20 @@ model Schedule {
 }
 
 model Procedure {
-  id                             Int       @id @default(autoincrement())
-  name                           String    @db.VarChar(25)
-  treatment                      TREATMENT @default(DENTAL)
-  rate                           Int
-  doctorRate                     Int
-  officeRate                     Int
-  technicianRate                 Int
-  variableRate                   Boolean?  @default(false)
-  isDoctorRatePercetageValue     Boolean?  @default(false)
-  isOfficeRatePercetageValue     Boolean?  @default(false)
-  isTechnicianRatePercetageValue Boolean?  @default(false)
-  isTrashed                      Boolean?  @default(false)
-  createdAt                      DateTime? @default(now())
-  Bill                           Bill[]
+  id                              Int       @id @default(autoincrement())
+  name                            String    @db.VarChar(25)
+  treatment                       TREATMENT @default(DENTAL)
+  rate                            Int
+  doctorRate                      Int
+  officeRate                      Int
+  technicianRate                  Int
+  variableRate                    Boolean?  @default(false)
+  isDoctorRatePercentageValue     Boolean?  @default(false)
+  isOfficeRatePercentageValue     Boolean?  @default(false)
+  isTechnicianRatePercentageValue Boolean?  @default(false)
+  isTrashed                       Boolean?  @default(false)
+  createdAt                       DateTime? @default(now())
+  Bill                            Bill[]
 }
 
 model Bill {

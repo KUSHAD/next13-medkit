@@ -1,7 +1,7 @@
 import ClientOnly from '@/components/client-only';
 import ErrorContainer from '@/components/error-container';
 import StaffTable from '@/components/staff/staff-table';
-import { getTrashedStaff } from '@/lib/get-staffs';
+import { getTrashedStaff } from '@/lib/actions/get-staffs';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;

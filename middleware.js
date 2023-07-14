@@ -18,11 +18,14 @@ export async function middleware(req) {
 			else return NextResponse.redirect(new URL('/auth', req.url));
 		}
 
-		await jose.jwtVerify(
+		const {
+			payload: { staff },
+		} = await jose.jwtVerify(
 			cookie.value,
 			new TextEncoder().encode(process.env.AUTH_SECRET)
 		);
 
+		res.headers.set('StaffID', staff);
 		return res;
 	} catch {
 		if (req.nextUrl.pathname.startsWith('/api/'))

@@ -25,8 +25,8 @@ import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import * as yup from 'yup';
-import { days } from '@/lib/days';
-import { slots } from '@/lib/slots';
+import { days } from '@/lib/constants/days';
+import { slots } from '@/lib/constants/slots';
 
 export const doctorSchedulesValidationSchema = yup.object().shape({
 	day: yup
