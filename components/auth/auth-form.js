@@ -24,7 +24,8 @@ import {
 } from 'firebase/auth';
 import { firebaseAuth } from '@/lib/firebase';
 import { setCookie } from 'cookies-next';
-const authValidationSchema = yup.object({
+
+export const authValidationSchema = yup.object({
 	mobile: yup
 		.string()
 		.required('Mobile Required')

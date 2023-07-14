@@ -1,18 +1,13 @@
+import { addUserValidationSchema } from '@/components/user/add-user-form';
 import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {
 	try {
 		const body = await req.json();
-		const { name, mobile } = body;
 
-		if (!name || !mobile)
-			return NextResponse.json(
-				{
-					message: 'All fields are required',
-				},
-				{ status: 400 }
-			);
+		const { mobile, name } = await addUserValidationSchema.validate(body);
+
 		const mobileExists = await prisma.user.findUnique({
 			where: {
 				mobileNumber: mobile,
@@ -37,10 +32,10 @@ export async function POST(req) {
 	} catch (error) {
 		return NextResponse.json(
 			{
-				message: error.message,
+				message: error.errors || error.message,
 			},
 			{
-				status: 500,
+				status: error.errors ? 400 : 500,
 			}
 		);
 	}

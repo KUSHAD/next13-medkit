@@ -1,9 +1,12 @@
+import { addDoctorValidationSchema } from '@/components/doctor/add-doctor-form';
 import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 export async function PATCH(req, { params: { id } }) {
 	try {
 		const body = await req.json();
+
+		await addDoctorValidationSchema.validate(body);
 
 		const doctorID = Number(id);
 
@@ -42,15 +45,15 @@ export async function PATCH(req, { params: { id } }) {
 		});
 
 		return NextResponse.json({
-			message: 'Doctor created',
+			message: 'Doctor Edited',
 		});
 	} catch (error) {
 		return NextResponse.json(
 			{
-				message: error.message,
+				message: error.errors || error.message,
 			},
 			{
-				status: 500,
+				status: error.errors ? 400 : 500,
 			}
 		);
 	}

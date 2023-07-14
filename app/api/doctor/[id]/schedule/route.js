@@ -1,9 +1,12 @@
+import { doctorSchedulesValidationSchema } from '@/components/doctor/schedule/add-doctor-schedule';
 import prisma from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
 export async function POST(req, { params: { id } }) {
 	try {
 		const body = await req.json();
+
+		await doctorSchedulesValidationSchema.validate(body);
 
 		const doctorID = Number(id);
 
@@ -52,9 +55,11 @@ export async function POST(req, { params: { id } }) {
 	} catch (error) {
 		return NextResponse.json(
 			{
-				message: error.message,
+				message: error.errors || error.message,
 			},
-			{ status: 500 }
+			{
+				status: error.errors ? 400 : 500,
+			}
 		);
 	}
 }

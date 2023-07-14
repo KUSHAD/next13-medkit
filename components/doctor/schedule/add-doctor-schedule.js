@@ -28,7 +28,7 @@ import * as yup from 'yup';
 import { days } from '@/lib/days';
 import { slots } from '@/lib/slots';
 
-const doctorSchedulesValidationSchema = yup.object().shape({
+export const doctorSchedulesValidationSchema = yup.object().shape({
 	day: yup
 		.string()
 		.oneOf(days, 'Day selected is not valid')
