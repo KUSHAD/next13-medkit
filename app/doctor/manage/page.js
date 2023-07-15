@@ -1,6 +1,6 @@
 import ClientOnly from '@/components/client-only';
 import DoctorsTable from '@/components/doctor/doctors-table';
-import { getDoctors } from '@/lib/get-doctors';
+import { getDoctors } from '@/lib/actions/get-doctors';
 import ErrorContainer from '@/components/error-container';
 
 export const dynamic = 'force-dynamic';

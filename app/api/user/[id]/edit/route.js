@@ -1,12 +1,12 @@
-import { addUserValidationSchema } from '@/components/user/add-user-form';
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/db/prisma';
+import { userValidationSchema } from '@/lib/schema/user-schema';
 import { NextResponse } from 'next/server';
 
 export async function PATCH(req, { params: { id } }) {
 	try {
 		const body = await req.json();
 
-		const { name, mobile } = await addUserValidationSchema.validate(body);
+		const { name, mobile } = await userValidationSchema.validate(body);
 
 		const userID = Number(id);
 		if (isNaN(userID))

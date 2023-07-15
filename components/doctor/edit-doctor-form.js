@@ -23,12 +23,12 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { addDoctorValidationSchema } from './add-doctor-form';
-import { specializations } from '@/lib/specializations';
+import { specializations } from '@/lib/constants/specializations';
+import { doctorValidationSchema } from '@/lib/schema/doctor-schema';
 
 const EditDoctorForm = ({ doctor }) => {
 	const router = useRouter();
-	const resolver = yupResolver(addDoctorValidationSchema);
+	const resolver = yupResolver(doctorValidationSchema);
 	const form = useForm({
 		defaultValues: {
 			name: doctor.name,

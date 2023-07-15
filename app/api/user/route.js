@@ -1,12 +1,12 @@
-import { addUserValidationSchema } from '@/components/user/add-user-form';
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/db/prisma';
+import { userValidationSchema } from '@/lib/schema/user-schema';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {
 	try {
 		const body = await req.json();
 
-		const { mobile, name } = await addUserValidationSchema.validate(body);
+		const { mobile, name } = await userValidationSchema.validate(body);
 
 		const mobileExists = await prisma.user.findUnique({
 			where: {

@@ -1,7 +1,7 @@
 import ClientOnly from '@/components/client-only';
 import DoctorsTable from '@/components/doctor/doctors-table';
 import ErrorContainer from '@/components/error-container';
-import { getTrashedDoctors } from '@/lib/get-doctors';
+import { getTrashedDoctors } from '@/lib/actions/get-doctors';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;

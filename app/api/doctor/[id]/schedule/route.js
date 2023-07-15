@@ -1,12 +1,13 @@
 import { doctorSchedulesValidationSchema } from '@/components/doctor/schedule/add-doctor-schedule';
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/db/prisma';
+import { scheduleValidationSchema } from '@/lib/schema/schedule-schema';
 import { NextResponse } from 'next/server';
 
 export async function POST(req, { params: { id } }) {
 	try {
 		const body = await req.json();
 
-		await doctorSchedulesValidationSchema.validate(body);
+		await scheduleValidationSchema.validate(body);
 
 		const doctorID = Number(id);
 

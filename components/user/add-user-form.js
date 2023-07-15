@@ -2,7 +2,6 @@
 
 import { useForm } from 'react-hook-form';
 import { Card, CardContent } from '../ui/card';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
 	Form,
@@ -18,24 +17,11 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-
-export const addUserValidationSchema = yup.object({
-	mobile: yup
-		.string()
-		.required('Mobile Required')
-		.length(10, 'Must be 10 digits')
-		.transform(_value => (isNaN(_value) ? undefined : _value))
-		.typeError('Mobile number should be all digits'),
-	name: yup
-		.string()
-		.required('Name Required')
-		.min(3, 'Minimum 3 Characters for name')
-		.max(25, 'Maximum 25 characters for name'),
-});
+import { userValidationSchema } from '@/lib/schema/user-schema';
 
 const AddUserForm = () => {
 	const router = useRouter();
-	const resolver = yupResolver(addUserValidationSchema);
+	const resolver = yupResolver(userValidationSchema);
 	const form = useForm({ resolver });
 
 	async function onSubmit(data) {

@@ -24,25 +24,13 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import * as yup from 'yup';
-import { days } from '@/lib/days';
-import { slots } from '@/lib/slots';
-
-export const doctorSchedulesValidationSchema = yup.object().shape({
-	day: yup
-		.string()
-		.oneOf(days, 'Day selected is not valid')
-		.required('Required'),
-
-	slot: yup
-		.string()
-		.required('Required')
-		.oneOf(slots, 'Slot selected is not valid'),
-});
+import { days } from '@/lib/constants/days';
+import { slots } from '@/lib/constants/slots';
+import { scheduleValidationSchema } from '@/lib/schema/schedule-schema';
 
 const AddDoctorSchedule = ({ doctorID }) => {
 	const router = useRouter();
-	const resolver = yupResolver(doctorSchedulesValidationSchema);
+	const resolver = yupResolver(scheduleValidationSchema);
 	const form = useForm({
 		defaultValues: {
 			slot: slots[0],

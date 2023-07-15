@@ -18,24 +18,11 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-
-export const addStaffValidationSchema = yup.object({
-	mobile: yup
-		.string()
-		.required('Mobile Required')
-		.length(10, 'Must be 10 digits')
-		.transform(_value => (isNaN(_value) ? undefined : _value))
-		.typeError('Mobile number should be all digits'),
-	name: yup
-		.string()
-		.required('Name Required')
-		.min(3, 'Minimum 3 Characters for name')
-		.max(25, 'Maximum 25 characters for name'),
-});
+import { staffValidationSchema } from '@/lib/schema/staff-schema';
 
 const AddStaffForm = () => {
 	const router = useRouter();
-	const resolver = yupResolver(addStaffValidationSchema);
+	const resolver = yupResolver(staffValidationSchema);
 	const form = useForm({ resolver });
 
 	async function onSubmit(data) {
