@@ -16,11 +16,11 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { addStaffValidationSchema } from './add-staff-form';
+import { staffValidationSchema } from '@/lib/schema/staff-schema';
 
 const EditStaffForm = ({ staff }) => {
 	const router = useRouter();
-	const resolver = yupResolver(addStaffValidationSchema);
+	const resolver = yupResolver(staffValidationSchema);
 	const form = useForm({
 		defaultValues: {
 			name: staff.name,

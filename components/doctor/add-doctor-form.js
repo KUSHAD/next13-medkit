@@ -2,7 +2,6 @@
 
 import { useForm } from 'react-hook-form';
 import { Card, CardContent } from '../ui/card';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
 	Form,
@@ -26,22 +25,11 @@ import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { specializations } from '@/lib/constants/specializations';
-
-export const addDoctorValidationSchema = yup.object({
-	specialization: yup
-		.string()
-		.required('Specialization Required')
-		.oneOf(specializations, 'Doctor specialization is not valid'),
-	name: yup
-		.string()
-		.required('Name Required')
-		.min(3, 'Minimum 3 Characters for name')
-		.max(25, 'Maximum 25 characters for name'),
-});
+import { doctorValidationSchema } from '@/lib/schema/doctor-schema';
 
 const AddDoctorForm = () => {
 	const router = useRouter();
-	const resolver = yupResolver(addDoctorValidationSchema);
+	const resolver = yupResolver(doctorValidationSchema);
 	const form = useForm({ resolver });
 
 	async function onSubmit(data) {

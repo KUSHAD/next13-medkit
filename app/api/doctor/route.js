@@ -1,12 +1,12 @@
-import { addDoctorValidationSchema } from '@/components/doctor/add-doctor-form';
 import prisma from '@/lib/db/prisma';
+import { doctorValidationSchema } from '@/lib/schema/doctor-schema';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {
 	try {
 		const body = await req.json();
 
-		await addDoctorValidationSchema.validate(body);
+		await doctorValidationSchema.validate(body);
 
 		await prisma.doctor.create({
 			data: body,

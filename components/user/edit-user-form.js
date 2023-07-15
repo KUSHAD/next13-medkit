@@ -16,11 +16,11 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { addUserValidationSchema } from './add-user-form';
+import { userValidationSchema } from '@/lib/schema/user-schema';
 
 const EditUserForm = ({ user }) => {
 	const router = useRouter();
-	const resolver = yupResolver(addUserValidationSchema);
+	const resolver = yupResolver(userValidationSchema);
 	const form = useForm({
 		defaultValues: {
 			name: user.name,

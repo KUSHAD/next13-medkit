@@ -1,12 +1,12 @@
-import { addStaffValidationSchema } from '@/components/staff/add-staff-form';
 import prisma from '@/lib/db/prisma';
+import { staffValidationSchema } from '@/lib/schema/staff-schema';
 import { NextResponse } from 'next/server';
 
 export async function PATCH(req, { params: { id } }) {
 	try {
 		const body = await req.json();
 
-		const { mobile, name } = await addStaffValidationSchema.validate(body);
+		const { mobile, name } = await staffValidationSchema.validate(body);
 
 		const staffID = Number(id);
 		if (isNaN(staffID))
