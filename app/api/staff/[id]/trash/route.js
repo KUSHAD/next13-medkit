@@ -1,3 +1,4 @@
+import { getCurrentUser } from '@/lib/actions/get-current-user';
 import prisma from '@/lib/db/prisma';
 import { NextResponse } from 'next/server';
 
@@ -9,6 +10,16 @@ export async function PATCH(_, { params: { id } }) {
 			return NextResponse.json({
 				message: 'Invalid Staff ID',
 			});
+
+		const currentUser = await getCurrentUser();
+
+		if (currentUser.id === staffID)
+			return NextResponse.json(
+				{
+					message: "You can't Move yourself to trash right 🤓",
+				},
+				{ status: 400 }
+			);
 
 		const staffExists = await prisma.staff.findFirst({
 			where: {

@@ -78,7 +78,7 @@ model Procedure {
   isTechnicianRatePercentageValue Boolean?  @default(false)
   isTrashed                       Boolean?  @default(false)
   createdAt                       DateTime? @default(now())
-  Bill                            Bill[]
+  bill                            Bill[]
 }
 
 model Bill {
