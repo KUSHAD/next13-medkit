@@ -3,16 +3,9 @@ import { NextResponse } from 'next/server';
 
 export async function PATCH(_, { params: { id } }) {
 	try {
-		const userID = Number(id);
-
-		if (isNaN(userID))
-			return NextResponse.json({
-				message: 'Invalid User ID',
-			});
-
 		const userExists = await prisma.user.findFirst({
 			where: {
-				id: userID,
+				id: id,
 			},
 		});
 

@@ -4,16 +4,9 @@ import { NextResponse } from 'next/server';
 
 export async function PATCH(_, { params: { id } }) {
 	try {
-		const staffID = Number(id);
-
-		if (isNaN(staffID))
-			return NextResponse.json({
-				message: 'Invalid Staff ID',
-			});
-
 		const currentUser = await getCurrentUser();
 
-		if (currentUser.id === staffID)
+		if (currentUser.id === id)
 			return NextResponse.json(
 				{
 					message: "You can't Move yourself to trash right 🤓",
@@ -23,7 +16,7 @@ export async function PATCH(_, { params: { id } }) {
 
 		const staffExists = await prisma.staff.findFirst({
 			where: {
-				id: staffID,
+				id: id,
 			},
 		});
 

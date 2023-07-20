@@ -8,15 +8,9 @@ export async function PATCH(req, { params: { id } }) {
 
 		const { name, mobile } = await userValidationSchema.validate(body);
 
-		const userID = Number(id);
-		if (isNaN(userID))
-			return NextResponse.json({
-				message: 'Invalid User ID',
-			});
-
 		const userExists = await prisma.user.findFirst({
 			where: {
-				id: userID,
+				id: id,
 			},
 		});
 
@@ -40,7 +34,7 @@ export async function PATCH(req, { params: { id } }) {
 			where: {
 				mobileNumber: mobile,
 				NOT: {
-					id: userID,
+					id: id,
 				},
 			},
 		});
@@ -55,7 +49,7 @@ export async function PATCH(req, { params: { id } }) {
 
 		await prisma.user.update({
 			where: {
-				id: userID,
+				id: id,
 			},
 			data: {
 				mobileNumber: mobile,

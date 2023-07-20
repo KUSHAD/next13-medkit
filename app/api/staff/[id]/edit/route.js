@@ -8,15 +8,9 @@ export async function PATCH(req, { params: { id } }) {
 
 		const { mobile, name } = await staffValidationSchema.validate(body);
 
-		const staffID = Number(id);
-		if (isNaN(staffID))
-			return NextResponse.json({
-				message: 'Invalid Staff ID',
-			});
-
 		const staffExists = await prisma.staff.findFirst({
 			where: {
-				id: staffID,
+				id: id,
 			},
 		});
 
@@ -40,7 +34,7 @@ export async function PATCH(req, { params: { id } }) {
 			where: {
 				mobileNumber: mobile,
 				NOT: {
-					id: staffID,
+					id: id,
 				},
 			},
 		});
@@ -55,7 +49,7 @@ export async function PATCH(req, { params: { id } }) {
 
 		await prisma.staff.update({
 			where: {
-				id: staffID,
+				id: id,
 			},
 			data: {
 				mobileNumber: mobile,

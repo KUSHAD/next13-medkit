@@ -39,7 +39,7 @@ const EditDoctorForm = ({ doctor }) => {
 
 	async function onSubmit(data) {
 		try {
-			await axios.patch(`/api/doctor/${user.id}/edit`, data);
+			await axios.patch(`/api/doctor/${doctor.id}/edit`, data);
 			form.setValue('mobile', data.mobile);
 			form.setValue('specialization', data.specialization);
 			toast({

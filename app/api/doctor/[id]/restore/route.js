@@ -3,16 +3,9 @@ import { NextResponse } from 'next/server';
 
 export async function PATCH(_, { params: { id } }) {
 	try {
-		const doctorID = Number(id);
-
-		if (isNaN(doctorID))
-			return NextResponse.json({
-				message: 'Invalid Doctor ID',
-			});
-
 		const doctorExists = await prisma.doctor.findFirst({
 			where: {
-				id: doctorID,
+				id: id,
 			},
 		});
 

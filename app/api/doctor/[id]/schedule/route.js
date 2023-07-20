@@ -1,4 +1,3 @@
-import { doctorSchedulesValidationSchema } from '@/components/doctor/schedule/add-doctor-schedule';
 import prisma from '@/lib/db/prisma';
 import { scheduleValidationSchema } from '@/lib/schema/schedule-schema';
 import { NextResponse } from 'next/server';
@@ -9,16 +8,9 @@ export async function POST(req, { params: { id } }) {
 
 		await scheduleValidationSchema.validate(body);
 
-		const doctorID = Number(id);
-
-		if (isNaN(doctorID))
-			return NextResponse.json({
-				message: 'Invalid Doctor ID',
-			});
-
 		const doctorExists = await prisma.doctor.findFirst({
 			where: {
-				id: doctorID,
+				id: id,
 			},
 		});
 
@@ -41,7 +33,7 @@ export async function POST(req, { params: { id } }) {
 		const schedule = await prisma.schedule.create({
 			data: {
 				...body,
-				doctorId: doctorID,
+				doctorId: id,
 			},
 			select: {
 				day: true,
@@ -67,16 +59,9 @@ export async function POST(req, { params: { id } }) {
 
 export async function GET(_, { params: { id } }) {
 	try {
-		const doctorID = Number(id);
-
-		if (isNaN(doctorID))
-			return NextResponse.json({
-				message: 'Invalid Doctor ID',
-			});
-
 		const doctorExists = await prisma.doctor.findFirst({
 			where: {
-				id: doctorID,
+				id: id,
 			},
 		});
 
@@ -99,7 +84,7 @@ export async function GET(_, { params: { id } }) {
 		const schedule = await prisma.schedule.findMany({
 			where: {
 				isTrashed: false,
-				doctorId: doctorID,
+				doctorId: id,
 			},
 			select: {
 				id: true,

@@ -62,7 +62,7 @@ const Loading = () => {
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
 						</TableCell>
-					</TableRow>{' '}
+					</TableRow>
 					<TableRow>
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
@@ -97,7 +97,7 @@ const Loading = () => {
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
 						</TableCell>
-					</TableRow>{' '}
+					</TableRow>
 					<TableRow>
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
@@ -132,7 +132,7 @@ const Loading = () => {
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
 						</TableCell>
-					</TableRow>{' '}
+					</TableRow>
 					<TableRow>
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
@@ -167,7 +167,7 @@ const Loading = () => {
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
 						</TableCell>
-					</TableRow>{' '}
+					</TableRow>
 					<TableRow>
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
