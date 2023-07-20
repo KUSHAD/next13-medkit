@@ -3,16 +3,9 @@ import { NextResponse } from 'next/server';
 
 export async function PATCH(_, { params: { id } }) {
 	try {
-		const scheduleID = Number(id);
-
-		if (isNaN(scheduleID))
-			return NextResponse.json({
-				message: 'Invalid Schedule ID',
-			});
-
 		const scheduleExists = await prisma.schedule.findFirst({
 			where: {
-				id: scheduleID,
+				id: id,
 			},
 		});
 

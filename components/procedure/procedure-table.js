@@ -16,30 +16,72 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-
+import ProcedureTableActions from './procedure-table-actions';
 import { Button } from '../ui/button';
-import { Input } from '@/components/ui/input';
-import StaffTableActions from './staff-table-actions';
+import { Input } from '../ui/input';
+
 const columns = [
 	{
 		accessorKey: 'name',
 		header: 'Name',
 	},
 	{
-		accessorKey: 'mobileNumber',
-		header: 'Mobile Number',
+		accessorKey: 'treatment',
+		header: 'Treatment',
+	},
+	{
+		accessorKey: 'rate',
+		header: 'Rate',
+	},
+	{
+		accessorKey: 'variableRate',
+		header: 'Changeable Rate',
+		cell: ({ row }) => {
+			const procedure = row.original;
+			return procedure.variableRate ? 'Yes' : 'No';
+		},
+	},
+	{
+		accessorKey: 'doctorRate',
+		header: "Doctor's Rate",
+		cell: ({ row }) => {
+			const procedure = row.original;
+			return procedure.isDoctorRatePercentageValue
+				? `${procedure.doctorRate}%`
+				: `Rs. ${procedure.doctorRate}`;
+		},
+	},
+	{
+		accessorKey: 'officeRate',
+		header: "Office's Rate",
+		cell: ({ row }) => {
+			const procedure = row.original;
+			return procedure.isOfficeRatePercentageValue
+				? `${procedure.officeRate}%`
+				: `Rs. ${procedure.officeRate}`;
+		},
+	},
+	{
+		accessorKey: 'technicianRate',
+		header: "Techinician's Rate",
+		cell: ({ row }) => {
+			const procedure = row.original;
+			return procedure.isTechnicianRatePercentageValue
+				? `${procedure.technicianRate}%`
+				: `Rs. ${procedure.technicianRate}`;
+		},
 	},
 	{
 		id: 'actions',
 		header: 'Actions',
 		cell: ({ row }) => {
-			const staff = row.original;
-			return <StaffTableActions staff={staff} />;
+			const procedure = row.original;
+			return <ProcedureTableActions procedure={procedure} />;
 		},
 	},
 ];
 
-const StaffTable = ({ data }) => {
+const ProcedureTable = ({ data }) => {
 	const [columnFilters, setColumnFilters] = useState([]);
 	const table = useReactTable({
 		data,
@@ -52,25 +94,15 @@ const StaffTable = ({ data }) => {
 			columnFilters,
 		},
 	});
-
 	return (
 		<div>
 			<div className='flex row justify-between py-4'>
 				<Input
-					placeholder='Filter Names...'
+					placeholder='Filter Procedure Names...'
 					value={table.getColumn('name')?.getFilterValue() ?? ''}
 					onChange={event =>
 						table.getColumn('name')?.setFilterValue(event.target.value)
 					}
-					className='max-w-sm mx-2'
-				/>
-				<Input
-					placeholder='Filter Mobile Numbers...'
-					value={table.getColumn('mobileNumber')?.getFilterValue() ?? ''}
-					onChange={event =>
-						table.getColumn('mobileNumber')?.setFilterValue(event.target.value)
-					}
-					className='max-w-sm mx-2'
 				/>
 			</div>
 			<div className='rounded-md border'>
@@ -98,7 +130,7 @@ const StaffTable = ({ data }) => {
 							table.getRowModel().rows.map(row => (
 								<TableRow key={row.id}>
 									{row.getVisibleCells().map(cell => (
-										<TableCell key={cell.id}>
+										<TableCell key={cell.id} className='max-w-[100px] w-full'>
 											{flexRender(
 												cell.column.columnDef.cell,
 												cell.getContext()
@@ -139,4 +171,4 @@ const StaffTable = ({ data }) => {
 	);
 };
 
-export default StaffTable;
+export default ProcedureTable;

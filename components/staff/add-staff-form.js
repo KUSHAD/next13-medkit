@@ -2,7 +2,6 @@
 
 import { useForm } from 'react-hook-form';
 import { Card, CardContent } from '../ui/card';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
 	Form,

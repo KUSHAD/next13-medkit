@@ -3,16 +3,9 @@ import { NextResponse } from 'next/server';
 
 export async function GET(_, { params: { id } }) {
 	try {
-		const doctorID = Number(id);
-
-		if (isNaN(doctorID))
-			return NextResponse.json({
-				message: 'Invalid Doctor ID',
-			});
-
 		const doctorExists = await prisma.doctor.findFirst({
 			where: {
-				id: doctorID,
+				id: id,
 			},
 		});
 
@@ -35,7 +28,7 @@ export async function GET(_, { params: { id } }) {
 		const schedule = await prisma.schedule.findMany({
 			where: {
 				isTrashed: true,
-				doctorId: doctorID,
+				doctorId: id,
 			},
 			select: {
 				id: true,

@@ -107,7 +107,7 @@ const AddDoctorForm = () => {
 							disabled={form.formState.isSubmitting}
 							className='w-full my-2'
 							type='submit'>
-							Create User
+							Create Doctor
 						</Button>
 					</form>
 				</Form>

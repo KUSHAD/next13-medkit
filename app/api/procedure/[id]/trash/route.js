@@ -3,31 +3,31 @@ import { NextResponse } from 'next/server';
 
 export async function PATCH(_, { params: { id } }) {
 	try {
-		const userExists = await prisma.user.findFirst({
+		const procedureExists = await prisma.procedure.findFirst({
 			where: {
 				id: id,
 			},
 		});
 
-		if (!userExists)
+		if (!procedureExists)
 			return NextResponse.json(
 				{
-					message: 'Invalid User ID',
+					message: 'Invalid Procedure ID',
 				},
 				{ status: 400 }
 			);
 
-		if (userExists.isTrashed)
+		if (procedureExists.isTrashed)
 			return NextResponse.json(
 				{
-					message: 'User already Trashed',
+					message: 'Procedure already Trashed',
 				},
 				{ status: 400 }
 			);
 
-		await prisma.user.update({
+		await prisma.procedure.update({
 			where: {
-				id: userExists.id,
+				id: procedureExists.id,
 			},
 			data: {
 				isTrashed: true,
@@ -35,7 +35,7 @@ export async function PATCH(_, { params: { id } }) {
 		});
 
 		return NextResponse.json({
-			message: 'User Moved to Trash',
+			message: 'Procedure Moved to Trash',
 		});
 	} catch (error) {
 		return NextResponse.json(

@@ -18,12 +18,9 @@ const Loading = () => {
 						<TableHead>Specialization</TableHead>
 						<TableHead>Rate</TableHead>
 						<TableHead>Changeable Rate</TableHead>
-						<TableHead>Doctor&apos;s Share</TableHead>
-						<TableHead>Doctor&apos;s Share Type</TableHead>
-						<TableHead>Office&apos;s Share</TableHead>
-						<TableHead>Office&apos;s Share Type</TableHead>
-						<TableHead>Techinician&apos;s Share</TableHead>
-						<TableHead>Techinician&apos;s Share Type</TableHead>
+						<TableHead>Doctor&apos;s Rate</TableHead>
+						<TableHead>Office&apos;s Rate</TableHead>
+						<TableHead>Techinician&apos;s Rate</TableHead>
 						<TableHead>Actions</TableHead>
 					</TableRow>
 				</TableHeader>
@@ -53,16 +50,7 @@ const Loading = () => {
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
 						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-					</TableRow>{' '}
+					</TableRow>
 					<TableRow>
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
@@ -88,16 +76,7 @@ const Loading = () => {
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
 						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-					</TableRow>{' '}
+					</TableRow>
 					<TableRow>
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
@@ -123,16 +102,7 @@ const Loading = () => {
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
 						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-					</TableRow>{' '}
+					</TableRow>
 					<TableRow>
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
@@ -158,61 +128,8 @@ const Loading = () => {
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
 						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-					</TableRow>{' '}
+					</TableRow>
 					<TableRow>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-					</TableRow>{' '}
-					<TableRow>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
 						<TableCell>
 							<Skeleton className='h-4 w-[250px]' />
 						</TableCell>

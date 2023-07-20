@@ -8,16 +8,9 @@ export async function PATCH(req, { params: { id } }) {
 
 		await doctorValidationSchema.validate(body);
 
-		const doctorID = Number(id);
-
-		if (isNaN(doctorID))
-			return NextResponse.json({
-				message: 'Invalid Doctor ID',
-			});
-
 		const doctorExists = await prisma.doctor.findFirst({
 			where: {
-				id: doctorID,
+				id: id,
 			},
 		});
 
@@ -29,17 +22,17 @@ export async function PATCH(req, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		if (!doctorExists.isTrashed)
+		if (doctorExists.isTrashed)
 			return NextResponse.json(
 				{
-					message: 'Doctor already Restored',
+					message: 'Doctor already Trashed',
 				},
 				{ status: 400 }
 			);
 
 		await prisma.doctor.update({
 			where: {
-				id: doctorID,
+				id: id,
 			},
 			data: body,
 		});
