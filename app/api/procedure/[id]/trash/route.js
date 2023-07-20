@@ -3,48 +3,39 @@ import { NextResponse } from 'next/server';
 
 export async function PATCH(_, { params: { id } }) {
 	try {
-		const doctorExists = await prisma.doctor.findFirst({
+		const procedureExists = await prisma.procedure.findFirst({
 			where: {
 				id: id,
 			},
 		});
 
-		if (!doctorExists)
+		if (!procedureExists)
 			return NextResponse.json(
 				{
-					message: 'Invalid Doctor ID',
+					message: 'Invalid Procedure ID',
 				},
 				{ status: 400 }
 			);
 
-		if (!doctorExists.isTrashed)
+		if (procedureExists.isTrashed)
 			return NextResponse.json(
 				{
-					message: 'Doctor already Restored',
+					message: 'Procedure already Trashed',
 				},
 				{ status: 400 }
 			);
 
-		await prisma.doctor.update({
+		await prisma.procedure.update({
 			where: {
-				id: doctorExists.id,
+				id: procedureExists.id,
 			},
 			data: {
-				isTrashed: false,
-			},
-		});
-
-		await prisma.schedule.updateMany({
-			where: {
-				doctorId: doctorExists.id,
-			},
-			data: {
-				isTrashed: false,
+				isTrashed: true,
 			},
 		});
 
 		return NextResponse.json({
-			message: 'Doctor Restored from Trash',
+			message: 'Procedure Moved to Trash',
 		});
 	} catch (error) {
 		return NextResponse.json(

@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/table';
 import ProcedureTableActions from './procedure-table-actions';
 import { Button } from '../ui/button';
+import { Input } from '../ui/input';
 
 const columns = [
 	{
@@ -25,8 +26,50 @@ const columns = [
 		header: 'Name',
 	},
 	{
-		accessorKey: 'mobileNumber',
-		header: 'Mobile Number',
+		accessorKey: 'treatment',
+		header: 'Treatment',
+	},
+	{
+		accessorKey: 'rate',
+		header: 'Rate',
+	},
+	{
+		accessorKey: 'variableRate',
+		header: 'Changeable Rate',
+		cell: ({ row }) => {
+			const procedure = row.original;
+			return procedure.variableRate ? 'Yes' : 'No';
+		},
+	},
+	{
+		accessorKey: 'doctorRate',
+		header: "Doctor's Rate",
+		cell: ({ row }) => {
+			const procedure = row.original;
+			return procedure.isDoctorRatePercentageValue
+				? `${procedure.doctorRate}%`
+				: `Rs. ${procedure.doctorRate}`;
+		},
+	},
+	{
+		accessorKey: 'officeRate',
+		header: "Office's Rate",
+		cell: ({ row }) => {
+			const procedure = row.original;
+			return procedure.isOfficeRatePercentageValue
+				? `${procedure.officeRate}%`
+				: `Rs. ${procedure.officeRate}`;
+		},
+	},
+	{
+		accessorKey: 'technicianRate',
+		header: "Techinician's Rate",
+		cell: ({ row }) => {
+			const procedure = row.original;
+			return procedure.isTechnicianRatePercentageValue
+				? `${procedure.technicianRate}%`
+				: `Rs. ${procedure.technicianRate}`;
+		},
 	},
 	{
 		id: 'actions',
@@ -53,6 +96,15 @@ const ProcedureTable = ({ data }) => {
 	});
 	return (
 		<div>
+			<div className='flex row justify-between py-4'>
+				<Input
+					placeholder='Filter Procedure Names...'
+					value={table.getColumn('name')?.getFilterValue() ?? ''}
+					onChange={event =>
+						table.getColumn('name')?.setFilterValue(event.target.value)
+					}
+				/>
+			</div>
 			<div className='rounded-md border'>
 				<Table>
 					<TableHeader>
@@ -76,11 +128,9 @@ const ProcedureTable = ({ data }) => {
 					<TableBody>
 						{table.getRowModel().rows?.length ? (
 							table.getRowModel().rows.map(row => (
-								<TableRow
-									key={row.id}
-									data-state={row.getIsSelected() && 'selected'}>
+								<TableRow key={row.id}>
 									{row.getVisibleCells().map(cell => (
-										<TableCell key={cell.id}>
+										<TableCell key={cell.id} className='max-w-[100px] w-full'>
 											{flexRender(
 												cell.column.columnDef.cell,
 												cell.getContext()

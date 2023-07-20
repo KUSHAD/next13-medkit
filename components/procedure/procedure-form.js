@@ -22,7 +22,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '../ui/checkbox';
 
-const ProcedureForm = ({ form, onSubmit }) => {
+const ProcedureForm = ({ form, onSubmit, isEdit = false }) => {
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)}>
@@ -240,7 +240,7 @@ const ProcedureForm = ({ form, onSubmit }) => {
 					disabled={form.formState.isSubmitting}
 					className='w-full my-2'
 					type='submit'>
-					Create Procedure
+					{isEdit ? 'Update Procedure' : 'Create Procedure'}
 				</Button>
 			</form>
 		</Form>
