@@ -73,7 +73,7 @@ const DoctorScheduleTableAction = ({ schedule }) => {
 	) : (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant='destructive'>Move to trash</Button>
+				<Button variant='destructive'>Trash</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>

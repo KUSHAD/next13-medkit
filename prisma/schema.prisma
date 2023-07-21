@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   mobileNumber String        @unique
   isTrashed    Boolean?      @default(false)
@@ -31,27 +28,28 @@ model Staff {
 model Appointment {
   id                String    @id @default(auto()) @map("_id") @db.ObjectId
   dateOfAppointment DateTime
-  userId            String    @db.ObjectId
+  userID            String    @db.ObjectId
   slot              SLOT      @default(MORNING)
   problemType       TREATMENT @default(DENTAL)
-  description       String?
-  address           String?
+  description       String?   @default("")
+  address           String?   @default("")
+  hasArrived        Boolean?  @default(false)
+  hasBilled         Boolean?  @default(false)
   isTrashed         Boolean?  @default(false)
   createdAt         DateTime? @default(now())
-  user              User      @relation(fields: [userId], references: [id], onDelete: NoAction)
-  doctorID          String?    @db.ObjectId
-  doctor            Doctor?   @relation(fields: [doctorID], references: [id], onDelete: NoAction)
+  user              User      @relation(fields: [userID], references: [id], onDelete: NoAction)
+  doctorID          String    @db.ObjectId
+  doctor            Doctor    @relation(fields: [doctorID], references: [id], onDelete: NoAction)
 }
 
 model Doctor {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
   name           String
   specialization TREATMENT     @default(DENTAL)
   isTrashed      Boolean?      @default(false)
   createdAt      DateTime?     @default(now())
   schedules      Schedule[]
   appointment    Appointment[]
-  attendance     Attendance[]
 }
 
 model Schedule {
@@ -93,10 +91,10 @@ model Bill {
 }
 
 model Payment {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
   bills         Bill[]
   isPartPayment Boolean?      @default(false)
-  userId        String    @db.ObjectId
+  userId        String        @db.ObjectId
   isTrashed     Boolean?      @default(false)
   createdAt     DateTime?     @default(now())
   partPayment   PartPayment[]
@@ -111,40 +109,6 @@ model PartPayment {
   isTrashed Boolean?  @default(false)
   createdAt DateTime? @default(now())
   payment   Payment   @relation(fields: [paymentId], references: [id])
-}
-
-model Attendance {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  doctorId  String    @db.ObjectId
-  date      DateTime?
-  createdAt DateTime? @default(now())
-  doctor    Doctor    @relation(fields: [doctorId], references: [id])
-}
-
-model ExpenditureType {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  price       Int
-  isTrashed   Boolean?      @default(false)
-  createdAt   DateTime?     @default(now())
-  Expenditure Expenditure[]
-}
-
-model Expenditure {
-  id                String    @id @default(auto()) @map("_id") @db.ObjectId
-  expenditureTypeId String    @db.ObjectId
-  finalPrice        Int
-  modeOfPayment     MODE_OF_PAYMENT @default(CASH)
-  cashContact       String?
-  chequeNo          String?
-  ddNo              String?
-  bankName          String?
-  upiID             String?
-  issueDate         DateTime?
-  description       String?
-  isTrashed         Boolean?        @default(false)
-  createdAt         DateTime?       @default(now())
-  purpose           ExpenditureType @relation(fields: [expenditureTypeId], references: [id])
 }
 
 enum DAY {
@@ -165,12 +129,4 @@ enum SLOT {
 enum TREATMENT {
   DENTAL
   OPTICS
-}
-
-enum MODE_OF_PAYMENT {
-  CASH
-  CHEQUE
-  DEMAND_DRAFT
-  UPI
-  BANK_TRANSFER
 }

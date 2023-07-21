@@ -84,7 +84,7 @@ const DoctorTableActions = ({ doctor }) => {
 		<div className='flex flex-row justify-between max-w-sm w-full'>
 			<Sheet>
 				<SheetTrigger asChild>
-					<Button className='scale-90'>Edit Doctor Details</Button>
+					<Button className='scale-90'>Edit</Button>
 				</SheetTrigger>
 				<SheetContent side='bottom'>
 					<SheetHeader>
@@ -98,7 +98,7 @@ const DoctorTableActions = ({ doctor }) => {
 			<Sheet>
 				<SheetTrigger asChild>
 					<Button variant='outline' className='scale-90'>
-						Doctor Schedule
+						Schedule
 					</Button>
 				</SheetTrigger>
 				<SheetContent side='bottom'>
@@ -113,7 +113,7 @@ const DoctorTableActions = ({ doctor }) => {
 			<Dialog>
 				<DialogTrigger asChild>
 					<Button className='scale-90' variant='destructive'>
-						Move to Trash
+						Trash
 					</Button>
 				</DialogTrigger>
 				<DialogContent>
