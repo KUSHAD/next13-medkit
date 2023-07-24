@@ -25,23 +25,6 @@ model Staff {
   createdAt    DateTime? @default(now())
 }
 
-model Appointment {
-  id                String    @id @default(auto()) @map("_id") @db.ObjectId
-  dateOfAppointment DateTime
-  userID            String    @db.ObjectId
-  slot              SLOT      @default(MORNING)
-  problemType       TREATMENT @default(DENTAL)
-  description       String?   @default("")
-  address           String?   @default("")
-  hasArrived        Boolean?  @default(false)
-  hasBilled         Boolean?  @default(false)
-  isTrashed         Boolean?  @default(false)
-  createdAt         DateTime? @default(now())
-  user              User      @relation(fields: [userID], references: [id], onDelete: NoAction)
-  doctorID          String    @db.ObjectId
-  doctor            Doctor    @relation(fields: [doctorID], references: [id], onDelete: NoAction)
-}
-
 model Doctor {
   id             String        @id @default(auto()) @map("_id") @db.ObjectId
   name           String
@@ -79,6 +62,24 @@ model Procedure {
   bill                            Bill[]
 }
 
+model Appointment {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  dateOfAppointment DateTime
+  userID            String    @db.ObjectId
+  doctorID          String    @db.ObjectId
+  slot              SLOT      @default(MORNING)
+  problemType       TREATMENT @default(DENTAL)
+  description       String?   @default("")
+  address           String?   @default("")
+  hasArrived        Boolean?  @default(false)
+  hasBilled         Boolean?  @default(false)
+  isTrashed         Boolean?  @default(false)
+  createdAt         DateTime? @default(now())
+  user              User      @relation(fields: [userID], references: [id], onDelete: NoAction)
+  doctor            Doctor    @relation(fields: [doctorID], references: [id], onDelete: NoAction)
+  payment           Payment?
+}
+
 model Bill {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   procedureID String    @db.ObjectId
@@ -95,10 +96,12 @@ model Payment {
   bills         Bill[]
   isPartPayment Boolean?      @default(false)
   userId        String        @db.ObjectId
+  appointmentID String        @unique @db.ObjectId
   isTrashed     Boolean?      @default(false)
   createdAt     DateTime?     @default(now())
   partPayment   PartPayment[]
   user          User          @relation(fields: [userId], references: [id], onDelete: NoAction)
+  appointment   Appointment   @relation(fields: [appointmentID], references: [id])
 }
 
 model PartPayment {

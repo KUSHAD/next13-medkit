@@ -14,31 +14,22 @@ import { toast } from '../ui/use-toast';
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import {
-	Sheet,
-	SheetContent,
-	SheetDescription,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-} from '../ui/sheet';
-import EditStaffForm from './edit-staff-form';
+import Link from 'next/link';
 
-const StaffTableActions = ({ staff }) => {
+const AppointmentTableActions = ({ appointment }) => {
 	const [disabled, setDisabled] = useState(false);
 	const router = useRouter();
 	const moveToTrash = async () => {
 		try {
 			setDisabled(true);
-			await axios.patch(`/api/staff/${staff.id}/trash`);
+			await axios.patch(`/api/appointment/${appointment.id}/trash`);
 			toast({
-				title: 'Staff moved to trash',
+				title: 'Appointment moved to trash',
 			});
 			router.refresh();
 		} catch (error) {
 			toast({
 				title: error.response ? error.response.data.message : error.message,
-
 				variant: 'destructive',
 			});
 		} finally {
@@ -46,56 +37,49 @@ const StaffTableActions = ({ staff }) => {
 		}
 	};
 
-	const restore = async () => {
+	const markAsArrived = async () => {
 		try {
 			setDisabled(true);
-			await axios.patch(`/api/staff/${staff.id}/restore`);
+			await axios.patch(`/api/appointment/${appointment.id}/arrived`);
 			toast({
-				title: 'Staff restored',
+				title: 'User Arrived',
 			});
 			router.refresh();
 		} catch (error) {
 			toast({
 				title: error.response ? error.response.data.message : error.message,
-
 				variant: 'destructive',
 			});
 		} finally {
 			setDisabled(false);
 		}
 	};
-	return staff.isTrashed ? (
-		<Dialog>
-			<DialogTrigger asChild>
-				<Button>Restore</Button>
-			</DialogTrigger>
-			<DialogContent>
-				<DialogHeader>
-					<DialogTitle>Are you sure ?</DialogTitle>
-				</DialogHeader>
-				<DialogDescription>Restore {staff.name} ?</DialogDescription>
-				<DialogFooter>
-					<Button disabled={disabled} onClick={restore} className='w-full'>
-						Restore
-					</Button>
-				</DialogFooter>
-			</DialogContent>
-		</Dialog>
+
+	return appointment.hasArrived ? (
+		<Link passHref href={`/appointment/${appointment.id}/view`}>
+			<Button className='w-full'>View</Button>
+		</Link>
 	) : (
 		<div className='flex flex-row justify-between max-w-sm w-full'>
-			<Sheet>
-				<SheetTrigger asChild>
-					<Button className='scale-90'>Edit</Button>
-				</SheetTrigger>
-				<SheetContent side='bottom'>
-					<SheetHeader>
-						<SheetTitle>Edit Staff Details</SheetTitle>
-					</SheetHeader>
-					<SheetDescription>
-						<EditStaffForm staff={staff} />
-					</SheetDescription>
-				</SheetContent>
-			</Sheet>
+			<Dialog>
+				<DialogTrigger asChild>
+					<Button className='scale-90'>Arrived ?</Button>
+				</DialogTrigger>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle>Are you sure?</DialogTitle>
+					</DialogHeader>
+					<DialogDescription>
+						Be sure to mark the correct appointment as arrived as this
+						appointment will not be deletable afterwards
+					</DialogDescription>
+					<DialogFooter>
+						<Button disabled={disabled} onClick={markAsArrived}>
+							Mark as arrived
+						</Button>
+					</DialogFooter>
+				</DialogContent>
+			</Dialog>
 			<Dialog>
 				<DialogTrigger asChild>
 					<Button className='scale-90' variant='destructive'>
@@ -106,7 +90,7 @@ const StaffTableActions = ({ staff }) => {
 					<DialogHeader>
 						<DialogTitle>Are you sure?</DialogTitle>
 					</DialogHeader>
-					<DialogDescription>Move {staff.name} to trash</DialogDescription>
+					<DialogDescription>Move this appointment to trash</DialogDescription>
 					<DialogFooter>
 						<Button disabled={disabled} onClick={moveToTrash}>
 							Move to trash
@@ -118,4 +102,4 @@ const StaffTableActions = ({ staff }) => {
 	);
 };
 
-export default StaffTableActions;
+export default AppointmentTableActions;
