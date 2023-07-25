@@ -14,7 +14,7 @@ import { toast } from '../ui/use-toast';
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import DynamicLink from '../dynamic-link';
 
 const AppointmentTableActions = ({ appointment }) => {
 	const [disabled, setDisabled] = useState(false);
@@ -56,9 +56,10 @@ const AppointmentTableActions = ({ appointment }) => {
 	};
 
 	return appointment.hasArrived ? (
-		<Link passHref href={`/appointment/${appointment.id}/view`}>
-			<Button className='w-full'>View</Button>
-		</Link>
+		<DynamicLink
+			href={`/appointment/${appointment.id}/bill?type=${appointment.problemType}`}>
+			<Button className='w-full'>Bill</Button>
+		</DynamicLink>
 	) : (
 		<div className='flex flex-row justify-between max-w-sm w-full'>
 			<Dialog>

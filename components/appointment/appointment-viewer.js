@@ -2,7 +2,6 @@
 
 import React from 'react';
 import ErrorContainer from '../error-container';
-import Link from 'next/link';
 import {
 	flexRender,
 	getCoreRowModel,

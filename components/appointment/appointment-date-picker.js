@@ -43,6 +43,7 @@ const AppointmentDatePicker = () => {
 			);
 
 			router.push(url);
+			router.refresh();
 		},
 		[router]
 	);

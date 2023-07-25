@@ -6,7 +6,7 @@ import AppBar from '@/components/navbar/app-bar';
 import { useRouter } from 'next/navigation';
 
 export const metadata = {
-	title: 'Page not found',
+	title: 'Appointment not found',
 };
 
 const NotFound = () => {
@@ -15,16 +15,18 @@ const NotFound = () => {
 		<ClientOnly>
 			<div className='max-w-[769px] m-auto'>
 				<div className='w-full'>
-					<AppBar title='Page not found' />
-					<ErrorContainer
-						title='Page not found'
-						desc='The page you requested is not found'
-						showReset
-						btnText='Go to Home'
-						onClick={() => {
-							router.push('/');
-						}}
-					/>
+					<div className='scale-90'>
+						<AppBar title='Appointment not found' isSecondary />
+						<ErrorContainer
+							title='Appointment not found'
+							desc='The appointment you requested is not found'
+							showReset
+							btnText='Go to Appointments'
+							onClick={() => {
+								router.push('/appointment');
+							}}
+						/>
+					</div>
 				</div>
 			</div>
 		</ClientOnly>

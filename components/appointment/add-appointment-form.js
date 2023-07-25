@@ -50,13 +50,25 @@ import { useRouter } from 'next/navigation';
 const AddAppointmentForm = ({ doctors, users }) => {
 	const validationSchema = appointmentValidationSchema(doctors, users);
 	const resolver = yupResolver(validationSchema);
-	const form = useForm({ resolver });
+	const form = useForm({
+		resolver,
+		defaultValues: {
+			dateOfAppointment: new Date(),
+			doctorID: '',
+			problemType: specializations[0],
+			slot: slots[0],
+			userID: '',
+		},
+	});
 	const router = useRouter();
 
 	async function onSubmit(data) {
 		try {
 			await axios.post('/api/appointment', data);
 			form.reset();
+			form.setValue('address', undefined);
+			form.setValue('description', undefined);
+
 			toast({
 				title: 'Appointment Booked',
 			});
@@ -99,11 +111,14 @@ const AddAppointmentForm = ({ doctors, users }) => {
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
-													{users.map(_user => (
-														<SelectItem value={_user.value} key={_user.value}>
-															{_user.label}
-														</SelectItem>
-													))}
+													<>
+														<SelectItem value=''>Choose</SelectItem>
+														{users.map(_user => (
+															<SelectItem value={_user.value} key={_user.value}>
+																{_user.label}
+															</SelectItem>
+														))}
+													</>
 												</SelectContent>
 											</Select>
 											<FormDescription>
@@ -128,13 +143,16 @@ const AddAppointmentForm = ({ doctors, users }) => {
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
-													{doctors.map(_doctor => (
-														<SelectItem
-															value={_doctor.value}
-															key={_doctor.value}>
-															{_doctor.label}
-														</SelectItem>
-													))}
+													<>
+														<SelectItem value=''>Choose</SelectItem>
+														{doctors.map(_doctor => (
+															<SelectItem
+																value={_doctor.value}
+																key={_doctor.value}>
+																{_doctor.label}
+															</SelectItem>
+														))}
+													</>
 												</SelectContent>
 											</Select>
 											<FormDescription>
@@ -201,11 +219,14 @@ const AddAppointmentForm = ({ doctors, users }) => {
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
-													{slots.map(_slot => (
-														<SelectItem value={_slot} key={_slot}>
-															{_slot.toLocaleUpperCase()}
-														</SelectItem>
-													))}
+													<>
+														<SelectItem value=''>Choose</SelectItem>
+														{slots.map(_slot => (
+															<SelectItem value={_slot} key={_slot}>
+																{_slot.toLocaleUpperCase()}
+															</SelectItem>
+														))}
+													</>
 												</SelectContent>
 											</Select>
 											<FormDescription>Appointment Slot</FormDescription>
@@ -229,13 +250,16 @@ const AddAppointmentForm = ({ doctors, users }) => {
 													</SelectTrigger>
 												</FormControl>
 												<SelectContent>
-													{specializations.map(_specialization => (
-														<SelectItem
-															value={_specialization}
-															key={_specialization}>
-															{_specialization.toLocaleUpperCase()}
-														</SelectItem>
-													))}
+													<>
+														<SelectItem value=''>Choose</SelectItem>
+														{specializations.map(_specialization => (
+															<SelectItem
+																value={_specialization}
+																key={_specialization}>
+																{_specialization.toLocaleUpperCase()}
+															</SelectItem>
+														))}
+													</>
 												</SelectContent>
 											</Select>
 											<FormDescription>Treatment Type</FormDescription>
