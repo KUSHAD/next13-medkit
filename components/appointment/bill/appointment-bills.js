@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
 	flexRender,
 	getCoreRowModel,
@@ -19,6 +19,7 @@ import {
 import { Input } from '@/components/ui/input';
 import AppointmentBillTableActions from './appointment-bill-table-actions';
 import ErrorContainer from '@/components/error-container';
+import MakePayment from './payment/make-payment';
 
 const columns = [
 	{
@@ -53,6 +54,7 @@ const columns = [
 
 const AppointmentBills = ({ data }) => {
 	const [columnFilters, setColumnFilters] = useState([]);
+	const [total, setTotal] = useState(0);
 	const table = useReactTable({
 		data,
 		columns,
@@ -63,6 +65,19 @@ const AppointmentBills = ({ data }) => {
 			columnFilters,
 		},
 	});
+
+	const getTotal = useCallback(() => {
+		const _total = data.reduce(
+			(acc, _data) => acc + _data.finalValue * _data.quantity,
+			0
+		);
+
+		setTotal(_total);
+	}, [data]);
+
+	useEffect(() => {
+		getTotal();
+	}, [getTotal]);
 
 	return data.length === 0 ? (
 		<ErrorContainer title='No Bill Items' desc='No Items set for billing' />
@@ -119,12 +134,7 @@ const AppointmentBills = ({ data }) => {
 									<TableCell>Total</TableCell>
 									<TableCell />
 									<TableCell />
-									<TableCell>
-										{data.reduce(
-											(acc, _data) => acc + _data.finalValue * _data.quantity,
-											0
-										)}
-									</TableCell>
+									<TableCell>{total}</TableCell>
 								</TableRow>
 							</>
 						) : (
@@ -139,6 +149,7 @@ const AppointmentBills = ({ data }) => {
 					</TableBody>
 				</Table>
 			</div>
+			<MakePayment show={data.length !== 0} total={total} />
 		</div>
 	);
 };

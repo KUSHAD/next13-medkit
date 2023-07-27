@@ -55,7 +55,9 @@ const AppointmentTableActions = ({ appointment }) => {
 		}
 	};
 
-	return appointment.hasArrived ? (
+	return appointment.hasBilled ? (
+		'Billed'
+	) : appointment.hasArrived ? (
 		<DynamicLink
 			href={`/appointment/${appointment.id}/bill?type=${appointment.problemType}`}>
 			<Button className='w-full'>Bill</Button>

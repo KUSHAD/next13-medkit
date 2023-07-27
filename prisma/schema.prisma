@@ -14,7 +14,6 @@ model User {
   isTrashed    Boolean?      @default(false)
   createdAt    DateTime      @default(now())
   appointment  Appointment[]
-  payment      Payment[]
 }
 
 model Staff {
@@ -87,21 +86,20 @@ model Bill {
   appointmentID String?      @db.ObjectId
   finalValue    Int
   quantity      Int
-  paymentId     String?      @db.ObjectId
+  paymentID     String?      @db.ObjectId
   isTrashed     Boolean?     @default(false)
   createdAt     DateTime     @default(now())
   appointment   Appointment? @relation(fields: [appointmentID], references: [id])
   procedure     Procedure?   @relation(fields: [procedureID], references: [id])
-  payment       Payment?     @relation(fields: [paymentId], references: [id])
+  payment       Payment?     @relation(fields: [paymentID], references: [id])
 }
 
 model Payment {
   id            String      @id @default(auto()) @map("_id") @db.ObjectId
-  userId        String      @db.ObjectId
   appointmentID String      @unique @db.ObjectId
   isTrashed     Boolean?    @default(false)
+  total         Int
   createdAt     DateTime    @default(now())
-  user          User        @relation(fields: [userId], references: [id])
   bills         Bill[]
   appointment   Appointment @relation(fields: [appointmentID], references: [id])
 }

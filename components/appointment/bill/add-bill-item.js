@@ -13,7 +13,7 @@ const AddBillItem = ({ procedures }) => {
 			<div className='mr-auto' />
 			<Dialog>
 				<DialogTrigger asChild>
-					<Button>Add Bill Item</Button>
+					<Button variant='outline'>Add Bill Item</Button>
 				</DialogTrigger>
 				<DialogContent>
 					<DialogHeader>
