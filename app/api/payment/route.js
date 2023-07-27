@@ -50,7 +50,7 @@ export async function POST(req) {
 				appointmentID,
 			},
 			data: {
-				paymentId: newPayment.id,
+				paymentID: newPayment.id,
 			},
 		});
 

@@ -86,12 +86,12 @@ model Bill {
   appointmentID String?      @db.ObjectId
   finalValue    Int
   quantity      Int
-  paymentId     String?      @db.ObjectId
+  paymentID     String?      @db.ObjectId
   isTrashed     Boolean?     @default(false)
   createdAt     DateTime     @default(now())
   appointment   Appointment? @relation(fields: [appointmentID], references: [id])
   procedure     Procedure?   @relation(fields: [procedureID], references: [id])
-  payment       Payment?     @relation(fields: [paymentId], references: [id])
+  payment       Payment?     @relation(fields: [paymentID], references: [id])
 }
 
 model Payment {
