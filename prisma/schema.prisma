@@ -12,17 +12,17 @@ model User {
   name         String
   mobileNumber String        @unique
   isTrashed    Boolean?      @default(false)
-  createdAt    DateTime?     @default(now())
+  createdAt    DateTime      @default(now())
   appointment  Appointment[]
   payment      Payment[]
 }
 
 model Staff {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String
-  mobileNumber String    @unique
-  isTrashed    Boolean?  @default(false)
-  createdAt    DateTime? @default(now())
+  mobileNumber String   @unique
+  isTrashed    Boolean? @default(false)
+  createdAt    DateTime @default(now())
 }
 
 model Doctor {
@@ -30,19 +30,19 @@ model Doctor {
   name           String
   specialization TREATMENT     @default(DENTAL)
   isTrashed      Boolean?      @default(false)
-  createdAt      DateTime?     @default(now())
+  createdAt      DateTime      @default(now())
   schedules      Schedule[]
   appointment    Appointment[]
 }
 
 model Schedule {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  day       DAY       @default(MONDAY)
-  slot      SLOT      @default(MORNING)
-  doctorId  String    @db.ObjectId
-  isTrashed Boolean?  @default(false)
-  createdAt DateTime? @default(now())
-  doctor    Doctor    @relation(fields: [doctorId], references: [id])
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  day       DAY      @default(MONDAY)
+  slot      SLOT     @default(MORNING)
+  doctorId  String   @db.ObjectId
+  isTrashed Boolean? @default(false)
+  createdAt DateTime @default(now())
+  doctor    Doctor   @relation(fields: [doctorId], references: [id])
 }
 
 model Procedure {
@@ -58,7 +58,7 @@ model Procedure {
   isOfficeRatePercentageValue     Boolean?  @default(false)
   isTechnicianRatePercentageValue Boolean?  @default(false)
   isTrashed                       Boolean?  @default(false)
-  createdAt                       DateTime? @default(now())
+  createdAt                       DateTime  @default(now())
   bill                            Bill[]
 }
 
@@ -74,7 +74,7 @@ model Appointment {
   hasArrived        Boolean?  @default(false)
   hasBilled         Boolean?  @default(false)
   isTrashed         Boolean?  @default(false)
-  createdAt         DateTime? @default(now())
+  createdAt         DateTime  @default(now())
   user              User      @relation(fields: [userID], references: [id])
   doctor            Doctor    @relation(fields: [doctorID], references: [id])
   payment           Payment?
@@ -89,7 +89,7 @@ model Bill {
   quantity      Int
   paymentId     String?      @db.ObjectId
   isTrashed     Boolean?     @default(false)
-  createdAt     DateTime?    @default(now())
+  createdAt     DateTime     @default(now())
   appointment   Appointment? @relation(fields: [appointmentID], references: [id])
   procedure     Procedure?   @relation(fields: [procedureID], references: [id])
   payment       Payment?     @relation(fields: [paymentId], references: [id])
@@ -100,7 +100,7 @@ model Payment {
   userId        String      @db.ObjectId
   appointmentID String      @unique @db.ObjectId
   isTrashed     Boolean?    @default(false)
-  createdAt     DateTime?   @default(now())
+  createdAt     DateTime    @default(now())
   user          User        @relation(fields: [userId], references: [id])
   bills         Bill[]
   appointment   Appointment @relation(fields: [appointmentID], references: [id])
