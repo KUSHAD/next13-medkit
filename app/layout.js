@@ -26,7 +26,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang='en' className={nunito.className}>
-			<body className='bg-muted'>
+			<body className='bg-primary-foreground'>
 				<div className='max-w-[769px] m-auto'>
 					<div className='w-full'>{children}</div>
 					<Toaster />

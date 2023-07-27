@@ -37,7 +37,8 @@ const StaffTableActions = ({ staff }) => {
 			router.refresh();
 		} catch (error) {
 			toast({
-				title: error.response.data.message,
+				title: error.response ? error.response.data.message : error.message,
+
 				variant: 'destructive',
 			});
 		} finally {
@@ -55,7 +56,8 @@ const StaffTableActions = ({ staff }) => {
 			router.refresh();
 		} catch (error) {
 			toast({
-				title: error.response.data.message,
+				title: error.response ? error.response.data.message : error.message,
+
 				variant: 'destructive',
 			});
 		} finally {
@@ -83,7 +85,7 @@ const StaffTableActions = ({ staff }) => {
 		<div className='flex flex-row justify-between max-w-sm w-full'>
 			<Sheet>
 				<SheetTrigger asChild>
-					<Button className='scale-90'>Edit Staff Details</Button>
+					<Button className='scale-90'>Edit</Button>
 				</SheetTrigger>
 				<SheetContent side='bottom'>
 					<SheetHeader>
@@ -97,7 +99,7 @@ const StaffTableActions = ({ staff }) => {
 			<Dialog>
 				<DialogTrigger asChild>
 					<Button className='scale-90' variant='destructive'>
-						Move to Trash
+						Trash
 					</Button>
 				</DialogTrigger>
 				<DialogContent>

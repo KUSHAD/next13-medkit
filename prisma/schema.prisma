@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,57 +8,41 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   mobileNumber String        @unique
   isTrashed    Boolean?      @default(false)
-  createdAt    DateTime?     @default(now())
+  createdAt    DateTime      @default(now())
   appointment  Appointment[]
   payment      Payment[]
 }
 
 model Staff {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String
-  mobileNumber String    @unique
-  isTrashed    Boolean?  @default(false)
-  createdAt    DateTime? @default(now())
-}
-
-model Appointment {
-  id                String    @id @default(auto()) @map("_id") @db.ObjectId
-  dateOfAppointment DateTime
-  userId            String    @db.ObjectId
-  slot              SLOT      @default(MORNING)
-  problemType       TREATMENT @default(DENTAL)
-  description       String?
-  address           String?
-  isTrashed         Boolean?  @default(false)
-  createdAt         DateTime? @default(now())
-  user              User      @relation(fields: [userId], references: [id], onDelete: NoAction)
-  doctorID          String?    @db.ObjectId
-  doctor            Doctor?   @relation(fields: [doctorID], references: [id], onDelete: NoAction)
+  mobileNumber String   @unique
+  isTrashed    Boolean? @default(false)
+  createdAt    DateTime @default(now())
 }
 
 model Doctor {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
   name           String
   specialization TREATMENT     @default(DENTAL)
   isTrashed      Boolean?      @default(false)
-  createdAt      DateTime?     @default(now())
+  createdAt      DateTime      @default(now())
   schedules      Schedule[]
   appointment    Appointment[]
-  attendance     Attendance[]
 }
 
 model Schedule {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  day       DAY       @default(MONDAY)
-  slot      SLOT      @default(MORNING)
-  doctorId  String    @db.ObjectId
-  isTrashed Boolean?  @default(false)
-  createdAt DateTime? @default(now())
-  doctor    Doctor    @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  day       DAY      @default(MONDAY)
+  slot      SLOT     @default(MORNING)
+  doctorId  String   @db.ObjectId
+  isTrashed Boolean? @default(false)
+  createdAt DateTime @default(now())
+  doctor    Doctor   @relation(fields: [doctorId], references: [id])
 }
 
 model Procedure {
@@ -77,74 +58,52 @@ model Procedure {
   isOfficeRatePercentageValue     Boolean?  @default(false)
   isTechnicianRatePercentageValue Boolean?  @default(false)
   isTrashed                       Boolean?  @default(false)
-  createdAt                       DateTime? @default(now())
+  createdAt                       DateTime  @default(now())
   bill                            Bill[]
 }
 
+model Appointment {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  dateOfAppointment DateTime
+  userID            String    @db.ObjectId
+  doctorID          String    @db.ObjectId
+  slot              SLOT      @default(MORNING)
+  problemType       TREATMENT @default(DENTAL)
+  description       String?   @default("")
+  address           String?   @default("")
+  hasArrived        Boolean?  @default(false)
+  hasBilled         Boolean?  @default(false)
+  isTrashed         Boolean?  @default(false)
+  createdAt         DateTime  @default(now())
+  user              User      @relation(fields: [userID], references: [id])
+  doctor            Doctor    @relation(fields: [doctorID], references: [id])
+  payment           Payment?
+  bills             Bill[]
+}
+
 model Bill {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  procedureID String    @db.ObjectId
-  finalValue  Int
-  paymentId   String    @db.ObjectId
-  isTrashed   Boolean?  @default(false)
-  createdAt   DateTime? @default(now())
-  procedure   Procedure @relation(fields: [procedureID], references: [id], onDelete: NoAction)
-  payment     Payment   @relation(fields: [paymentId], references: [id], onDelete: NoAction)
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  procedureID   String?      @db.ObjectId
+  appointmentID String?      @db.ObjectId
+  finalValue    Int
+  quantity      Int
+  paymentId     String?      @db.ObjectId
+  isTrashed     Boolean?     @default(false)
+  createdAt     DateTime     @default(now())
+  appointment   Appointment? @relation(fields: [appointmentID], references: [id])
+  procedure     Procedure?   @relation(fields: [procedureID], references: [id])
+  payment       Payment?     @relation(fields: [paymentId], references: [id])
 }
 
 model Payment {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId        String      @db.ObjectId
+  appointmentID String      @unique @db.ObjectId
+  isTrashed     Boolean?    @default(false)
+  createdAt     DateTime    @default(now())
+  user          User        @relation(fields: [userId], references: [id])
   bills         Bill[]
-  isPartPayment Boolean?      @default(false)
-  userId        String    @db.ObjectId
-  isTrashed     Boolean?      @default(false)
-  createdAt     DateTime?     @default(now())
-  partPayment   PartPayment[]
-  user          User          @relation(fields: [userId], references: [id], onDelete: NoAction)
-}
-
-model PartPayment {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  ammount   Int
-  date      DateTime? @default(now())
-  paymentId String    @db.ObjectId
-  isTrashed Boolean?  @default(false)
-  createdAt DateTime? @default(now())
-  payment   Payment   @relation(fields: [paymentId], references: [id])
-}
-
-model Attendance {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  doctorId  String    @db.ObjectId
-  date      DateTime?
-  createdAt DateTime? @default(now())
-  doctor    Doctor    @relation(fields: [doctorId], references: [id])
-}
-
-model ExpenditureType {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  price       Int
-  isTrashed   Boolean?      @default(false)
-  createdAt   DateTime?     @default(now())
-  Expenditure Expenditure[]
-}
-
-model Expenditure {
-  id                String    @id @default(auto()) @map("_id") @db.ObjectId
-  expenditureTypeId String    @db.ObjectId
-  finalPrice        Int
-  modeOfPayment     MODE_OF_PAYMENT @default(CASH)
-  cashContact       String?
-  chequeNo          String?
-  ddNo              String?
-  bankName          String?
-  upiID             String?
-  issueDate         DateTime?
-  description       String?
-  isTrashed         Boolean?        @default(false)
-  createdAt         DateTime?       @default(now())
-  purpose           ExpenditureType @relation(fields: [expenditureTypeId], references: [id])
+  appointment   Appointment @relation(fields: [appointmentID], references: [id])
 }
 
 enum DAY {
@@ -165,12 +124,4 @@ enum SLOT {
 enum TREATMENT {
   DENTAL
   OPTICS
-}
-
-enum MODE_OF_PAYMENT {
-  CASH
-  CHEQUE
-  DEMAND_DRAFT
-  UPI
-  BANK_TRANSFER
 }

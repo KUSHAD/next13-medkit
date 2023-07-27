@@ -26,7 +26,8 @@ const DoctorScheduleTableAction = ({ schedule }) => {
 			});
 		} catch (error) {
 			toast({
-				title: error.response.data.message,
+				title: error.response ? error.response.data.message : error.message,
+
 				variant: 'destructive',
 			});
 		} finally {
@@ -43,7 +44,8 @@ const DoctorScheduleTableAction = ({ schedule }) => {
 			});
 		} catch (error) {
 			toast({
-				title: error.response.data.message,
+				title: error.response ? error.response.data.message : error.message,
+
 				variant: 'destructive',
 			});
 		} finally {
@@ -73,7 +75,7 @@ const DoctorScheduleTableAction = ({ schedule }) => {
 	) : (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant='destructive'>Move to trash</Button>
+				<Button variant='destructive'>Trash</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>

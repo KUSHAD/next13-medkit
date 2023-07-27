@@ -8,9 +8,9 @@ const DoctorScheduleTabs = ({ doctorID }) => {
 	return (
 		<Tabs defaultValue='manage' className='w-full'>
 			<TabsList className='grid w-full grid-cols-3'>
-				<TabsTrigger value='manage'>Manage Schedules</TabsTrigger>
-				<TabsTrigger value='new'>Add Schedule</TabsTrigger>
-				<TabsTrigger value='trash'>Trashed Schedules</TabsTrigger>
+				<TabsTrigger value='manage'>Manage</TabsTrigger>
+				<TabsTrigger value='new'>Add</TabsTrigger>
+				<TabsTrigger value='trash'>Trashed</TabsTrigger>
 			</TabsList>
 			<TabsContent value='manage'>
 				<DoctorScheduleTable doctorID={doctorID} />

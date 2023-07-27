@@ -6,11 +6,12 @@ import ErrorContainer from '@/components/error-container';
 export default function GlobalError({ error, reset }) {
 	return (
 		<html>
-			<body>
+			<body className='bg-primary-foreground'>
 				<div className='max-w-[769px] m-auto'>
 					<div className='w-full'>
 						<ClientOnly>
 							<ErrorContainer
+								title='App Error'
 								onClick={() => reset()}
 								desc={error.message}
 								showReset

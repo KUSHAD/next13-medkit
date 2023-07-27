@@ -68,7 +68,6 @@ const AuthForm = () => {
 				title: error.response ? error.response.data.message : error.message,
 				variant: 'destructive',
 			});
-			document.getElementById('recaptcha-cont').innerHTML = '';
 		}
 	}
 

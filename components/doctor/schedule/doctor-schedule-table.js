@@ -62,7 +62,8 @@ const DoctorScheduleTable = ({ doctorID, isTrashed = false }) => {
 			setSchedule(resData.schedule);
 		} catch (error) {
 			toast({
-				title: error.response.data.message,
+				title: error.response ? error.response.data.message : error.message,
+
 				variant: 'destructive',
 			});
 		} finally {

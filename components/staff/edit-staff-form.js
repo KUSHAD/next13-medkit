@@ -40,7 +40,8 @@ const EditStaffForm = ({ staff }) => {
 			router.refresh();
 		} catch (error) {
 			toast({
-				title: error.response.data.message,
+				title: error.response ? error.response.data.message : error.message,
+
 				variant: 'destructive',
 			});
 		}
