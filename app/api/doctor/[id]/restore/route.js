@@ -34,15 +34,6 @@ export async function PATCH(_, { params: { id } }) {
 			},
 		});
 
-		await prisma.schedule.updateMany({
-			where: {
-				doctorId: doctorExists.id,
-			},
-			data: {
-				isTrashed: false,
-			},
-		});
-
 		return NextResponse.json({
 			message: 'Doctor Restored from Trash',
 		});

@@ -8,19 +8,17 @@ const nunito = Nunito({ subsets: ['latin'] });
 export const metadata = {
 	title: 'Lions Medkit',
 	description: 'Lions Medkit app for Lions Club of Chakdaha Block',
-	icons: [
-		{
-			rel: 'icon',
-			type: 'image/x-icon',
-			sizes: '64x64',
-			url: '/favicon.ico',
-		},
-		{
-			rel: 'apple-touch-icon',
-			sizes: '192x192',
-			url: '/logo192.png',
-		},
-	],
+	manifest: '/manifest.json',
+	themeColor: '#09090B',
+	openGraph: {
+		title: 'Lions Medkit',
+		description: 'Lions Medkit app for Lions Club of Chakdaha Block',
+		url: 'https://lions-medkit-vercel.app',
+		siteName: 'Lions Medkit',
+		locale: 'en_US',
+		type: 'website',
+		authors: ['Kushad Chakraborty'],
+	},
 };
 
 export default function RootLayout({ children }) {

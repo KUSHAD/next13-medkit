@@ -17,14 +17,6 @@ export async function PATCH(_, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		if (appointmentExists.isTrashed)
-			return NextResponse.json(
-				{
-					message: 'Appointment already Trashed',
-				},
-				{ status: 400 }
-			);
-
 		await prisma.appointment.update({
 			where: {
 				id: appointmentExists.id,

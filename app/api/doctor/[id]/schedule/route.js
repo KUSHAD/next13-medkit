@@ -83,7 +83,6 @@ export async function GET(_, { params: { id } }) {
 
 		const schedule = await prisma.schedule.findMany({
 			where: {
-				isTrashed: false,
 				doctorId: id,
 			},
 			select: {

@@ -7,13 +7,15 @@ import {
 } from '@/components/ui/dialog';
 import AddBillItemForm from './add-bill-item-form';
 
-const AddBillItem = ({ procedures }) => {
+const AddBillItem = ({ procedures, disabled }) => {
 	return (
-		<div className='flex flex-row'>
+		<div className='flex flex-row  my-2'>
 			<div className='mr-auto' />
 			<Dialog>
 				<DialogTrigger asChild>
-					<Button variant='outline'>Add Bill Item</Button>
+					<Button variant='outline' disabled={disabled}>
+						Add Bill Item
+					</Button>
 				</DialogTrigger>
 				<DialogContent>
 					<DialogHeader>

@@ -21,6 +21,14 @@ export async function POST(req) {
 				{ status: 400 }
 			);
 
+		if (appointmentExists.isTrashed)
+			return NextResponse.json(
+				{
+					message: 'Appointment already Trashed',
+				},
+				{ status: 400 }
+			);
+
 		if (appointmentExists.hasBilled || appointmentExists.isPartPaymentEnabled)
 			return NextResponse.json(
 				{
@@ -33,6 +41,7 @@ export async function POST(req) {
 			data: {
 				total,
 				appointmentID,
+				isPartPaymentEnabled: true,
 			},
 		});
 
@@ -41,7 +50,7 @@ export async function POST(req) {
 				id: appointmentID,
 			},
 			data: {
-				hasBilled: true,
+				isPartPaymentEnabled: true,
 			},
 		});
 
@@ -65,7 +74,7 @@ export async function POST(req) {
 		});
 
 		return NextResponse.json({
-			message: 'Payment Completed',
+			message: 'Part Payment Enabled',
 		});
 	} catch (error) {
 		return NextResponse.json({

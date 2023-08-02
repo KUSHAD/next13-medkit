@@ -39,7 +39,6 @@ model Schedule {
   day       DAY      @default(MONDAY)
   slot      SLOT     @default(MORNING)
   doctorId  String   @db.ObjectId
-  isTrashed Boolean? @default(false)
   createdAt DateTime @default(now())
   doctor    Doctor   @relation(fields: [doctorId], references: [id])
 }
@@ -62,22 +61,23 @@ model Procedure {
 }
 
 model Appointment {
-  id                String    @id @default(auto()) @map("_id") @db.ObjectId
-  dateOfAppointment DateTime
-  userID            String    @db.ObjectId
-  doctorID          String    @db.ObjectId
-  slot              SLOT      @default(MORNING)
-  problemType       TREATMENT @default(DENTAL)
-  description       String?   @default("")
-  address           String?   @default("")
-  hasArrived        Boolean?  @default(false)
-  hasBilled         Boolean?  @default(false)
-  isTrashed         Boolean?  @default(false)
-  createdAt         DateTime  @default(now())
-  user              User      @relation(fields: [userID], references: [id])
-  doctor            Doctor    @relation(fields: [doctorID], references: [id])
-  payment           Payment?
-  bills             Bill[]
+  id                   String        @id @default(auto()) @map("_id") @db.ObjectId
+  dateOfAppointment    DateTime
+  isPartPaymentEnabled Boolean?      @default(false)
+  userID               String        @db.ObjectId
+  doctorID             String        @db.ObjectId
+  slot                 SLOT          @default(MORNING)
+  problemType          TREATMENT     @default(DENTAL)
+  description          String?       @default("")
+  address              String?       @default("")
+  hasArrived           Boolean?      @default(false)
+  hasBilled            Boolean?      @default(false)
+  createdAt            DateTime      @default(now())
+  user                 User          @relation(fields: [userID], references: [id])
+  doctor               Doctor        @relation(fields: [doctorID], references: [id])
+  payment              Payment?
+  bills                Bill[]
+  partPayment          PartPayment[]
 }
 
 model Bill {
@@ -87,7 +87,6 @@ model Bill {
   finalValue    Int
   quantity      Int
   paymentID     String?      @db.ObjectId
-  isTrashed     Boolean?     @default(false)
   createdAt     DateTime     @default(now())
   appointment   Appointment? @relation(fields: [appointmentID], references: [id])
   procedure     Procedure?   @relation(fields: [procedureID], references: [id])
@@ -95,12 +94,24 @@ model Bill {
 }
 
 model Payment {
+  id                   String        @id @default(auto()) @map("_id") @db.ObjectId
+  appointmentID        String        @unique @db.ObjectId
+  isPartPaymentEnabled Boolean?      @default(false)
+  total                Int
+  createdAt            DateTime      @default(now())
+  bills                Bill[]
+  appointment          Appointment   @relation(fields: [appointmentID], references: [id])
+  partPayment          PartPayment[]
+}
+
+model PartPayment {
   id            String      @id @default(auto()) @map("_id") @db.ObjectId
-  appointmentID String      @unique @db.ObjectId
-  isTrashed     Boolean?    @default(false)
-  total         Int
+  paymentID     String      @db.ObjectId
+  appointmentID String      @db.ObjectId
+  amount        Int
+  dateOfPayment DateTime
   createdAt     DateTime    @default(now())
-  bills         Bill[]
+  payment       Payment     @relation(fields: [paymentID], references: [id])
   appointment   Appointment @relation(fields: [appointmentID], references: [id])
 }
 

@@ -1,7 +1,7 @@
 import prisma from '@/lib/db/prisma';
 import { NextResponse } from 'next/server';
 
-export async function PATCH(_, { params: { id } }) {
+export async function DELETE(_, { params: { id } }) {
 	try {
 		const scheduleExists = await prisma.schedule.findFirst({
 			where: {
@@ -17,25 +17,9 @@ export async function PATCH(_, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		if (scheduleExists.isTrashed)
-			return NextResponse.json(
-				{
-					message: 'Schedule already Trashed',
-				},
-				{ status: 400 }
-			);
-
-		await prisma.schedule.update({
+		await prisma.schedule.delete({
 			where: {
 				id: scheduleExists.id,
-			},
-			data: {
-				isTrashed: true,
-			},
-			select: {
-				id: true,
-				day: true,
-				slot: true,
 			},
 		});
 

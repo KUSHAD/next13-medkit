@@ -1,11 +1,19 @@
 import prisma from '@/lib/db/prisma';
 import { NextResponse } from 'next/server';
 
-export async function PATCH(_, { params: { id } }) {
+export async function DELETE(_, { params: { id } }) {
 	try {
 		const billExists = await prisma.bill.findFirst({
 			where: {
 				id: id,
+			},
+			include: {
+				appointment: {
+					select: {
+						hasBilled: true,
+						isPartPaymentEnabled: true,
+					},
+				},
 			},
 		});
 
@@ -20,17 +28,25 @@ export async function PATCH(_, { params: { id } }) {
 		if (billExists.isTrashed)
 			return NextResponse.json(
 				{
-					message: 'Bill already Trashed',
+					message: 'Bill Item already Trashed',
 				},
 				{ status: 400 }
 			);
 
-		await prisma.bill.update({
+		if (
+			billExists.appointment.hasBilled ||
+			billExists.appointment.isPartPaymentEnabled
+		)
+			return NextResponse.json(
+				{
+					message: 'Payment has already been made or Part paymennt enabled',
+				},
+				{ status: 400 }
+			);
+
+		await prisma.bill.delete({
 			where: {
 				id: billExists.id,
-			},
-			data: {
-				isTrashed: true,
 			},
 		});
 

@@ -16,7 +16,6 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 
-import { Input } from '@/components/ui/input';
 import AppointmentBillTableActions from './appointment-bill-table-actions';
 import ErrorContainer from '@/components/error-container';
 import MakePayment from './payment/make-payment';
@@ -52,7 +51,7 @@ const columns = [
 	},
 ];
 
-const AppointmentBills = ({ data }) => {
+const AppointmentBills = ({ data, appointment }) => {
 	const [columnFilters, setColumnFilters] = useState([]);
 	const [total, setTotal] = useState(0);
 	const table = useReactTable({
@@ -83,17 +82,6 @@ const AppointmentBills = ({ data }) => {
 		<ErrorContainer title='No Bill Items' desc='No Items set for billing' />
 	) : (
 		<div>
-			<div className='flex row justify-between py-4'>
-				<Input
-					placeholder='Filter Names...'
-					value={table.getColumn('procedure.name')?.getFilterValue() ?? ''}
-					onChange={event =>
-						table
-							.getColumn('procedure.name')
-							?.setFilterValue(event.target.value)
-					}
-				/>
-			</div>
 			<div className='rounded-md border'>
 				<Table>
 					<TableHeader>
@@ -149,7 +137,7 @@ const AppointmentBills = ({ data }) => {
 					</TableBody>
 				</Table>
 			</div>
-			<MakePayment show={data.length !== 0} total={total} />
+			{!appointment && <MakePayment show={data.length !== 0} total={total} />}
 		</div>
 	);
 };

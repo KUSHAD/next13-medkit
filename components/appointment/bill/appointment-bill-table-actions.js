@@ -21,7 +21,7 @@ const AppointmentBillTableActions = ({ bill }) => {
 	const moveToTrash = async () => {
 		try {
 			setDisabled(true);
-			await axios.patch(`/api/bill/${bill.id}/trash`);
+			await axios.delete(`/api/bill/${bill.id}/trash`);
 			toast({
 				title: 'Item moved to trash',
 			});
@@ -40,7 +40,12 @@ const AppointmentBillTableActions = ({ bill }) => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className='scale-90' variant='destructive'>
+				<Button
+					disabled={
+						bill.appointment.hasBilled || bill.appointment.isPartPaymentEnabled
+					}
+					className='scale-90'
+					variant='destructive'>
 					Trash
 				</Button>
 			</DialogTrigger>

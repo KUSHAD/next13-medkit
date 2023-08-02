@@ -34,12 +34,9 @@ export async function PATCH(_, { params: { id } }) {
 			},
 		});
 
-		await prisma.schedule.updateMany({
+		await prisma.schedule.deleteMany({
 			where: {
 				doctorId: doctorExists.id,
-			},
-			data: {
-				isTrashed: true,
 			},
 		});
 

@@ -22,7 +22,7 @@ const AppointmentTableActions = ({ appointment }) => {
 	const moveToTrash = async () => {
 		try {
 			setDisabled(true);
-			await axios.patch(`/api/appointment/${appointment.id}/trash`);
+			await axios.delete(`/api/appointment/${appointment.id}/trash`);
 			toast({
 				title: 'Appointment moved to trash',
 			});
@@ -55,12 +55,16 @@ const AppointmentTableActions = ({ appointment }) => {
 		}
 	};
 
-	return appointment.hasBilled ? (
-		'Billed'
-	) : appointment.hasArrived ? (
+	return appointment.hasArrived ? (
 		<DynamicLink
 			href={`/appointment/${appointment.id}/bill?type=${appointment.problemType}`}>
-			<Button className='w-full'>Bill</Button>
+			<Button className='w-full'>
+				{appointment.hasBilled
+					? 'View Bill'
+					: appointment.isPartPaymentEnabled
+					? 'Add Part Payment'
+					: 'Make Bill'}
+			</Button>
 		</DynamicLink>
 	) : (
 		<div className='flex flex-row justify-between max-w-sm w-full'>
