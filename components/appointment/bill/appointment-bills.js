@@ -5,7 +5,6 @@ import {
 	flexRender,
 	getCoreRowModel,
 	useReactTable,
-	getFilteredRowModel,
 } from '@tanstack/react-table';
 import {
 	Table,
@@ -52,17 +51,11 @@ const columns = [
 ];
 
 const AppointmentBills = ({ data, appointment }) => {
-	const [columnFilters, setColumnFilters] = useState([]);
 	const [total, setTotal] = useState(0);
 	const table = useReactTable({
 		data,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
-		onColumnFiltersChange: setColumnFilters,
-		getFilteredRowModel: getFilteredRowModel(),
-		state: {
-			columnFilters,
-		},
 	});
 
 	const getTotal = useCallback(() => {

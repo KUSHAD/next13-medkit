@@ -141,6 +141,75 @@ const Loading = () => {
 					</TableBody>
 				</Table>
 			</div>
+			<h2 className='text-lg text-muted-primary mt-2'>Payment</h2>
+			<div className='rounded-md border'>
+				<Table>
+					<TableHeader>
+						<TableRow>
+							<TableHead>Date of Payment </TableHead>
+							<TableHead>Amount</TableHead>
+							<TableHead>Actions</TableHead>
+						</TableRow>
+					</TableHeader>
+					<TableBody>
+						<TableRow>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+							<TableCell>
+								<Skeleton className='h-4 w-[250px]' />
+							</TableCell>
+						</TableRow>
+					</TableBody>
+				</Table>
+			</div>
 		</>
 	);
 };

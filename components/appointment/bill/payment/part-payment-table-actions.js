@@ -13,17 +13,21 @@ import {
 	DialogDescription,
 	DialogFooter,
 } from '@/components/ui/dialog';
+import { useRouter } from 'next/navigation';
 
-const DoctorScheduleTableAction = ({ schedule }) => {
+const PartPaymentTableActions = ({ partPayment }) => {
 	const [disabled, setDisabled] = useState(false);
+
+	const router = useRouter();
 
 	const moveToTrash = async () => {
 		try {
 			setDisabled(true);
-			await axios.delete(`/api/schedule/${schedule.id}/trash`);
+			await axios.delete(`/api/part-payment/${partPayment.id}/trash`);
 			toast({
-				title: 'Schedule moved to trash',
+				title: 'Part Payment moved to trash',
 			});
+			router.refresh();
 		} catch (error) {
 			toast({
 				title: error.response ? error.response.data.message : error.message,
@@ -38,14 +42,20 @@ const DoctorScheduleTableAction = ({ schedule }) => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant='destructive'>Trash</Button>
+				<Button
+					variant='destructive'
+					disabled={disabled || partPayment.payment.appointment.hasBilled}>
+					Trash
+				</Button>
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle>Are you sure?</DialogTitle>
 				</DialogHeader>
 				<DialogDescription>
-					Move the Slot :- {schedule.day},{schedule.slot} to trash
+					Move the entry on
+					{new Date(partPayment.dateOfPayment).toLocaleDateString()} of Rs.
+					{partPayment.amount} to trash ?
 				</DialogDescription>
 				<DialogFooter>
 					<Button disabled={disabled} onClick={moveToTrash}>
@@ -57,4 +67,4 @@ const DoctorScheduleTableAction = ({ schedule }) => {
 	);
 };
 
-export default DoctorScheduleTableAction;
+export default PartPaymentTableActions;
