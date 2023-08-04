@@ -11,7 +11,7 @@ model User {
   id           String        @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   mobileNumber String        @unique
-  isTrashed    Boolean?      @default(false)
+  isTrashed    Boolean       @default(false)
   createdAt    DateTime      @default(now())
   appointment  Appointment[]
 }
@@ -20,7 +20,7 @@ model Staff {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   mobileNumber String   @unique
-  isTrashed    Boolean? @default(false)
+  isTrashed    Boolean  @default(false)
   createdAt    DateTime @default(now())
 }
 
@@ -28,7 +28,7 @@ model Doctor {
   id             String        @id @default(auto()) @map("_id") @db.ObjectId
   name           String
   specialization TREATMENT     @default(DENTAL)
-  isTrashed      Boolean?      @default(false)
+  isTrashed      Boolean       @default(false)
   createdAt      DateTime      @default(now())
   schedules      Schedule[]
   appointment    Appointment[]
@@ -51,19 +51,19 @@ model Procedure {
   doctorRate                      Int
   officeRate                      Int
   technicianRate                  Int
-  variableRate                    Boolean?  @default(false)
-  isDoctorRatePercentageValue     Boolean?  @default(false)
-  isOfficeRatePercentageValue     Boolean?  @default(false)
-  isTechnicianRatePercentageValue Boolean?  @default(false)
-  isTrashed                       Boolean?  @default(false)
+  variableRate                    Boolean   @default(false)
+  isDoctorRatePercentageValue     Boolean   @default(false)
+  isOfficeRatePercentageValue     Boolean   @default(false)
+  isTechnicianRatePercentageValue Boolean   @default(false)
+  isTrashed                       Boolean   @default(false)
   createdAt                       DateTime  @default(now())
-  bill                            Bill[]
+  bills                           Bill[]
 }
 
 model Appointment {
   id                   String        @id @default(auto()) @map("_id") @db.ObjectId
   dateOfAppointment    DateTime
-  isPartPaymentEnabled Boolean?      @default(false)
+  isPartPaymentEnabled Boolean       @default(false)
   userID               String        @db.ObjectId
   doctorID             String        @db.ObjectId
   slot                 SLOT          @default(MORNING)
@@ -82,21 +82,21 @@ model Appointment {
 
 model Bill {
   id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  procedureID   String?      @db.ObjectId
+  procedureID   String       @db.ObjectId
   appointmentID String?      @db.ObjectId
   finalValue    Int
   quantity      Int
   paymentID     String?      @db.ObjectId
   createdAt     DateTime     @default(now())
   appointment   Appointment? @relation(fields: [appointmentID], references: [id])
-  procedure     Procedure?   @relation(fields: [procedureID], references: [id])
+  procedure     Procedure    @relation(fields: [procedureID], references: [id])
   payment       Payment?     @relation(fields: [paymentID], references: [id])
 }
 
 model Payment {
   id                   String        @id @default(auto()) @map("_id") @db.ObjectId
   appointmentID        String        @unique @db.ObjectId
-  isPartPaymentEnabled Boolean?      @default(false)
+  isPartPaymentEnabled Boolean       @default(false)
   total                Int
   createdAt            DateTime      @default(now())
   bills                Bill[]

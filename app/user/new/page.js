@@ -1,7 +1,7 @@
 import ClientOnly from '@/components/client-only';
 import AddUserForm from '@/components/user/add-user-form';
 
-const NewUserPage = () => {
+const Page = () => {
 	return (
 		<ClientOnly>
 			<AddUserForm />
@@ -9,4 +9,4 @@ const NewUserPage = () => {
 	);
 };
 
-export default NewUserPage;
+export default Page;

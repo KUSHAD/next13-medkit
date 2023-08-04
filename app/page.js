@@ -2,7 +2,7 @@ import ClientOnly from '@/components/client-only';
 import HeroCard from '@/components/dashboard/hero-card';
 import AppBar from '@/components/navbar/app-bar';
 
-export default function DashboardPage() {
+const Page = () => {
 	return (
 		<>
 			<ClientOnly>
@@ -11,4 +11,6 @@ export default function DashboardPage() {
 			<HeroCard />
 		</>
 	);
-}
+};
+
+export default Page;
