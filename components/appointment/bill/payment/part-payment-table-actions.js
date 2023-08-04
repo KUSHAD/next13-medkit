@@ -44,7 +44,7 @@ const PartPaymentTableActions = ({ partPayment }) => {
 			<DialogTrigger asChild>
 				<Button
 					variant='destructive'
-					disabled={disabled || partPayment.payment.appointment.hasBilled}>
+					disabled={disabled || partPayment.payment.appointment.isBilled}>
 					Trash
 				</Button>
 			</DialogTrigger>

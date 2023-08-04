@@ -21,7 +21,7 @@ export async function POST(req) {
 				{ status: 400 }
 			);
 
-		if (appointmentExists.hasBilled || appointmentExists.isPartPaymentEnabled)
+		if (appointmentExists.isBilled || appointmentExists.isPartPaymentEnabled)
 			return NextResponse.json(
 				{
 					message: 'Payment has already been made or Part paymennt enabled',
@@ -41,7 +41,7 @@ export async function POST(req) {
 				id: appointmentID,
 			},
 			data: {
-				hasBilled: true,
+				isBilled: true,
 			},
 		});
 

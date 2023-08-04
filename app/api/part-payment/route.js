@@ -31,7 +31,7 @@ export async function POST(req) {
 				{ status: 400 }
 			);
 
-		if (appointmentExists.hasBilled)
+		if (appointmentExists.isBilled)
 			return NextResponse.json(
 				{
 					message:
@@ -79,6 +79,19 @@ export async function POST(req) {
 				paymentID,
 			},
 		});
+
+		const total = partPaymentSum._sum.amount + amount;
+
+		if (total === paymentExists.total) {
+			await prisma.appointment.update({
+				where: {
+					id: appointmentExists.id,
+				},
+				data: {
+					isBilled: true,
+				},
+			});
+		}
 
 		return NextResponse.json({
 			message: 'Part Payment Added',

@@ -17,7 +17,7 @@ export async function DELETE(_, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		if (appointmentExists.hasArrived)
+		if (appointmentExists.isArrived)
 			return NextResponse.json(
 				{
 					message: 'User already arrived cannot delete appointment',

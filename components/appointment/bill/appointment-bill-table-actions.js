@@ -42,7 +42,7 @@ const AppointmentBillTableActions = ({ bill }) => {
 			<DialogTrigger asChild>
 				<Button
 					disabled={
-						bill.appointment.hasBilled || bill.appointment.isPartPaymentEnabled
+						bill.appointment.isBilled || bill.appointment.isPartPaymentEnabled
 					}
 					className='scale-90'
 					variant='destructive'>

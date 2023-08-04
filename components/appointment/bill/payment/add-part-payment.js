@@ -7,13 +7,13 @@ import {
 } from '@/components/ui/dialog';
 import PartPaymentForm from './part-payment-form';
 
-const AddPartPayment = ({ paymentID }) => {
+const AddPartPayment = ({ paymentID, disabled }) => {
 	return (
 		<div className='flex flex-row'>
 			<div className='mr-auto' />
 			<Dialog>
 				<DialogTrigger asChild>
-					<Button>Add Part Payment</Button>
+					<Button disabled={disabled}>Add Part Payment</Button>
 				</DialogTrigger>
 				<DialogContent>
 					<DialogTitle>Add Part Payment</DialogTitle>

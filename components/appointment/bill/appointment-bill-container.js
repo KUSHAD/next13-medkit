@@ -14,19 +14,20 @@ const AppointmentBillContainer = ({ appointment, procedures, bills }) => {
 			<ClientOnly>
 				<AddBillItem
 					procedures={procedures}
-					disabled={appointment.isPartPaymentEnabled || appointment.hasBilled}
+					disabled={appointment.isPartPaymentEnabled || appointment.isBilled}
 				/>
 				<AppointmentBills
 					data={bills}
-					appointment={
-						appointment.isPartPaymentEnabled || appointment.hasBilled
-					}
+					appointment={appointment.isPartPaymentEnabled || appointment.isBilled}
 				/>
 			</ClientOnly>
 			<h2 className='text-lg text-muted-primary mt-2'>Payment</h2>
 			{appointment.isPartPaymentEnabled && (
 				<ClientOnly>
-					<AddPartPayment paymentID={appointment.payment.id} />
+					<AddPartPayment
+						disabled={appointment.isBilled}
+						paymentID={appointment.payment.id}
+					/>
 					{appointment.payment.partPayment.length === 0 ? (
 						<ErrorContainer
 							title='No Part Payments Added'

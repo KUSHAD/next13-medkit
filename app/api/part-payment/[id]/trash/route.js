@@ -10,7 +10,7 @@ export async function DELETE(_, { params: { id } }) {
 			include: {
 				appointment: {
 					select: {
-						hasBilled: true,
+						isBilled: true,
 					},
 				},
 			},
@@ -24,7 +24,7 @@ export async function DELETE(_, { params: { id } }) {
 				{ status: 400 }
 			);
 
-		if (partPaymentExists.appointment.hasBilled)
+		if (partPaymentExists.appointment.isBilled)
 			return NextResponse.json(
 				{
 					message: 'Appointment already billed cannot delete entry',
