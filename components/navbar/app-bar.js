@@ -17,13 +17,13 @@ const AppBar = ({
 			className={cn(
 				'w-full sticky top-0 left-0 flex flex-row py-2',
 				isSecondary
-					? 'bg-muted border-y border-y-muted my-2 scale-90'
+					? 'bg-muted border-y border-y-muted my-2 scale-90 z-10'
 					: 'bg-foreground rounded'
 			)}>
 			<div
 				className={cn(
 					'px-4 py-2text-lg',
-					isSecondary ? 'text-muted-foreground' : ' text-primary-foreground '
+					isSecondary ? 'text-muted-foreground' : 'text-primary-foreground '
 				)}>
 				{isBack && (
 					<Link legacyBehavior passHref href={backHref}>
