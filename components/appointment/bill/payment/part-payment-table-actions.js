@@ -1,6 +1,9 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import axios from 'axios';
+import { toast } from '@/components/ui/use-toast';
 import {
 	Dialog,
 	DialogHeader,
@@ -10,20 +13,19 @@ import {
 	DialogDescription,
 	DialogFooter,
 } from '@/components/ui/dialog';
-import { toast } from '@/components/ui/use-toast';
-import { useState } from 'react';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-const AppointmentBillTableActions = ({ bill }) => {
+const PartPaymentTableActions = ({ partPayment }) => {
 	const [disabled, setDisabled] = useState(false);
+
 	const router = useRouter();
+
 	const moveToTrash = async () => {
 		try {
 			setDisabled(true);
-			await axios.delete(`/api/bill/${bill.id}/trash`);
+			await axios.delete(`/api/part-payment/${partPayment.id}/trash`);
 			toast({
-				title: 'Item moved to trash',
+				title: 'Part Payment moved to trash',
 			});
 			router.refresh();
 		} catch (error) {
@@ -41,11 +43,8 @@ const AppointmentBillTableActions = ({ bill }) => {
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button
-					disabled={
-						bill.appointment.isBilled || bill.appointment.isPartPaymentEnabled
-					}
-					className='scale-90'
-					variant='destructive'>
+					variant='destructive'
+					disabled={disabled || partPayment.payment.appointment.isBilled}>
 					Trash
 				</Button>
 			</DialogTrigger>
@@ -53,7 +52,11 @@ const AppointmentBillTableActions = ({ bill }) => {
 				<DialogHeader>
 					<DialogTitle>Are you sure?</DialogTitle>
 				</DialogHeader>
-				<DialogDescription>Move this bill item to trash</DialogDescription>
+				<DialogDescription>
+					Move the entry on
+					{new Date(partPayment.dateOfPayment).toLocaleDateString()} of Rs.
+					{partPayment.amount} to trash ?
+				</DialogDescription>
 				<DialogFooter>
 					<Button disabled={disabled} onClick={moveToTrash}>
 						Move to trash
@@ -64,4 +67,4 @@ const AppointmentBillTableActions = ({ bill }) => {
 	);
 };
 
-export default AppointmentBillTableActions;
+export default PartPaymentTableActions;

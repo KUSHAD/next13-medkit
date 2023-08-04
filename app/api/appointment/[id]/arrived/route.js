@@ -22,7 +22,7 @@ export async function PATCH(_, { params: { id } }) {
 				id: appointmentExists.id,
 			},
 			data: {
-				hasArrived: true,
+				isArrived: true,
 			},
 		});
 

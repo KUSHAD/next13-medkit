@@ -3,36 +3,43 @@ import { NextResponse } from 'next/server';
 
 export async function DELETE(_, { params: { id } }) {
 	try {
-		const appointmentExists = await prisma.appointment.findFirst({
+		const partPaymentExists = await prisma.partPayment.findFirst({
 			where: {
 				id: id,
 			},
+			include: {
+				appointment: {
+					select: {
+						isBilled: true,
+					},
+				},
+			},
 		});
 
-		if (!appointmentExists)
+		if (!partPaymentExists)
 			return NextResponse.json(
 				{
-					message: 'Invalid Appointment ID',
+					message: 'Invalid Part Payment ID',
 				},
 				{ status: 400 }
 			);
 
-		if (appointmentExists.isArrived)
+		if (partPaymentExists.appointment.isBilled)
 			return NextResponse.json(
 				{
-					message: 'User already arrived cannot delete appointment',
+					message: 'Appointment already billed cannot delete entry',
 				},
 				{ status: 400 }
 			);
 
-		await prisma.appointment.delete({
+		await prisma.partPayment.delete({
 			where: {
-				id: appointmentExists.id,
+				id: partPaymentExists.id,
 			},
 		});
 
 		return NextResponse.json({
-			message: 'Appointment Moved to Trash',
+			message: 'Part Payment Moved to Trash',
 		});
 	} catch (error) {
 		return NextResponse.json(

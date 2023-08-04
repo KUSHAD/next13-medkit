@@ -20,7 +20,7 @@ const DoctorScheduleTableAction = ({ schedule }) => {
 	const moveToTrash = async () => {
 		try {
 			setDisabled(true);
-			await axios.patch(`/api/schedule/${schedule.id}/trash`);
+			await axios.delete(`/api/schedule/${schedule.id}/trash`);
 			toast({
 				title: 'Schedule moved to trash',
 			});
@@ -35,44 +35,7 @@ const DoctorScheduleTableAction = ({ schedule }) => {
 		}
 	};
 
-	const restore = async () => {
-		try {
-			setDisabled(true);
-			await axios.patch(`/api/schedule/${schedule.id}/restore`);
-			toast({
-				title: 'Schedule restored',
-			});
-		} catch (error) {
-			toast({
-				title: error.response ? error.response.data.message : error.message,
-
-				variant: 'destructive',
-			});
-		} finally {
-			setDisabled(false);
-		}
-	};
-
-	return schedule.isTrashed ? (
-		<Dialog>
-			<DialogTrigger asChild>
-				<Button>Restore</Button>
-			</DialogTrigger>
-			<DialogContent>
-				<DialogHeader>
-					<DialogTitle>Are you sure?</DialogTitle>
-				</DialogHeader>
-				<DialogDescription>
-					Move the Slot :- {schedule.day},{schedule.slot} to trash
-				</DialogDescription>
-				<DialogFooter>
-					<Button disabled={disabled} onClick={restore}>
-						Restore
-					</Button>
-				</DialogFooter>
-			</DialogContent>
-		</Dialog>
-	) : (
+	return (
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button variant='destructive'>Trash</Button>

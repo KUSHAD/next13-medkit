@@ -55,11 +55,11 @@ const AppointmentTableActions = ({ appointment }) => {
 		}
 	};
 
-	return appointment.hasArrived ? (
+	return appointment.isArrived ? (
 		<DynamicLink
 			href={`/appointment/${appointment.id}/bill?type=${appointment.problemType}`}>
 			<Button className='w-full'>
-				{appointment.hasBilled
+				{appointment.isBilled
 					? 'View Bill'
 					: appointment.isPartPaymentEnabled
 					? 'Add Part Payment'

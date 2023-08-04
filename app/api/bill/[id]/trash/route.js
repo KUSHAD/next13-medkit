@@ -10,7 +10,7 @@ export async function DELETE(_, { params: { id } }) {
 			include: {
 				appointment: {
 					select: {
-						hasBilled: true,
+						isBilled: true,
 						isPartPaymentEnabled: true,
 					},
 				},
@@ -34,7 +34,7 @@ export async function DELETE(_, { params: { id } }) {
 			);
 
 		if (
-			billExists.appointment.hasBilled ||
+			billExists.appointment.isBilled ||
 			billExists.appointment.isPartPaymentEnabled
 		)
 			return NextResponse.json(
