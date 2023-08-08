@@ -15,6 +15,7 @@ const AppointmentDetails = ({ appointment }) => {
 					<TableHeader>
 						<TableRow>
 							<TableHead>Patient Name</TableHead>
+							<TableHead>Patient Mobile Number</TableHead>
 							<TableHead>Doctor Name</TableHead>
 							<TableHead>Slot</TableHead>
 							<TableHead>Problem Type</TableHead>
@@ -22,7 +23,8 @@ const AppointmentDetails = ({ appointment }) => {
 					</TableHeader>
 					<TableBody>
 						<TableRow>
-							<TableCell>{appointment.user.name}</TableCell>
+							<TableCell>{appointment.name}</TableCell>
+							<TableCell>{appointment.mobile}</TableCell>
 							<TableCell>{appointment.doctor.name}</TableCell>
 							<TableCell>{appointment.slot}</TableCell>
 							<TableCell>{appointment.problemType}</TableCell>

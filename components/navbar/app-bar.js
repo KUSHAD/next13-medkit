@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
 import { Button } from '../ui/button';
 import { ArrowLeftIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
+import ThemeToggle from '../theme-toggle';
 
 const AppBar = ({
 	title = 'Dashboard',
@@ -12,18 +13,20 @@ const AppBar = ({
 	backHref = '/',
 	isSecondary = false,
 }) => {
+	const pathname = usePathname();
 	return (
 		<div
 			className={cn(
 				'w-full sticky top-0 left-0 flex flex-row py-2',
 				isSecondary
 					? 'bg-muted border-y border-y-muted my-2 scale-90 z-10'
-					: 'bg-foreground rounded'
+					: 'bg-primary rounded'
 			)}>
 			<div
 				className={cn(
-					'px-4 py-2text-lg',
-					isSecondary ? 'text-muted-foreground' : 'text-primary-foreground '
+					'px-4 py-2 text-lg',
+					isSecondary ? 'text-muted-foreground' : 'text-primary-foreground ',
+					pathname === '/' && 'mr-auto'
 				)}>
 				{isBack && (
 					<Link legacyBehavior passHref href={backHref}>
@@ -37,6 +40,7 @@ const AppBar = ({
 				)}
 				{title}
 			</div>
+			{pathname === '/' && <ThemeToggle />}
 		</div>
 	);
 };

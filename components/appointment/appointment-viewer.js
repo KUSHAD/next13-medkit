@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import ErrorContainer from '../error-container';
 import {
 	flexRender,
@@ -22,8 +21,12 @@ import { Button } from '../ui/button';
 import AppointmentTableActions from './appointment-table-actions';
 const columns = [
 	{
-		accessorKey: 'user.name',
+		accessorKey: 'name',
 		header: 'Patient Name',
+	},
+	{
+		accessorKey: 'mobile',
+		header: 'Patient Mobile Number',
 	},
 	{
 		accessorKey: 'doctor.name',

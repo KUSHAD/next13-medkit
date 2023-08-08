@@ -7,19 +7,15 @@ import DoctorScheduleTable from './doctor-schedule-table';
 const DoctorScheduleTabs = ({ doctorID }) => {
 	return (
 		<Tabs defaultValue='manage' className='w-full'>
-			<TabsList className='grid w-full grid-cols-3'>
+			<TabsList className='grid w-full grid-cols-2'>
 				<TabsTrigger value='manage'>Manage</TabsTrigger>
 				<TabsTrigger value='new'>Add</TabsTrigger>
-				<TabsTrigger value='trash'>Trashed</TabsTrigger>
 			</TabsList>
 			<TabsContent value='manage'>
 				<DoctorScheduleTable doctorID={doctorID} />
 			</TabsContent>
 			<TabsContent value='new'>
 				<AddDoctorSchedule doctorID={doctorID} />
-			</TabsContent>
-			<TabsContent value='trash'>
-				<DoctorScheduleTable doctorID={doctorID} isTrashed />
 			</TabsContent>
 		</Tabs>
 	);

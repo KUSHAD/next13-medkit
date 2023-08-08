@@ -1,5 +1,4 @@
 import { getAppointmentDoctors } from '@/lib/actions/get-doctors';
-import { getAppointmentUsers } from '@/lib/actions/get-users';
 import prisma from '@/lib/db/prisma';
 import { appointmentValidationSchema } from '@/lib/schema/appointment-schema';
 import { NextResponse } from 'next/server';
@@ -7,12 +6,9 @@ import { NextResponse } from 'next/server';
 export async function POST(req) {
 	try {
 		const body = await req.json();
-		const doctorData = await getAppointmentDoctors();
-		const userData = await getAppointmentUsers();
+		const doctors = await getAppointmentDoctors();
 
-		const [doctors, users] = await Promise.all([doctorData, userData]);
-
-		const validationSchema = appointmentValidationSchema(doctors, users);
+		const validationSchema = appointmentValidationSchema(doctors);
 
 		await validationSchema.validate(body);
 

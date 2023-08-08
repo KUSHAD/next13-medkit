@@ -7,15 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
-  mobileNumber String        @unique
-  isTrashed    Boolean       @default(false)
-  createdAt    DateTime      @default(now())
-  appointment  Appointment[]
-}
-
 model Staff {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String
@@ -63,8 +54,9 @@ model Procedure {
 model Appointment {
   id                   String        @id @default(auto()) @map("_id") @db.ObjectId
   dateOfAppointment    DateTime
+  name                 String
+  mobile               String
   isPartPaymentEnabled Boolean       @default(false)
-  userID               String        @db.ObjectId
   doctorID             String        @db.ObjectId
   slot                 SLOT          @default(MORNING)
   problemType          TREATMENT     @default(DENTAL)
@@ -73,7 +65,6 @@ model Appointment {
   isArrived            Boolean       @default(false)
   isBilled             Boolean       @default(false)
   createdAt            DateTime      @default(now())
-  user                 User          @relation(fields: [userID], references: [id])
   doctor               Doctor        @relation(fields: [doctorID], references: [id])
   payment              Payment?
   bills                Bill[]

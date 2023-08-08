@@ -40,6 +40,7 @@ import {
 import { slots } from '@/lib/constants/slots';
 import { specializations } from '@/lib/constants/specializations';
 import { Textarea } from '../ui/textarea';
+import { Input } from '@/components/ui/input';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -47,8 +48,8 @@ import { toast } from '../ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-const AddAppointmentForm = ({ doctors, users }) => {
-	const validationSchema = appointmentValidationSchema(doctors, users);
+const AddAppointmentForm = ({ doctors }) => {
+	const validationSchema = appointmentValidationSchema(doctors);
 	const resolver = yupResolver(validationSchema);
 	const form = useForm({
 		resolver,
@@ -57,7 +58,8 @@ const AddAppointmentForm = ({ doctors, users }) => {
 			doctorID: '',
 			problemType: specializations[0],
 			slot: slots[0],
-			userID: '',
+			name: '',
+			mobile: '',
 		},
 	});
 	const router = useRouter();
@@ -98,36 +100,45 @@ const AddAppointmentForm = ({ doctors, users }) => {
 							<form onSubmit={form.handleSubmit(onSubmit)}>
 								<FormField
 									control={form.control}
-									name='userID'
+									name='mobile'
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>User</FormLabel>
-											<Select
-												onValueChange={field.onChange}
-												defaultValue={field.value}>
-												<FormControl>
-													<SelectTrigger>
-														<SelectValue placeholder='User' />
-													</SelectTrigger>
-												</FormControl>
-												<SelectContent>
-													<>
-														<SelectItem value=''>Choose</SelectItem>
-														{users.map(_user => (
-															<SelectItem value={_user.value} key={_user.value}>
-																{_user.label}
-															</SelectItem>
-														))}
-													</>
-												</SelectContent>
-											</Select>
+											<FormLabel>Patient Mobile Number</FormLabel>
+											<FormControl>
+												<Input
+													type='tel'
+													disabled={form.formState.isSubmitting}
+													placeholder='Mobile number'
+													{...field}
+												/>
+											</FormControl>
 											<FormDescription>
-												Who is the user you are booking appointment for ?
+												Patient&apos;s Mobile Number
 											</FormDescription>
 											<FormMessage />
 										</FormItem>
 									)}
 								/>
+								<FormField
+									control={form.control}
+									name='name'
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Patient Name</FormLabel>
+											<FormControl>
+												<Input
+													type='text'
+													disabled={form.formState.isSubmitting}
+													placeholder='Name'
+													{...field}
+												/>
+											</FormControl>
+											<FormDescription>Name of the Patient</FormDescription>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
 								<FormField
 									control={form.control}
 									name='doctorID'
