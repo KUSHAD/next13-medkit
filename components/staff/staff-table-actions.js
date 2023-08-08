@@ -75,7 +75,7 @@ const StaffTableActions = ({ staff }) => {
 				</DialogHeader>
 				<DialogDescription>Restore {staff.name} ?</DialogDescription>
 				<DialogFooter>
-					<Button disabled={disabled} onClick={restore} className='w-full'>
+					<Button disabled={disabled} onClick={restore}>
 						Restore
 					</Button>
 				</DialogFooter>

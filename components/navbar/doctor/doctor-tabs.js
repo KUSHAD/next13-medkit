@@ -11,7 +11,7 @@ const DoctorTabs = () => {
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/doctor/manage' && 'bg-white'
+					location === '/doctor/manage' && 'bg-muted'
 				)}
 				href='/doctor/manage'>
 				Manage Doctor
@@ -19,7 +19,7 @@ const DoctorTabs = () => {
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/doctor/new' && 'bg-white'
+					location === '/doctor/new' && 'bg-muted'
 				)}
 				href='/doctor/new'>
 				New Doctor
@@ -27,7 +27,7 @@ const DoctorTabs = () => {
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/doctor/trash' && 'bg-white'
+					location === '/doctor/trash' && 'bg-muted'
 				)}
 				href='/doctor/trash'>
 				Trash

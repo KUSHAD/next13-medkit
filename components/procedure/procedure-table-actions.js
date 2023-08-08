@@ -66,7 +66,7 @@ const ProcedureTableActions = ({ procedure }) => {
 				</DialogHeader>
 				<DialogDescription>Restore {procedure.name} ?</DialogDescription>
 				<DialogFooter>
-					<Button disabled={disabled} onClick={restore} className='w-full'>
+					<Button disabled={disabled} onClick={restore}>
 						Restore
 					</Button>
 				</DialogFooter>

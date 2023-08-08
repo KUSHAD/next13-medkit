@@ -11,7 +11,7 @@ const StaffTabs = () => {
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/staff/manage' && 'bg-white'
+					location === '/staff/manage' && 'bg-muted'
 				)}
 				href='/staff/manage'>
 				Manage Staff
@@ -19,7 +19,7 @@ const StaffTabs = () => {
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/staff/new' && 'bg-white'
+					location === '/staff/new' && 'bg-muted'
 				)}
 				href='/staff/new'>
 				New Staff
@@ -27,7 +27,7 @@ const StaffTabs = () => {
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/staff/trash' && 'bg-white'
+					location === '/staff/trash' && 'bg-muted'
 				)}
 				href='/staff/trash'>
 				Trash

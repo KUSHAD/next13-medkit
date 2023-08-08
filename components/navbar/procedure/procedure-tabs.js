@@ -11,7 +11,7 @@ const ProcedureTabs = () => {
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/procedure/manage' && 'bg-white'
+					location === '/procedure/manage' && 'bg-muted'
 				)}
 				href='/procedure/manage'>
 				Manage Procedure
@@ -19,7 +19,7 @@ const ProcedureTabs = () => {
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/procedure/new' && 'bg-white'
+					location === '/procedure/new' && 'bg-muted'
 				)}
 				href='/procedure/new'>
 				New Procedure
@@ -27,7 +27,7 @@ const ProcedureTabs = () => {
 			<DynamicLink
 				className={cn(
 					'w-full text-center px-4 py-2 cursor-pointer transition-colors border-x border-foreground',
-					location === '/procedure/trash' && 'bg-white'
+					location === '/procedure/trash' && 'bg-muted'
 				)}
 				href='/procedure/trash'>
 				Trash
