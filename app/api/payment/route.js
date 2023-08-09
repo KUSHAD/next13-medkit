@@ -1,11 +1,15 @@
 import prisma from '@/lib/db/prisma';
+import { paymentValidationSchema } from '@/lib/schema/payment-schema';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {
 	try {
 		const body = await req.json();
 
-		const { total, appointmentID } = body;
+		const { total, dateOfPayment, partPaymentEnabled } =
+			await paymentValidationSchema.validate(body);
+
+		const { appointmentID } = body;
 
 		const appointmentExists = await prisma.appointment.findFirst({
 			where: {
@@ -29,10 +33,24 @@ export async function POST(req) {
 				{ status: 400 }
 			);
 
+		const billExists = await prisma.bill.findMany({
+			where: { appointmentID },
+		});
+
+		if (billExists.length === 0)
+			return NextResponse.json(
+				{
+					message: 'There is no bill for the appointment',
+				},
+				{ status: 400 }
+			);
+
 		const newPayment = await prisma.payment.create({
 			data: {
 				total,
 				appointmentID,
+				dateOfPayment,
+				isPartPaymentEnabled: partPaymentEnabled,
 			},
 		});
 
@@ -42,18 +60,9 @@ export async function POST(req) {
 			},
 			data: {
 				isBilled: true,
+				isPartPaymentEnabled: partPaymentEnabled,
 			},
 		});
-
-		const billExists = await prisma.bill.findMany({ where: { appointmentID } });
-
-		if (billExists.length === 0)
-			return NextResponse.json(
-				{
-					message: 'There is no bill for the appointment',
-				},
-				{ status: 400 }
-			);
 
 		await prisma.bill.updateMany({
 			where: {

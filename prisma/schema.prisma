@@ -89,6 +89,7 @@ model Payment {
   appointmentID        String        @unique @db.ObjectId
   isPartPaymentEnabled Boolean       @default(false)
   total                Int
+  dateOfPayment        DateTime
   createdAt            DateTime      @default(now())
   bills                Bill[]
   appointment          Appointment   @relation(fields: [appointmentID], references: [id])

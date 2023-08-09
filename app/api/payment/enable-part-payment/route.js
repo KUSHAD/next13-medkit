@@ -1,11 +1,15 @@
 import prisma from '@/lib/db/prisma';
+import { paymentValidationSchema } from '@/lib/schema/payment-schema';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {
 	try {
 		const body = await req.json();
 
-		const { total, appointmentID } = body;
+		const { total, dateOfPayment, partPaymentEnabled } =
+			await paymentValidationSchema.validate(body);
+
+		const { appointmentID } = body;
 
 		const appointmentExists = await prisma.appointment.findFirst({
 			where: {
@@ -21,14 +25,6 @@ export async function POST(req) {
 				{ status: 400 }
 			);
 
-		if (appointmentExists.isTrashed)
-			return NextResponse.json(
-				{
-					message: 'Appointment already Trashed',
-				},
-				{ status: 400 }
-			);
-
 		if (appointmentExists.isBilled || appointmentExists.isPartPaymentEnabled)
 			return NextResponse.json(
 				{
@@ -37,24 +33,9 @@ export async function POST(req) {
 				{ status: 400 }
 			);
 
-		const newPayment = await prisma.payment.create({
-			data: {
-				total,
-				appointmentID,
-				isPartPaymentEnabled: true,
-			},
+		const billExists = await prisma.bill.findMany({
+			where: { appointmentID },
 		});
-
-		await prisma.appointment.update({
-			where: {
-				id: appointmentID,
-			},
-			data: {
-				isPartPaymentEnabled: true,
-			},
-		});
-
-		const billExists = await prisma.bill.findMany({ where: { appointmentID } });
 
 		if (billExists.length === 0)
 			return NextResponse.json(
@@ -63,6 +44,24 @@ export async function POST(req) {
 				},
 				{ status: 400 }
 			);
+
+		const newPayment = await prisma.payment.create({
+			data: {
+				total,
+				appointmentID,
+				isPartPaymentEnabled: partPaymentEnabled,
+				dateOfPayment,
+			},
+		});
+
+		await prisma.appointment.update({
+			where: {
+				id: appointmentID,
+			},
+			data: {
+				isPartPaymentEnabled: partPaymentEnabled,
+			},
+		});
 
 		await prisma.bill.updateMany({
 			where: {

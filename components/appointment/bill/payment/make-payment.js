@@ -6,32 +6,58 @@ import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { useState } from 'react';
+import { Input } from '@/components/ui/input';
+
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { paymentValidationSchema } from '@/lib/schema/payment-schema';
 import {
-	Dialog,
-	DialogTrigger,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogFooter,
-} from '@/components/ui/dialog';
+	Form,
+	FormControl,
+	FormDescription,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from '@/components/ui/form';
+import { format } from 'date-fns';
+import { Calendar } from '@/components/ui/calendar';
+import { CalendarIcon } from '@radix-ui/react-icons';
+import { cn } from '@/lib/utils';
+
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from '@/components/ui/popover';
 
 const MakePayment = ({ show, total }) => {
 	const { id } = useParams();
 	const router = useRouter();
-	const [disabled, setDisabled] = useState(false);
-	const [checked, setChecked] = useState(false);
+	const resolver = yupResolver(paymentValidationSchema);
+	const form = useForm({
+		resolver,
+		defaultValues: {
+			dateOfPayment: new Date(),
+			partPaymentEnabled: false,
+		},
+		values: {
+			total,
+		},
+	});
 
-	const makePayment = async () => {
+	const watchPartPayment = form.watch('partPaymentEnabled');
+
+	const onSubmit = data => {
+		watchPartPayment ? enablePartPayment(data) : makePayment(data);
+	};
+
+	const makePayment = async data => {
 		try {
-			setDisabled(true);
-			const data = {
+			await axios.post('/api/payment', {
+				...data,
 				appointmentID: id,
-				total,
-			};
-
-			await axios.post('/api/payment', data);
+			});
 
 			toast({
 				title: 'Appointment has been billed',
@@ -44,20 +70,15 @@ const MakePayment = ({ show, total }) => {
 
 				variant: 'destructive',
 			});
-		} finally {
-			setDisabled(false);
 		}
 	};
 
-	const enablePartPayment = async () => {
+	const enablePartPayment = async data => {
 		try {
-			setDisabled(true);
-			const data = {
+			await axios.post('/api/payment/enable-part-payment', {
+				...data,
 				appointmentID: id,
-				total,
-			};
-
-			await axios.post('/api/payment/enable-part-payment', data);
+			});
 
 			toast({
 				title: 'Part Payment Enabled',
@@ -70,63 +91,83 @@ const MakePayment = ({ show, total }) => {
 
 				variant: 'destructive',
 			});
-		} finally {
-			setDisabled(false);
 		}
 	};
 
 	return (
 		show && (
-			<>
-				<div className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow my-2'>
-					<Checkbox
-						disabled={disabled}
-						value={checked}
-						onClick={() => setChecked(_prevState => !_prevState)}
+			<Form {...form}>
+				<form onSubmit={form.handleSubmit(onSubmit)}>
+					<FormField
+						control={form.control}
+						name='dateOfPayment'
+						render={({ field }) => (
+							<FormItem className='flex flex-col'>
+								<FormLabel>Date of Payment</FormLabel>
+								<Popover>
+									<PopoverTrigger asChild>
+										<FormControl>
+											<Button
+												disabled={form.formState.isSubmitting}
+												variant={'outline'}
+												className={cn(
+													'w-full pl-3 text-left font-normal',
+													!field.value && 'text-muted-foreground'
+												)}>
+												{field.value ? (
+													format(field.value, 'PPP')
+												) : (
+													<span>Payment Date</span>
+												)}
+												<CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+											</Button>
+										</FormControl>
+									</PopoverTrigger>
+									<PopoverContent className='w-auto p-0' align='start'>
+										<Calendar
+											disabled={form.formState.isSubmitting}
+											className='w-full'
+											mode='single'
+											selected={field.value}
+											onSelect={field.onChange}
+											initialFocus
+										/>
+									</PopoverContent>
+								</Popover>
+								<FormDescription>Date of Payment</FormDescription>
+								<FormMessage />
+							</FormItem>
+						)}
 					/>
-					<div className='space-y-1 leading-none flex flex-col'>
-						<Label>Enable Part payment</Label>
-						<span className='text-sm text-muted-foreground'>
-							Mark this Billing with part payment ?
-						</span>
-					</div>
-				</div>
-				<Dialog>
-					<DialogTrigger asChild>
-						<Button disabled={disabled} className='w-full my-2'>
-							{checked
-								? 'Continue with part payment ?'
-								: 'Continue with payment ?'}
-						</Button>
-					</DialogTrigger>
-					<DialogContent>
-						<DialogHeader>
-							<DialogTitle>
-								{checked
-									? 'Continue with part payment ?'
-									: 'Continue with payment ?'}
-							</DialogTitle>
-						</DialogHeader>
-						<DialogDescription>
-							Once you click the button below you cannot add bill items.
-							{checked
-								? 'And you can only add the part payments'
-								: 'And this appointment will be billed'}
-						</DialogDescription>
-						<DialogFooter>
-							{checked ? (
-								<Button disabled={disabled} onClick={enablePartPayment}>
-									Enable Part Payment
-								</Button>
-							) : (
-								<Button disabled={disabled} onClick={makePayment}>
-									Make Payment
-								</Button>
-							)}
-						</DialogFooter>
-					</DialogContent>
-				</Dialog>
-			</>
+					<FormField
+						control={form.control}
+						name='partPaymentEnabled'
+						render={({ field }) => (
+							<FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow'>
+								<FormControl>
+									<Checkbox
+										checked={field.value}
+										onCheckedChange={field.onChange}
+									/>
+								</FormControl>
+								<div className='space-y-1 leading-none'>
+									<FormLabel>Enable Part Payment</FormLabel>
+									<FormDescription>Enable Part Payment </FormDescription>
+								</div>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<Button
+						disabled={form.formState.isSubmitting}
+						className='w-full my-2'
+						type='submit'>
+						{watchPartPayment
+							? 'Continue with part payment ?'
+							: 'Continue with payment ?'}
+					</Button>
+				</form>
+			</Form>
 		)
 	);
 };
