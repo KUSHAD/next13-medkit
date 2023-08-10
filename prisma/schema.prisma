@@ -23,6 +23,7 @@ model Doctor {
   createdAt      DateTime      @default(now())
   schedules      Schedule[]
   appointment    Appointment[]
+  attendance     Attendance[]
 }
 
 model Schedule {
@@ -105,6 +106,14 @@ model PartPayment {
   createdAt     DateTime    @default(now())
   payment       Payment     @relation(fields: [paymentID], references: [id])
   appointment   Appointment @relation(fields: [appointmentID], references: [id])
+}
+
+model Attendance {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  doctorID         String   @db.ObjectId
+  dateOfAttendance DateTime
+  createdAt        DateTime @default(now())
+  doctor           Doctor   @relation(fields: [doctorID], references: [id])
 }
 
 enum DAY {
