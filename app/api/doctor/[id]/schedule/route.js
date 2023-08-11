@@ -1,3 +1,4 @@
+import { getCurrentUser } from '@/lib/actions/get-current-user';
 import prisma from '@/lib/db/prisma';
 import { scheduleValidationSchema } from '@/lib/schema/schedule-schema';
 import { NextResponse } from 'next/server';
@@ -5,6 +6,8 @@ import { NextResponse } from 'next/server';
 export async function POST(req, { params: { id } }) {
 	try {
 		const body = await req.json();
+
+		const currentUser = await getCurrentUser();
 
 		await scheduleValidationSchema.validate(body);
 
@@ -34,6 +37,7 @@ export async function POST(req, { params: { id } }) {
 			data: {
 				...body,
 				doctorId: id,
+				addedBy: currentUser.id,
 			},
 			select: {
 				day: true,

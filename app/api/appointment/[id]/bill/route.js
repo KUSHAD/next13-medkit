@@ -1,3 +1,4 @@
+import { getCurrentUser } from '@/lib/actions/get-current-user';
 import { getAppointmentDoctors } from '@/lib/actions/get-doctors';
 import { getProceduresByTreatment } from '@/lib/actions/get-procedures';
 import prisma from '@/lib/db/prisma';
@@ -9,6 +10,8 @@ export async function POST(req, { params: { id } }) {
 		const body = await req.json();
 
 		const procedures = await getProceduresByTreatment(body.type);
+
+		const currentUser = await getCurrentUser();
 
 		const validationSchema = billValidationSchema(procedures);
 
@@ -65,6 +68,7 @@ export async function POST(req, { params: { id } }) {
 				quantity,
 				procedureID,
 				appointmentID: appointmentExists.id,
+				addedBy: currentUser.id,
 			},
 		});
 

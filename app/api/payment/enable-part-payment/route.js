@@ -1,3 +1,4 @@
+import { getCurrentUser } from '@/lib/actions/get-current-user';
 import prisma from '@/lib/db/prisma';
 import { paymentValidationSchema } from '@/lib/schema/payment-schema';
 import { NextResponse } from 'next/server';
@@ -5,6 +6,8 @@ import { NextResponse } from 'next/server';
 export async function POST(req) {
 	try {
 		const body = await req.json();
+
+		const currentUser = await getCurrentUser();
 
 		const { total, dateOfPayment, partPaymentEnabled } =
 			await paymentValidationSchema.validate(body);
@@ -51,6 +54,7 @@ export async function POST(req) {
 				appointmentID,
 				isPartPaymentEnabled: partPaymentEnabled,
 				dateOfPayment,
+				addedBy: currentUser.id,
 			},
 		});
 
