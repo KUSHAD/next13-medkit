@@ -1,0 +1,150 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Staff {
+  id String [pk]
+  name String [not null]
+  mobileNumber String [unique, not null]
+  isTrashed Boolean [not null, default: false]
+  createdAt DateTime [default: `now()`, not null]
+}
+
+Table Doctor {
+  id String [pk]
+  name String [not null]
+  specialization TREATMENT [not null, default: 'DENTAL']
+  isTrashed Boolean [not null, default: false]
+  createdAt DateTime [default: `now()`, not null]
+  schedules Schedule [not null]
+  appointment Appointment [not null]
+  attendance Attendance [not null]
+}
+
+Table Schedule {
+  id String [pk]
+  day DAY [not null, default: 'MONDAY']
+  slot SLOT [not null, default: 'MORNING']
+  doctorId String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  doctor Doctor [not null]
+}
+
+Table Procedure {
+  id String [pk]
+  name String [not null]
+  treatment TREATMENT [not null, default: 'DENTAL']
+  rate Int [not null]
+  doctorRate Int [not null]
+  officeRate Int [not null]
+  technicianRate Int [not null]
+  variableRate Boolean [not null, default: false]
+  isDoctorRatePercentageValue Boolean [not null, default: false]
+  isOfficeRatePercentageValue Boolean [not null, default: false]
+  isTechnicianRatePercentageValue Boolean [not null, default: false]
+  isTrashed Boolean [not null, default: false]
+  createdAt DateTime [default: `now()`, not null]
+  bills Bill [not null]
+}
+
+Table Appointment {
+  id String [pk]
+  dateOfAppointment DateTime [not null]
+  name String [not null]
+  mobile String [not null]
+  isPartPaymentEnabled Boolean [not null, default: false]
+  doctorID String [not null]
+  slot SLOT [not null, default: 'MORNING']
+  problemType TREATMENT [not null, default: 'DENTAL']
+  description String [default: '']
+  address String [default: '']
+  isArrived Boolean [not null, default: false]
+  isBilled Boolean [not null, default: false]
+  createdAt DateTime [default: `now()`, not null]
+  doctor Doctor [not null]
+  payment Payment
+  bills Bill [not null]
+  partPayment PartPayment [not null]
+}
+
+Table Bill {
+  id String [pk]
+  procedureID String [not null]
+  appointmentID String
+  finalValue Int [not null]
+  quantity Int [not null]
+  paymentID String
+  createdAt DateTime [default: `now()`, not null]
+  appointment Appointment
+  procedure Procedure [not null]
+  payment Payment
+}
+
+Table Payment {
+  id String [pk]
+  appointmentID String [unique, not null]
+  isPartPaymentEnabled Boolean [not null, default: false]
+  total Int [not null]
+  dateOfPayment DateTime [not null]
+  createdAt DateTime [default: `now()`, not null]
+  bills Bill [not null]
+  appointment Appointment [not null]
+  partPayment PartPayment [not null]
+}
+
+Table PartPayment {
+  id String [pk]
+  paymentID String [not null]
+  appointmentID String [not null]
+  amount Int [not null]
+  dateOfPayment DateTime [not null]
+  createdAt DateTime [default: `now()`, not null]
+  payment Payment [not null]
+  appointment Appointment [not null]
+}
+
+Table Attendance {
+  id String [pk]
+  doctorID String [not null]
+  dateOfAttendance DateTime [not null]
+  createdAt DateTime [default: `now()`, not null]
+  doctor Doctor [not null]
+}
+
+Enum DAY {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+Enum SLOT {
+  MORNING
+  EVENING
+}
+
+Enum TREATMENT {
+  DENTAL
+  OPTICS
+}
+
+Ref: Schedule.doctorId > Doctor.id
+
+Ref: Appointment.doctorID > Doctor.id
+
+Ref: Bill.appointmentID > Appointment.id
+
+Ref: Bill.procedureID > Procedure.id
+
+Ref: Bill.paymentID > Payment.id
+
+Ref: Payment.appointmentID - Appointment.id
+
+Ref: PartPayment.paymentID > Payment.id
+
+Ref: PartPayment.appointmentID > Appointment.id
+
+Ref: Attendance.doctorID > Doctor.id
