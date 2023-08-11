@@ -98,6 +98,7 @@ const MakePayment = ({ show, total }) => {
 		show && (
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)}>
+					<h2 className='text-lg text-muted-primary mt-2'>Payment</h2>
 					<FormField
 						control={form.control}
 						name='dateOfPayment'

@@ -12,11 +12,20 @@ datasource db {
 }
 
 model Staff {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
-  mobileNumber String   @unique
-  isTrashed    Boolean  @default(false)
-  createdAt    DateTime @default(now())
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  mobileNumber     String        @unique
+  addedBy          String        @db.ObjectId
+  isTrashed        Boolean       @default(false)
+  createdAt        DateTime      @default(now())
+  addedDoctor      Doctor[]
+  addedSchedule    Schedule[]
+  addedProcedure   Procedure[]
+  addedAppointment Appointment[]
+  addedBill        Bill[]
+  addedPayment     Payment[]
+  addedPartPayment PartPayment[]
+  addedAttendance  Attendance[]
 }
 
 model Doctor {
@@ -24,7 +33,9 @@ model Doctor {
   name           String
   specialization TREATMENT     @default(DENTAL)
   isTrashed      Boolean       @default(false)
+  addedBy        String        @db.ObjectId
   createdAt      DateTime      @default(now())
+  staff          Staff         @relation(fields: [addedBy], references: [id])
   schedules      Schedule[]
   appointment    Appointment[]
   attendance     Attendance[]
@@ -35,7 +46,9 @@ model Schedule {
   day       DAY      @default(MONDAY)
   slot      SLOT     @default(MORNING)
   doctorId  String   @db.ObjectId
+  addedBy   String   @db.ObjectId
   createdAt DateTime @default(now())
+  staff     Staff    @relation(fields: [addedBy], references: [id])
   doctor    Doctor   @relation(fields: [doctorId], references: [id])
 }
 
@@ -52,7 +65,9 @@ model Procedure {
   isOfficeRatePercentageValue     Boolean   @default(false)
   isTechnicianRatePercentageValue Boolean   @default(false)
   isTrashed                       Boolean   @default(false)
+  addedBy                         String    @db.ObjectId
   createdAt                       DateTime  @default(now())
+  staff                           Staff     @relation(fields: [addedBy], references: [id])
   bills                           Bill[]
 }
 
@@ -69,8 +84,10 @@ model Appointment {
   address              String?       @default("")
   isArrived            Boolean       @default(false)
   isBilled             Boolean       @default(false)
+  addedBy              String        @db.ObjectId
   createdAt            DateTime      @default(now())
   doctor               Doctor        @relation(fields: [doctorID], references: [id])
+  staff                Staff         @relation(fields: [addedBy], references: [id])
   payment              Payment?
   bills                Bill[]
   partPayment          PartPayment[]
@@ -83,7 +100,9 @@ model Bill {
   finalValue    Int
   quantity      Int
   paymentID     String?      @db.ObjectId
+  addedBy       String       @db.ObjectId
   createdAt     DateTime     @default(now())
+  staff         Staff        @relation(fields: [addedBy], references: [id])
   appointment   Appointment? @relation(fields: [appointmentID], references: [id])
   procedure     Procedure    @relation(fields: [procedureID], references: [id])
   payment       Payment?     @relation(fields: [paymentID], references: [id])
@@ -95,9 +114,11 @@ model Payment {
   isPartPaymentEnabled Boolean       @default(false)
   total                Int
   dateOfPayment        DateTime
+  addedBy              String        @db.ObjectId
   createdAt            DateTime      @default(now())
   bills                Bill[]
   appointment          Appointment   @relation(fields: [appointmentID], references: [id])
+  staff                Staff         @relation(fields: [addedBy], references: [id])
   partPayment          PartPayment[]
 }
 
@@ -107,7 +128,9 @@ model PartPayment {
   appointmentID String      @db.ObjectId
   amount        Int
   dateOfPayment DateTime
+  addedBy       String      @db.ObjectId
   createdAt     DateTime    @default(now())
+  staff         Staff       @relation(fields: [addedBy], references: [id])
   payment       Payment     @relation(fields: [paymentID], references: [id])
   appointment   Appointment @relation(fields: [appointmentID], references: [id])
 }
@@ -116,8 +139,10 @@ model Attendance {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId
   doctorID         String   @db.ObjectId
   dateOfAttendance DateTime
+  addedBy          String   @db.ObjectId
   createdAt        DateTime @default(now())
   doctor           Doctor   @relation(fields: [doctorID], references: [id])
+  staff            Staff    @relation(fields: [addedBy], references: [id])
 }
 
 enum DAY {

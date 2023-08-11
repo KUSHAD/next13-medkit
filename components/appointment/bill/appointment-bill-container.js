@@ -21,9 +21,9 @@ const AppointmentBillContainer = ({ appointment, procedures, bills }) => {
 					appointment={appointment.isPartPaymentEnabled || appointment.isBilled}
 				/>
 			</ClientOnly>
-			<h2 className='text-lg text-muted-primary mt-2'>Payment</h2>
 			{appointment.isPartPaymentEnabled && (
 				<ClientOnly>
+					<h2 className='text-lg text-muted-primary mt-2'>Payment</h2>
 					<AddPartPayment
 						disabled={appointment.isBilled}
 						paymentID={appointment.payment.id}

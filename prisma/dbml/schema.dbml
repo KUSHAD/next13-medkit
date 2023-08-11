@@ -8,6 +8,14 @@ Table Staff {
   mobileNumber String [unique, not null]
   isTrashed Boolean [not null, default: false]
   createdAt DateTime [default: `now()`, not null]
+  addedDoctor Doctor [not null]
+  addedSchedule Schedule [not null]
+  addedProcedure Procedure [not null]
+  addedAppointment Appointment [not null]
+  addedBill Bill [not null]
+  addedPayment Payment [not null]
+  addedPartPayment PartPayment [not null]
+  addedAttendance Attendance [not null]
 }
 
 Table Doctor {
@@ -15,7 +23,9 @@ Table Doctor {
   name String [not null]
   specialization TREATMENT [not null, default: 'DENTAL']
   isTrashed Boolean [not null, default: false]
+  addedBy String [not null]
   createdAt DateTime [default: `now()`, not null]
+  staff Staff [not null]
   schedules Schedule [not null]
   appointment Appointment [not null]
   attendance Attendance [not null]
@@ -26,7 +36,9 @@ Table Schedule {
   day DAY [not null, default: 'MONDAY']
   slot SLOT [not null, default: 'MORNING']
   doctorId String [not null]
+  addedBy String [not null]
   createdAt DateTime [default: `now()`, not null]
+  staff Staff [not null]
   doctor Doctor [not null]
 }
 
@@ -43,7 +55,9 @@ Table Procedure {
   isOfficeRatePercentageValue Boolean [not null, default: false]
   isTechnicianRatePercentageValue Boolean [not null, default: false]
   isTrashed Boolean [not null, default: false]
+  addedBy String [not null]
   createdAt DateTime [default: `now()`, not null]
+  staff Staff [not null]
   bills Bill [not null]
 }
 
@@ -60,8 +74,10 @@ Table Appointment {
   address String [default: '']
   isArrived Boolean [not null, default: false]
   isBilled Boolean [not null, default: false]
+  addedBy String [not null]
   createdAt DateTime [default: `now()`, not null]
   doctor Doctor [not null]
+  staff Staff [not null]
   payment Payment
   bills Bill [not null]
   partPayment PartPayment [not null]
@@ -74,7 +90,9 @@ Table Bill {
   finalValue Int [not null]
   quantity Int [not null]
   paymentID String
+  addedBy String [not null]
   createdAt DateTime [default: `now()`, not null]
+  staff Staff [not null]
   appointment Appointment
   procedure Procedure [not null]
   payment Payment
@@ -86,9 +104,11 @@ Table Payment {
   isPartPaymentEnabled Boolean [not null, default: false]
   total Int [not null]
   dateOfPayment DateTime [not null]
+  addedBy String [not null]
   createdAt DateTime [default: `now()`, not null]
   bills Bill [not null]
   appointment Appointment [not null]
+  staff Staff [not null]
   partPayment PartPayment [not null]
 }
 
@@ -98,7 +118,9 @@ Table PartPayment {
   appointmentID String [not null]
   amount Int [not null]
   dateOfPayment DateTime [not null]
+  addedBy String [not null]
   createdAt DateTime [default: `now()`, not null]
+  staff Staff [not null]
   payment Payment [not null]
   appointment Appointment [not null]
 }
@@ -107,8 +129,10 @@ Table Attendance {
   id String [pk]
   doctorID String [not null]
   dateOfAttendance DateTime [not null]
+  addedBy String [not null]
   createdAt DateTime [default: `now()`, not null]
   doctor Doctor [not null]
+  staff Staff [not null]
 }
 
 Enum DAY {
@@ -131,9 +155,19 @@ Enum TREATMENT {
   OPTICS
 }
 
+Ref: Doctor.addedBy > Staff.id
+
+Ref: Schedule.addedBy > Staff.id
+
 Ref: Schedule.doctorId > Doctor.id
 
+Ref: Procedure.addedBy > Staff.id
+
 Ref: Appointment.doctorID > Doctor.id
+
+Ref: Appointment.addedBy > Staff.id
+
+Ref: Bill.addedBy > Staff.id
 
 Ref: Bill.appointmentID > Appointment.id
 
@@ -143,8 +177,14 @@ Ref: Bill.paymentID > Payment.id
 
 Ref: Payment.appointmentID - Appointment.id
 
+Ref: Payment.addedBy > Staff.id
+
+Ref: PartPayment.addedBy > Staff.id
+
 Ref: PartPayment.paymentID > Payment.id
 
 Ref: PartPayment.appointmentID > Appointment.id
 
 Ref: Attendance.doctorID > Doctor.id
+
+Ref: Attendance.addedBy > Staff.id
