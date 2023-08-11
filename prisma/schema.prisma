@@ -15,7 +15,6 @@ model Staff {
   id               String        @id @default(auto()) @map("_id") @db.ObjectId
   name             String
   mobileNumber     String        @unique
-  addedBy          String        @db.ObjectId
   isTrashed        Boolean       @default(false)
   createdAt        DateTime      @default(now())
   addedDoctor      Doctor[]
