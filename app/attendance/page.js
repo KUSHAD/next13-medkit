@@ -10,13 +10,16 @@ const Page = async ({ searchParams }) => {
 	const doctorData = await getAppointmentDoctors();
 	const attendanceData = await getAttendanceByDate(searchParams);
 
-	const [doctors, attendance] = await Promise.all([doctorData, attendanceData]);
+	const [doctors, attendances] = await Promise.all([
+		doctorData,
+		attendanceData,
+	]);
 	return (
 		<ClientOnly>
 			<br />
 			<AddAttendanceForm doctors={doctors} />
 			<br />
-			<AttendanceDisplayContainer />
+			<AttendanceDisplayContainer attendances={attendances} />
 		</ClientOnly>
 	);
 };

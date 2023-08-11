@@ -1,11 +1,14 @@
 'use client';
 
 import AttendanceDatePicker from './attendance-date-picker';
+import AttendanceViewer from './attendance-viewer';
 
-const AttendanceDisplayContainer = () => {
+const AttendanceDisplayContainer = ({ attendances }) => {
 	return (
 		<>
 			<AttendanceDatePicker />
+			<br />
+			<AttendanceViewer data={attendances} />
 		</>
 	);
 };
