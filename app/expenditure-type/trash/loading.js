@@ -15,7 +15,7 @@ const Loading = () => {
 				<TableHeader>
 					<TableRow>
 						<TableHead>Name </TableHead>
-						<TableHead>Amount</TableHead>
+						<TableHead>Default Amount</TableHead>
 						<TableHead>Actions</TableHead>
 					</TableRow>
 				</TableHeader>

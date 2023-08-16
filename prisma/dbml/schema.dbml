@@ -141,6 +141,7 @@ Table ExpenditureType {
   name String [not null]
   amount Int [not null]
   addedBy String [not null]
+  isTrashed Boolean [not null, default: false]
   createdAt DateTime [default: `now()`, not null]
   staff Staff [not null]
 }

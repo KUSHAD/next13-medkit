@@ -150,6 +150,7 @@ model ExpenditureType {
   name      String
   amount    Int
   addedBy   String   @db.ObjectId
+  isTrashed Boolean  @default(false)
   createdAt DateTime @default(now())
   staff     Staff    @relation(fields: [addedBy], references: [id])
 }
