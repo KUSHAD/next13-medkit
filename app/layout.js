@@ -11,11 +11,7 @@ export const metadata = {
 	description: 'Lions Medkit app for Lions Club of Chakdaha Block',
 	manifest: '/manifest.json',
 	themeColor: '#2563EB',
-	metadataBase: new URL(
-		process.env.NODE_ENV === 'production'
-			? process.env.VERCEL_URL
-			: 'http://locahost:3000'
-	),
+	metadataBase: new URL('https://lions-medkit.vercel.app/'),
 	openGraph: {
 		title: 'Lions Medkit',
 		description: 'Lions Medkit app for Lions Club of Chakdaha Block',
