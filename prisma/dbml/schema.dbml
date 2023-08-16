@@ -16,6 +16,7 @@ Table Staff {
   addedPayment Payment [not null]
   addedPartPayment PartPayment [not null]
   addedAttendance Attendance [not null]
+  addedExpenditureType ExpenditureType [not null]
 }
 
 Table Doctor {
@@ -135,6 +136,15 @@ Table Attendance {
   staff Staff [not null]
 }
 
+Table ExpenditureType {
+  id String [pk]
+  name String [not null]
+  amount Int [not null]
+  addedBy String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  staff Staff [not null]
+}
+
 Enum DAY {
   MONDAY
   TUESDAY
@@ -188,3 +198,5 @@ Ref: PartPayment.appointmentID > Appointment.id
 Ref: Attendance.doctorID > Doctor.id
 
 Ref: Attendance.addedBy > Staff.id
+
+Ref: ExpenditureType.addedBy > Staff.id

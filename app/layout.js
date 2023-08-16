@@ -13,7 +13,7 @@ export const metadata = {
 	themeColor: '#2563EB',
 	metadataBase: new URL(
 		process.env.NODE_ENV === 'production'
-			? 'https://lions-medkit-vercel.app'
+			? process.env.VERCEL_URL
 			: 'http://locahost:3000'
 	),
 	openGraph: {
