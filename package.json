@@ -7,7 +7,10 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"prisma:studio": "prisma studio",
+		"prisma:generate": "prisma generate",
+		"prisma:db-push": "prisma db push"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.1.1",

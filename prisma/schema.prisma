@@ -12,19 +12,20 @@ datasource db {
 }
 
 model Staff {
-  id               String        @id @default(auto()) @map("_id") @db.ObjectId
-  name             String
-  mobileNumber     String        @unique
-  isTrashed        Boolean       @default(false)
-  createdAt        DateTime      @default(now())
-  addedDoctor      Doctor[]
-  addedSchedule    Schedule[]
-  addedProcedure   Procedure[]
-  addedAppointment Appointment[]
-  addedBill        Bill[]
-  addedPayment     Payment[]
-  addedPartPayment PartPayment[]
-  addedAttendance  Attendance[]
+  id                   String            @id @default(auto()) @map("_id") @db.ObjectId
+  name                 String
+  mobileNumber         String            @unique
+  isTrashed            Boolean           @default(false)
+  createdAt            DateTime          @default(now())
+  addedDoctor          Doctor[]
+  addedSchedule        Schedule[]
+  addedProcedure       Procedure[]
+  addedAppointment     Appointment[]
+  addedBill            Bill[]
+  addedPayment         Payment[]
+  addedPartPayment     PartPayment[]
+  addedAttendance      Attendance[]
+  addedExpenditureType ExpenditureType[]
 }
 
 model Doctor {
@@ -142,6 +143,16 @@ model Attendance {
   createdAt        DateTime @default(now())
   doctor           Doctor   @relation(fields: [doctorID], references: [id])
   staff            Staff    @relation(fields: [addedBy], references: [id])
+}
+
+model ExpenditureType {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  amount    Int
+  addedBy   String   @db.ObjectId
+  isTrashed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  staff     Staff    @relation(fields: [addedBy], references: [id])
 }
 
 enum DAY {
