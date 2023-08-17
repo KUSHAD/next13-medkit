@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import {
 	Dialog,
 	DialogHeader,
@@ -9,8 +9,8 @@ import {
 	DialogTitle,
 	DialogDescription,
 	DialogFooter,
-} from '../ui/dialog';
-import { toast } from '../ui/use-toast';
+} from '@/components/ui/dialog';
+import { toast } from '@/components/ui/use-toast';
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -21,9 +21,9 @@ import {
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
-} from '../ui/sheet';
-import EditDoctorForm from './edit-doctor-form';
-import DoctorScheduleTabs from './schedule/doctor-schedule-tabs';
+} from '@/components/ui/sheet';
+import EditDoctorForm from '@/components/doctor/edit-doctor-form';
+import DoctorScheduleTabs from '@/components/doctor/schedule/doctor-schedule-tabs';
 
 const DoctorTableActions = ({ doctor }) => {
 	const [disabled, setDisabled] = useState(false);

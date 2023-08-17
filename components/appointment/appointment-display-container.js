@@ -1,7 +1,7 @@
 'use client';
 
-import AppointmentDatePicker from './appointment-date-picker';
-import AppointmentViewer from './appointment-viewer';
+import AppointmentDatePicker from '@/components/appointment/appointment-date-picker';
+import AppointmentViewer from '@/components/appointment/appointment-viewer';
 
 const AppointmentDisplayContainer = ({ data }) => {
 	return (

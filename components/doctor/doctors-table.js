@@ -17,9 +17,9 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import DoctorTableActions from './doctor-table-actions';
+import DoctorTableActions from '@/components/doctor/doctor-table-actions';
 
 const columns = [
 	{

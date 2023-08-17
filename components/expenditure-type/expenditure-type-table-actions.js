@@ -9,7 +9,7 @@ import {
 	DialogTitle,
 	DialogDescription,
 	DialogFooter,
-} from '../ui/dialog';
+} from '@/components/ui/dialog';
 import { toast } from '@/components/ui/use-toast';
 import { useState } from 'react';
 import axios from 'axios';

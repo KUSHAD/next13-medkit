@@ -17,6 +17,7 @@ Table Staff {
   addedPartPayment PartPayment [not null]
   addedAttendance Attendance [not null]
   addedExpenditureType ExpenditureType [not null]
+  addedExpenditure Expenditure [not null]
 }
 
 Table Doctor {
@@ -144,6 +145,24 @@ Table ExpenditureType {
   isTrashed Boolean [not null, default: false]
   createdAt DateTime [default: `now()`, not null]
   staff Staff [not null]
+  expenditure Expenditure [not null]
+}
+
+Table Expenditure {
+  id String [pk]
+  addedBy String [not null]
+  expenditureTypeId String [not null]
+  finalPrice Int [not null]
+  modeOfPayment MODE_OF_PAYMENT [not null, default: 'CASH']
+  cashContact String
+  chequeNo String
+  bankName String
+  upiID String
+  issueDate DateTime [not null]
+  description String
+  createdAt DateTime [default: `now()`, not null]
+  staff Staff [not null]
+  expenditureType ExpenditureType [not null]
 }
 
 Enum DAY {
@@ -164,6 +183,13 @@ Enum SLOT {
 Enum TREATMENT {
   DENTAL
   OPTICS
+}
+
+Enum MODE_OF_PAYMENT {
+  CASH
+  CHEQUE
+  UPI
+  BANK_TRANSFER
 }
 
 Ref: Doctor.addedBy > Staff.id
@@ -201,3 +227,7 @@ Ref: Attendance.doctorID > Doctor.id
 Ref: Attendance.addedBy > Staff.id
 
 Ref: ExpenditureType.addedBy > Staff.id
+
+Ref: Expenditure.addedBy > Staff.id
+
+Ref: Expenditure.expenditureTypeId > ExpenditureType.id

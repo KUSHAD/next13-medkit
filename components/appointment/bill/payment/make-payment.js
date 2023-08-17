@@ -5,8 +5,6 @@ import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useParams, useRouter } from 'next/navigation';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';

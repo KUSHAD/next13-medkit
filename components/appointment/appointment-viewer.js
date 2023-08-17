@@ -1,6 +1,6 @@
 'use client';
 
-import ErrorContainer from '../error-container';
+import ErrorContainer from '@/components/error-container';
 import {
 	flexRender,
 	getCoreRowModel,
@@ -17,8 +17,8 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 
-import { Button } from '../ui/button';
-import AppointmentTableActions from './appointment-table-actions';
+import { Button } from '@/components/ui/button';
+import AppointmentTableActions from '@/components/appointment/appointment-table-actions';
 const columns = [
 	{
 		accessorKey: 'name',

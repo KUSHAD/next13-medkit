@@ -20,7 +20,7 @@ import {
 	getPaginationRowModel,
 } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
-import DoctorScheduleTableAction from './doctor-schedule-table-actions';
+import DoctorScheduleTableAction from '@/components/doctor/schedule/doctor-schedule-table-actions';
 
 const columns = [
 	{

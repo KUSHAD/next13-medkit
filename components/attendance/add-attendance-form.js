@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import {
 	DialogHeader,
 	DialogTrigger,
@@ -37,7 +37,7 @@ import {
 } from '@/components/ui/select';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { toast } from '../ui/use-toast';
+import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { attendanceValidationSchema } from '@/lib/schema/attendance-schema';

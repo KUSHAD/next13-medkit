@@ -14,7 +14,7 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import PartPaymentTableActions from './part-payment-table-actions';
+import PartPaymentTableActions from '@/components/appointment/bill/payment/part-payment-table-actions';
 
 const columns = [
 	{

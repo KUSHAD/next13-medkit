@@ -15,9 +15,9 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 
-import AppointmentBillTableActions from './appointment-bill-table-actions';
+import AppointmentBillTableActions from '@/components/appointment/bill/appointment-bill-table-actions';
 import ErrorContainer from '@/components/error-container';
-import MakePayment from './payment/make-payment';
+import MakePayment from '@/components/appointment/bill/payment/make-payment';
 
 const columns = [
 	{

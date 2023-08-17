@@ -3,10 +3,10 @@
 import { procedureValidationSchema } from '@/lib/schema/procedure-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { toast } from '../ui/use-toast';
+import { toast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
-import { Card, CardContent } from '../ui/card';
-import ProcedureForm from './procedure-form';
+import { Card, CardContent } from '@/components/ui/card';
+import ProcedureForm from '@/components/procedure/procedure-form';
 import { specializations } from '@/lib/constants/specializations';
 import axios from 'axios';
 
