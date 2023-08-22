@@ -2,10 +2,10 @@
 
 import { Button } from '@/components/ui/button';
 import { ArrowLeftIcon } from '@radix-ui/react-icons';
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from '@/components/theme-toggle';
+import DynamicLink from '@/components/dynamic-link';
 
 const AppBar = ({
 	title = 'Dashboard',
@@ -29,14 +29,14 @@ const AppBar = ({
 					pathname === '/' && 'mr-auto'
 				)}>
 				{isBack && (
-					<Link legacyBehavior passHref href={backHref}>
+					<DynamicLink href={backHref}>
 						<Button
 							variant={isSecondary ? 'default' : 'secondary'}
 							size='icon'
 							className={cn('mr-2')}>
 							<ArrowLeftIcon />
 						</Button>
-					</Link>
+					</DynamicLink>
 				)}
 				{title}
 			</div>

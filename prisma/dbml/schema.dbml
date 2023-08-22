@@ -150,16 +150,17 @@ Table ExpenditureType {
 
 Table Expenditure {
   id String [pk]
+  amount Int [not null]
+  modeOfPayment MODE_OF_PAYMENT [not null, default: 'CASH']
+  name String [not null]
+  mobileNumber String [not null]
+  chequeNo String [default: '']
+  bankTransactionID String [default: '']
+  upiID String [default: '']
+  issueDate DateTime [not null]
+  description String [default: '']
   addedBy String [not null]
   expenditureTypeId String [not null]
-  finalPrice Int [not null]
-  modeOfPayment MODE_OF_PAYMENT [not null, default: 'CASH']
-  cashContact String
-  chequeNo String
-  bankName String
-  upiID String
-  issueDate DateTime [not null]
-  description String
   createdAt DateTime [default: `now()`, not null]
   staff Staff [not null]
   expenditureType ExpenditureType [not null]

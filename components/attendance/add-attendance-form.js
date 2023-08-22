@@ -160,12 +160,11 @@ const AddAttendanceForm = ({ doctors }) => {
 									</FormItem>
 								)}
 							/>
-
 							<Button
 								disabled={form.formState.isSubmitting}
 								className='w-full my-2'
 								type='submit'>
-								Add Attendance{' '}
+								Add Attendance
 							</Button>
 						</form>
 					</Form>

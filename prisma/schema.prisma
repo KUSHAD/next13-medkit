@@ -159,16 +159,17 @@ model ExpenditureType {
 
 model Expenditure {
   id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  amount            Int
+  modeOfPayment     MODE_OF_PAYMENT @default(CASH)
+  name              String
+  mobileNumber      String
+  chequeNo          String?         @default("")
+  bankTransactionID String?         @default("")
+  upiID             String?         @default("")
+  issueDate         DateTime
+  description       String?         @default("")
   addedBy           String          @db.ObjectId
   expenditureTypeId String          @db.ObjectId
-  finalPrice        Int
-  modeOfPayment     MODE_OF_PAYMENT @default(CASH)
-  cashContact       String?
-  chequeNo          String?
-  bankName          String?
-  upiID             String?
-  issueDate         DateTime
-  description       String?
   createdAt         DateTime        @default(now())
   staff             Staff           @relation(fields: [addedBy], references: [id])
   expenditureType   ExpenditureType @relation(fields: [expenditureTypeId], references: [id])

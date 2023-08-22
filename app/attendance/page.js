@@ -3,6 +3,7 @@ import { getAppointmentDoctors } from '@/lib/actions/get-doctors';
 import ClientOnly from '@/components/client-only';
 import AttendanceDisplayContainer from '@/components/attendance/attendance-display-container';
 import AddAttendanceForm from '@/components/attendance/add-attendance-form';
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
