@@ -6,7 +6,6 @@ import {
 	getCoreRowModel,
 	useReactTable,
 	getPaginationRowModel,
-	getFilteredRowModel,
 } from '@tanstack/react-table';
 import {
 	Table,
@@ -56,7 +55,6 @@ const AppointmentViewer = ({ data }) => {
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
 	});
 	return data.length !== 0 ? (
 		<div className='rounded-md border'>

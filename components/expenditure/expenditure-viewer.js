@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import ErrorContainer from '@/components/error-container';
 import {
 	flexRender,
 	getCoreRowModel,
@@ -16,48 +17,59 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import StaffTableActions from '@/components/staff/staff-table-actions';
+import { Button } from '@/components/ui/button';
+import ExpenditureTableActions from '@/components/expenditure/expenditure-table-actions';
+
 const columns = [
 	{
+		accessorKey: 'expenditureType.name',
+		header: 'Expenditure Type',
+	},
+	{
 		accessorKey: 'name',
-		header: 'Name',
+		header: 'Payee Name',
 	},
 	{
 		accessorKey: 'mobileNumber',
-		header: 'Mobile Number',
+		header: 'Payee Mobile number',
+	},
+	{
+		accessorKey: 'amount',
+		header: 'Amount Paid',
+	},
+	{
+		accessorKey: 'modeOfPayment',
+		header: 'Mode of Payment',
 	},
 	{
 		id: 'actions',
 		header: 'Actions',
 		cell: ({ row }) => {
-			const staff = row.original;
-			return <StaffTableActions staff={staff} />;
+			const expenditure = row.original;
+			return <ExpenditureTableActions expenditure={expenditure} />;
 		},
 	},
 ];
 
-const StaffTable = ({ data }) => {
+const ExpenditureViewer = ({ data }) => {
 	const [columnFilters, setColumnFilters] = useState([]);
 	const table = useReactTable({
 		data,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
-		onColumnFiltersChange: setColumnFilters,
 		getFilteredRowModel: getFilteredRowModel(),
+		onColumnFiltersChange: setColumnFilters,
 		state: {
 			columnFilters,
 		},
 	});
-
-	return (
+	return data.length !== 0 ? (
 		<div>
 			<div className='flex row justify-between py-4'>
 				<Input
-					placeholder='Filter Names...'
+					placeholder='Filter Payee Names...'
 					value={table.getColumn('name')?.getFilterValue() ?? ''}
 					onChange={event =>
 						table.getColumn('name')?.setFilterValue(event.target.value)
@@ -65,7 +77,7 @@ const StaffTable = ({ data }) => {
 					className='max-w-sm mx-2'
 				/>
 				<Input
-					placeholder='Filter Mobile Numbers...'
+					placeholder='Filter Payee Mobile Numbers...'
 					value={table.getColumn('mobileNumber')?.getFilterValue() ?? ''}
 					onChange={event =>
 						table.getColumn('mobileNumber')?.setFilterValue(event.target.value)
@@ -136,7 +148,12 @@ const StaffTable = ({ data }) => {
 				</div>
 			</div>
 		</div>
+	) : (
+		<ErrorContainer
+			title='No Expenditure'
+			desc='No Expenditure made for the day'
+		/>
 	);
 };
 
-export default StaffTable;
+export default ExpenditureViewer;

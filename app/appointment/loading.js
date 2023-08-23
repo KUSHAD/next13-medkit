@@ -24,87 +24,87 @@ const Loading = () => {
 				<TableBody>
 					<TableRow>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 					</TableRow>
 					<TableRow>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-					</TableRow>
-					<TableRow>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
-						</TableCell>
-						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 					</TableRow>
 					<TableRow>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
 						</TableCell>
 						<TableCell>
-							<Skeleton className='h-4 w-[250px]' />
+							<Skeleton className='h-4' />
+						</TableCell>
+					</TableRow>
+					<TableRow>
+						<TableCell>
+							<Skeleton className='h-4' />
+						</TableCell>
+						<TableCell>
+							<Skeleton className='h-4' />
+						</TableCell>
+						<TableCell>
+							<Skeleton className='h-4' />
+						</TableCell>
+						<TableCell>
+							<Skeleton className='h-4' />
+						</TableCell>
+						<TableCell>
+							<Skeleton className='h-4' />
+						</TableCell>
+					</TableRow>
+					<TableRow>
+						<TableCell>
+							<Skeleton className='h-4' />
+						</TableCell>
+						<TableCell>
+							<Skeleton className='h-4' />
+						</TableCell>
+						<TableCell>
+							<Skeleton className='h-4' />
+						</TableCell>
+						<TableCell>
+							<Skeleton className='h-4' />
+						</TableCell>
+						<TableCell>
+							<Skeleton className='h-4' />
 						</TableCell>
 					</TableRow>
 				</TableBody>
