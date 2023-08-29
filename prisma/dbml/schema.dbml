@@ -18,6 +18,7 @@ Table Staff {
   addedAttendance Attendance [not null]
   addedExpenditureType ExpenditureType [not null]
   addedExpenditure Expenditure [not null]
+  addedExpenditureDocs ExpenditureDocs [not null]
 }
 
 Table Doctor {
@@ -164,6 +165,18 @@ Table Expenditure {
   createdAt DateTime [default: `now()`, not null]
   staff Staff [not null]
   expenditureType ExpenditureType [not null]
+  ExpenditureDocs ExpenditureDocs [not null]
+}
+
+Table ExpenditureDocs {
+  id String [pk]
+  docSrc String [not null]
+  description String [not null]
+  expenditureID String [not null]
+  addedBy String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  expediture Expenditure [not null]
+  staff Staff [not null]
 }
 
 Enum DAY {
@@ -232,3 +245,7 @@ Ref: ExpenditureType.addedBy > Staff.id
 Ref: Expenditure.addedBy > Staff.id
 
 Ref: Expenditure.expenditureTypeId > ExpenditureType.id
+
+Ref: ExpenditureDocs.expenditureID > Expenditure.id
+
+Ref: ExpenditureDocs.addedBy > Staff.id

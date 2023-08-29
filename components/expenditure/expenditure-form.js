@@ -30,9 +30,8 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select';
-import { slots } from '@/lib/constants/slots';
 import { modeOfPayment } from '@/lib/constants/mode-of-payment';
-import { Textarea } from '../ui/textarea';
+import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 
 import { yupResolver } from '@hookform/resolvers/yup';

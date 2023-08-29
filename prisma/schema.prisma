@@ -27,6 +27,7 @@ model Staff {
   addedAttendance      Attendance[]
   addedExpenditureType ExpenditureType[]
   addedExpenditure     Expenditure[]
+  addedExpenditureDocs ExpenditureDocs[]
 }
 
 model Doctor {
@@ -158,21 +159,33 @@ model ExpenditureType {
 }
 
 model Expenditure {
-  id                String          @id @default(auto()) @map("_id") @db.ObjectId
+  id                String            @id @default(auto()) @map("_id") @db.ObjectId
   amount            Int
-  modeOfPayment     MODE_OF_PAYMENT @default(CASH)
+  modeOfPayment     MODE_OF_PAYMENT   @default(CASH)
   name              String
   mobileNumber      String
-  chequeNo          String?         @default("")
-  bankTransactionID String?         @default("")
-  upiID             String?         @default("")
+  chequeNo          String?           @default("")
+  bankTransactionID String?           @default("")
+  upiID             String?           @default("")
   issueDate         DateTime
-  description       String?         @default("")
-  addedBy           String          @db.ObjectId
-  expenditureTypeId String          @db.ObjectId
-  createdAt         DateTime        @default(now())
-  staff             Staff           @relation(fields: [addedBy], references: [id])
-  expenditureType   ExpenditureType @relation(fields: [expenditureTypeId], references: [id])
+  description       String?           @default("")
+  addedBy           String            @db.ObjectId
+  expenditureTypeId String            @db.ObjectId
+  createdAt         DateTime          @default(now())
+  staff             Staff             @relation(fields: [addedBy], references: [id])
+  expenditureType   ExpenditureType   @relation(fields: [expenditureTypeId], references: [id])
+  ExpenditureDocs   ExpenditureDocs[]
+}
+
+model ExpenditureDocs {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  docSrc        String
+  description   String
+  expenditureID String      @db.ObjectId
+  addedBy       String      @db.ObjectId
+  createdAt     DateTime    @default(now())
+  expediture    Expenditure @relation(fields: [expenditureID], references: [id])
+  staff         Staff       @relation(fields: [addedBy], references: [id])
 }
 
 enum DAY {

@@ -3,6 +3,7 @@ import './globals.css';
 import { Nunito } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from '@/providers/theme-provider';
+import '@uploadthing/react/styles.css';
 
 const nunito = Nunito({ subsets: ['latin'] });
 
