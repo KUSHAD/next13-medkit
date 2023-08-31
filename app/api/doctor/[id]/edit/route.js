@@ -43,10 +43,10 @@ export async function PATCH(req, { params: { id } }) {
 	} catch (error) {
 		return NextResponse.json(
 			{
-				message: error.errors || error.message,
+				message: error.message,
 			},
 			{
-				status: error.errors ? 400 : 500,
+				status: error.errors[0] ? 400 : 500,
 			}
 		);
 	}

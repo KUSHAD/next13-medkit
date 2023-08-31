@@ -26,6 +26,8 @@ model Staff {
   addedPartPayment     PartPayment[]
   addedAttendance      Attendance[]
   addedExpenditureType ExpenditureType[]
+  addedExpenditure     Expenditure[]
+  addedExpenditureDocs ExpenditureDocs[]
 }
 
 model Doctor {
@@ -146,13 +148,44 @@ model Attendance {
 }
 
 model ExpenditureType {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  amount    Int
-  addedBy   String   @db.ObjectId
-  isTrashed Boolean  @default(false)
-  createdAt DateTime @default(now())
-  staff     Staff    @relation(fields: [addedBy], references: [id])
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  amount      Int
+  addedBy     String        @db.ObjectId
+  isTrashed   Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  staff       Staff         @relation(fields: [addedBy], references: [id])
+  expenditure Expenditure[]
+}
+
+model Expenditure {
+  id                String            @id @default(auto()) @map("_id") @db.ObjectId
+  amount            Int
+  modeOfPayment     MODE_OF_PAYMENT   @default(CASH)
+  name              String
+  mobileNumber      String
+  chequeNo          String?           @default("")
+  bankTransactionID String?           @default("")
+  upiID             String?           @default("")
+  issueDate         DateTime
+  description       String?           @default("")
+  addedBy           String            @db.ObjectId
+  expenditureTypeId String            @db.ObjectId
+  createdAt         DateTime          @default(now())
+  staff             Staff             @relation(fields: [addedBy], references: [id])
+  expenditureType   ExpenditureType   @relation(fields: [expenditureTypeId], references: [id])
+  expenditureDocs   ExpenditureDocs[]
+}
+
+model ExpenditureDocs {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  docSrc        String
+  description   String
+  expenditureID String      @db.ObjectId
+  addedBy       String      @db.ObjectId
+  createdAt     DateTime    @default(now())
+  expediture    Expenditure @relation(fields: [expenditureID], references: [id], onDelete: Cascade)
+  staff         Staff       @relation(fields: [addedBy], references: [id])
 }
 
 enum DAY {
@@ -173,4 +206,11 @@ enum SLOT {
 enum TREATMENT {
   DENTAL
   OPTICS
+}
+
+enum MODE_OF_PAYMENT {
+  CASH
+  CHEQUE
+  UPI
+  BANK_TRANSFER
 }

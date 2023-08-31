@@ -1,8 +1,8 @@
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import AddDoctorSchedule from './add-doctor-schedule';
-import DoctorScheduleTable from './doctor-schedule-table';
+import AddDoctorSchedule from '@/components/doctor/schedule/add-doctor-schedule';
+import DoctorScheduleTable from '@/components/doctor/schedule/doctor-schedule-table';
 
 const DoctorScheduleTabs = ({ doctorID }) => {
 	return (

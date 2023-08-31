@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import {
 	Dialog,
 	DialogHeader,
@@ -10,7 +10,7 @@ import {
 	DialogDescription,
 	DialogFooter,
 } from '../ui/dialog';
-import { toast } from '../ui/use-toast';
+import { toast } from '@/components/ui/use-toast';
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -21,8 +21,8 @@ import {
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
-} from '../ui/sheet';
-import EditStaffForm from './edit-staff-form';
+} from '@/components/ui/sheet';
+import EditStaffForm from '@/components/staff/edit-staff-form';
 
 const StaffTableActions = ({ staff }) => {
 	const [disabled, setDisabled] = useState(false);

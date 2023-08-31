@@ -17,9 +17,9 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import StaffTableActions from './staff-table-actions';
+import StaffTableActions from '@/components/staff/staff-table-actions';
 const columns = [
 	{
 		accessorKey: 'name',

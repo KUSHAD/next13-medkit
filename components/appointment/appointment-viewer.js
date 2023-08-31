@@ -1,12 +1,11 @@
 'use client';
 
-import ErrorContainer from '../error-container';
+import ErrorContainer from '@/components/error-container';
 import {
 	flexRender,
 	getCoreRowModel,
 	useReactTable,
 	getPaginationRowModel,
-	getFilteredRowModel,
 } from '@tanstack/react-table';
 import {
 	Table,
@@ -17,8 +16,8 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 
-import { Button } from '../ui/button';
-import AppointmentTableActions from './appointment-table-actions';
+import { Button } from '@/components/ui/button';
+import AppointmentTableActions from '@/components/appointment/appointment-table-actions';
 const columns = [
 	{
 		accessorKey: 'name',
@@ -56,7 +55,6 @@ const AppointmentViewer = ({ data }) => {
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
 	});
 	return data.length !== 0 ? (
 		<div className='rounded-md border'>

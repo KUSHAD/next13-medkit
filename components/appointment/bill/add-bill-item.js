@@ -5,7 +5,7 @@ import {
 	Dialog,
 	DialogContent,
 } from '@/components/ui/dialog';
-import AddBillItemForm from './add-bill-item-form';
+import AddBillItemForm from '@/components/appointment/bill/add-bill-item-form';
 
 const AddBillItem = ({ procedures, disabled }) => {
 	return (

@@ -17,9 +17,10 @@ import {
 	TableRow,
 } from '@/components/ui/table';
 
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import ExpenditureTypeTableActions from './expenditure-type-table-actions';
+import ExpenditureTypeTableActions from '@/components/expenditure-type/expenditure-type-table-actions';
+
 const columns = [
 	{
 		accessorKey: 'name',

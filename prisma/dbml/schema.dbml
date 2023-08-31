@@ -17,6 +17,8 @@ Table Staff {
   addedPartPayment PartPayment [not null]
   addedAttendance Attendance [not null]
   addedExpenditureType ExpenditureType [not null]
+  addedExpenditure Expenditure [not null]
+  addedExpenditureDocs ExpenditureDocs [not null]
 }
 
 Table Doctor {
@@ -144,6 +146,37 @@ Table ExpenditureType {
   isTrashed Boolean [not null, default: false]
   createdAt DateTime [default: `now()`, not null]
   staff Staff [not null]
+  expenditure Expenditure [not null]
+}
+
+Table Expenditure {
+  id String [pk]
+  amount Int [not null]
+  modeOfPayment MODE_OF_PAYMENT [not null, default: 'CASH']
+  name String [not null]
+  mobileNumber String [not null]
+  chequeNo String [default: '']
+  bankTransactionID String [default: '']
+  upiID String [default: '']
+  issueDate DateTime [not null]
+  description String [default: '']
+  addedBy String [not null]
+  expenditureTypeId String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  staff Staff [not null]
+  expenditureType ExpenditureType [not null]
+  expenditureDocs ExpenditureDocs [not null]
+}
+
+Table ExpenditureDocs {
+  id String [pk]
+  docSrc String [not null]
+  description String [not null]
+  expenditureID String [not null]
+  addedBy String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  expediture Expenditure [not null]
+  staff Staff [not null]
 }
 
 Enum DAY {
@@ -164,6 +197,13 @@ Enum SLOT {
 Enum TREATMENT {
   DENTAL
   OPTICS
+}
+
+Enum MODE_OF_PAYMENT {
+  CASH
+  CHEQUE
+  UPI
+  BANK_TRANSFER
 }
 
 Ref: Doctor.addedBy > Staff.id
@@ -201,3 +241,11 @@ Ref: Attendance.doctorID > Doctor.id
 Ref: Attendance.addedBy > Staff.id
 
 Ref: ExpenditureType.addedBy > Staff.id
+
+Ref: Expenditure.addedBy > Staff.id
+
+Ref: Expenditure.expenditureTypeId > ExpenditureType.id
+
+Ref: ExpenditureDocs.expenditureID > Expenditure.id [delete: Cascade]
+
+Ref: ExpenditureDocs.addedBy > Staff.id

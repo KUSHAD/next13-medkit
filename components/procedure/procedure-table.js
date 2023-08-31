@@ -16,9 +16,9 @@ import {
 	TableHeader,
 	TableRow,
 } from '@/components/ui/table';
-import ProcedureTableActions from './procedure-table-actions';
-import { Button } from '../ui/button';
-import { Input } from '../ui/input';
+import ProcedureTableActions from '@/components/procedure/procedure-table-actions';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 const columns = [
 	{

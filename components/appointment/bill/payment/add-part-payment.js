@@ -5,7 +5,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog';
-import PartPaymentForm from './part-payment-form';
+import PartPaymentForm from '@/components/appointment/bill/payment/part-payment-form';
 
 const AddPartPayment = ({ paymentID, disabled }) => {
 	return (

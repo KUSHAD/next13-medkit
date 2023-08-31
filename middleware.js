@@ -32,19 +32,6 @@ export async function middleware(req) {
 
 export const config = {
 	matcher: [
-		/*
-		 * Match all request paths except for the ones starting with:
-		 * - auth/ (auth ui page)
-		 * - api/auth (auth API routes)
-		 * - _next/static (static files)
-		 * - _next/image (image optimization files)
-		 * - favicon.ico (favicon file)
-		 * - manifest.json
-		 * - png image  files declared in manifest
-		 * - og images
-		 * - twitter images
-		 * - apple touch icon
-		 */
-		'/((?!auth|api/auth|_next/static|_next/image|favicon.ico|manifest.json|icon.png|apple-icon.png|icon-192x192.png|icon-256x256.png|icon-384x384.png|icon-512x512.png|opengraph-image.png|twitter-image.png|opengraph-image.alt.txt|twitter-image.alt.txt).*)',
+		'/((?!auth|api/auth|api/uploadthing|_next/static|_next/image|favicon.ico|manifest.json|icon.png|apple-icon.png|icon-192x192.png|icon-256x256.png|icon-384x384.png|icon-512x512.png|opengraph-image.png|twitter-image.png|opengraph-image.alt.txt|twitter-image.alt.txt).*)',
 	],
 };

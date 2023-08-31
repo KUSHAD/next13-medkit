@@ -1,7 +1,7 @@
 'use client';
 
 import { appointmentValidationSchema } from '@/lib/schema/appointment-schema';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import {
 	Sheet,
 	SheetContent,
@@ -9,7 +9,7 @@ import {
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
-} from '../ui/sheet';
+} from '@/components/ui/sheet';
 import {
 	Form,
 	FormControl,
@@ -44,7 +44,7 @@ import { Input } from '@/components/ui/input';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { toast } from '../ui/use-toast';
+import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 

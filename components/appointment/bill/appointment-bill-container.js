@@ -1,9 +1,9 @@
 import ClientOnly from '@/components/client-only';
-import AppointmentDetails from './appointment-details';
-import AppointmentBills from './appointment-bills';
-import AddBillItem from './add-bill-item';
-import AddPartPayment from './payment/add-part-payment';
-import PartPaymentDisplay from './payment/part-payment-display';
+import AppointmentDetails from '@/components/appointment/bill/appointment-details';
+import AppointmentBills from '@/components/appointment/bill/appointment-bills';
+import AddBillItem from '@/components/appointment/bill/add-bill-item';
+import AddPartPayment from '@/components/appointment/bill/payment/add-part-payment';
+import PartPaymentDisplay from '@/components/appointment/bill/payment/part-payment-display';
 import ErrorContainer from '@/components/error-container';
 
 const AppointmentBillContainer = ({ appointment, procedures, bills }) => {

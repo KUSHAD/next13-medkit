@@ -20,7 +20,7 @@ import { specializations } from '@/lib/constants/specializations';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '../ui/checkbox';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const ProcedureForm = ({ form, onSubmit, isEdit = false }) => {
 	return (
