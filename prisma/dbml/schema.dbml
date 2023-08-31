@@ -165,7 +165,7 @@ Table Expenditure {
   createdAt DateTime [default: `now()`, not null]
   staff Staff [not null]
   expenditureType ExpenditureType [not null]
-  ExpenditureDocs ExpenditureDocs [not null]
+  expenditureDocs ExpenditureDocs [not null]
 }
 
 Table ExpenditureDocs {
@@ -246,6 +246,6 @@ Ref: Expenditure.addedBy > Staff.id
 
 Ref: Expenditure.expenditureTypeId > ExpenditureType.id
 
-Ref: ExpenditureDocs.expenditureID > Expenditure.id
+Ref: ExpenditureDocs.expenditureID > Expenditure.id [delete: Cascade]
 
 Ref: ExpenditureDocs.addedBy > Staff.id

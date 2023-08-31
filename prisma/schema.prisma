@@ -174,7 +174,7 @@ model Expenditure {
   createdAt         DateTime          @default(now())
   staff             Staff             @relation(fields: [addedBy], references: [id])
   expenditureType   ExpenditureType   @relation(fields: [expenditureTypeId], references: [id])
-  ExpenditureDocs   ExpenditureDocs[]
+  expenditureDocs   ExpenditureDocs[]
 }
 
 model ExpenditureDocs {
@@ -184,7 +184,7 @@ model ExpenditureDocs {
   expenditureID String      @db.ObjectId
   addedBy       String      @db.ObjectId
   createdAt     DateTime    @default(now())
-  expediture    Expenditure @relation(fields: [expenditureID], references: [id])
+  expediture    Expenditure @relation(fields: [expenditureID], references: [id], onDelete: Cascade)
   staff         Staff       @relation(fields: [addedBy], references: [id])
 }
 

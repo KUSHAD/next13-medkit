@@ -24,12 +24,11 @@ import { useForm } from 'react-hook-form';
 import { toast } from '@/components/ui/use-toast';
 import { expenditureDocumentValidationSchema } from '@/lib/schema/expenditure-document-schema';
 import { Progress } from '@/components/ui/progress';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 
 const AddExpeditureDocs = () => {
 	const { id } = useParams();
-	const router = useRouter();
 	const resolver = zodResolver(expenditureDocumentValidationSchema);
 	const form = useForm({
 		resolver,
@@ -50,7 +49,7 @@ const AddExpeditureDocs = () => {
 
 	const watchShowUploader = form.watch('showUploader');
 	return (
-		<div className='flex flex-row'>
+		<div className='flex flex-row my-2'>
 			<div className='mr-auto' />
 			<Dialog>
 				<DialogTrigger asChild>
@@ -77,11 +76,9 @@ const AddExpeditureDocs = () => {
 									toast({
 										title: 'Added Expenditure Document',
 									});
-									router.refresh();
 								}}
 								onUploadError={error => {
 									const fieldErrors = error.data?.zodError?.fieldErrors;
-
 									toast({
 										title:
 											fieldErrors.description[0] ||

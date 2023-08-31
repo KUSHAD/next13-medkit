@@ -17,7 +17,7 @@ const AppBar = ({
 	return (
 		<div
 			className={cn(
-				'w-full sticky top-0 left-0 flex flex-row py-2',
+				'w-full flex flex-row py-2',
 				isSecondary
 					? 'bg-muted border-y border-y-muted my-2 scale-90 z-10'
 					: 'bg-primary rounded'
