@@ -25,10 +25,11 @@ import { toast } from '@/components/ui/use-toast';
 import { expenditureDocumentValidationSchema } from '@/lib/schema/expenditure-document-schema';
 import { Progress } from '@/components/ui/progress';
 import { useParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const AddExpeditureDocs = () => {
 	const { id } = useParams();
+	const [uploading, setUploading] = useState(false);
 	const resolver = zodResolver(expenditureDocumentValidationSchema);
 	const form = useForm({
 		resolver,
@@ -69,6 +70,9 @@ const AddExpeditureDocs = () => {
 									expenditureID: form.getValues('expenditureID'),
 									showUploader: form.getValues('showUploader'),
 								}}
+								onUploadBegin={() => {
+									setUploading(true);
+								}}
 								endpoint='expenditureDocs'
 								className='w-full ut-button:w-full'
 								onClientUploadComplete={() => {
@@ -76,6 +80,7 @@ const AddExpeditureDocs = () => {
 									toast({
 										title: 'Added Expenditure Document',
 									});
+									setUploading(false);
 								}}
 								onUploadError={error => {
 									const fieldErrors = error.data?.zodError?.fieldErrors;
@@ -87,9 +92,11 @@ const AddExpeditureDocs = () => {
 											error.message,
 										variant: 'destructive',
 									});
+									setUploading(false);
 								}}
 							/>
 							<Button
+								disabled={uploading}
 								variant='destructive'
 								onClick={() => form.setValue('showUploader', false)}>
 								Go Back
@@ -109,7 +116,7 @@ const AddExpeditureDocs = () => {
 													className='resize-none'
 													placeholder='Description of the document'
 													type='text'
-													disabled={form.formState.isSubmitting}
+													disabled={form.formState.isSubmitting || uploading}
 													{...field}
 												/>
 											</FormControl>
@@ -121,7 +128,7 @@ const AddExpeditureDocs = () => {
 									)}
 								/>
 								<Button
-									disabled={form.formState.isSubmitting}
+									disabled={form.formState.isSubmitting || uploading}
 									className='w-full my-2'
 									type='submit'>
 									Add Expenditure
