@@ -19,6 +19,7 @@ Table Staff {
   addedExpenditureType ExpenditureType [not null]
   addedExpenditure Expenditure [not null]
   addedExpenditureDocs ExpenditureDocs [not null]
+  addedAppointmentTests AppointmentTests [not null]
 }
 
 Table Doctor {
@@ -43,6 +44,16 @@ Table Schedule {
   createdAt DateTime [default: `now()`, not null]
   staff Staff [not null]
   doctor Doctor [not null]
+}
+
+Table Attendance {
+  id String [pk]
+  doctorID String [not null]
+  dateOfAttendance DateTime [not null]
+  addedBy String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  doctor Doctor [not null]
+  staff Staff [not null]
 }
 
 Table Procedure {
@@ -84,6 +95,18 @@ Table Appointment {
   payment Payment
   bills Bill [not null]
   partPayment PartPayment [not null]
+  appointmentTests AppointmentTests [not null]
+}
+
+Table AppointmentTests {
+  id String [pk]
+  docSrc String [not null]
+  description String [not null]
+  appointmentID String [not null]
+  addedBy String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  appointment Appointment [not null]
+  staff Staff [not null]
 }
 
 Table Bill {
@@ -126,16 +149,6 @@ Table PartPayment {
   staff Staff [not null]
   payment Payment [not null]
   appointment Appointment [not null]
-}
-
-Table Attendance {
-  id String [pk]
-  doctorID String [not null]
-  dateOfAttendance DateTime [not null]
-  addedBy String [not null]
-  createdAt DateTime [default: `now()`, not null]
-  doctor Doctor [not null]
-  staff Staff [not null]
 }
 
 Table ExpenditureType {
@@ -212,11 +225,19 @@ Ref: Schedule.addedBy > Staff.id
 
 Ref: Schedule.doctorId > Doctor.id
 
+Ref: Attendance.doctorID > Doctor.id
+
+Ref: Attendance.addedBy > Staff.id
+
 Ref: Procedure.addedBy > Staff.id
 
 Ref: Appointment.doctorID > Doctor.id
 
 Ref: Appointment.addedBy > Staff.id
+
+Ref: AppointmentTests.appointmentID > Appointment.id [delete: Cascade]
+
+Ref: AppointmentTests.addedBy > Staff.id
 
 Ref: Bill.addedBy > Staff.id
 
@@ -235,10 +256,6 @@ Ref: PartPayment.addedBy > Staff.id
 Ref: PartPayment.paymentID > Payment.id
 
 Ref: PartPayment.appointmentID > Appointment.id
-
-Ref: Attendance.doctorID > Doctor.id
-
-Ref: Attendance.addedBy > Staff.id
 
 Ref: ExpenditureType.addedBy > Staff.id
 
