@@ -5,11 +5,16 @@ import AddBillItem from '@/components/appointment/bill/add-bill-item';
 import AddPartPayment from '@/components/appointment/bill/payment/add-part-payment';
 import PartPaymentDisplay from '@/components/appointment/bill/payment/part-payment-display';
 import ErrorContainer from '@/components/error-container';
+import AddAppointmentTest from '@/components/appointment/bill/tests/add-appointment-test';
 
 const AppointmentBillContainer = ({ appointment, procedures, bills }) => {
 	return (
 		<>
 			<AppointmentDetails appointment={appointment} />
+			<h2 className='text-lg text-muted-primary mt-2'>Test Documents</h2>
+			<ClientOnly>
+				<AddAppointmentTest />
+			</ClientOnly>
 			<h2 className='text-lg text-muted-primary mt-2'>Billing</h2>
 			<ClientOnly>
 				<AddBillItem

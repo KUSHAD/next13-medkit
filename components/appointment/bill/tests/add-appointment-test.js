@@ -22,26 +22,26 @@ import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from '@/components/ui/use-toast';
-import { expenditureDocumentValidationSchema } from '@/lib/schema/expenditure-document-schema';
 import { Progress } from '@/components/ui/progress';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { appointmentTestValidationSchema } from '@/lib/schema/appointment-test-schema';
 
-const AddExpeditureDocs = () => {
+const AddAppointmentTest = () => {
 	const { id } = useParams();
 	const [uploading, setUploading] = useState(false);
-	const resolver = zodResolver(expenditureDocumentValidationSchema);
+	const resolver = zodResolver(appointmentTestValidationSchema);
 	const form = useForm({
 		resolver,
 		defaultValues: {
 			description: '',
 			showUploader: false,
-			expenditureID: id,
+			appointmentID: id,
 		},
 	});
 
 	useEffect(() => {
-		form.setValue('expenditureID', id);
+		form.setValue('appointmentID', id);
 	}, [id, form]);
 
 	async function onSubmit() {
@@ -54,10 +54,10 @@ const AddExpeditureDocs = () => {
 			<div className='mr-auto' />
 			<Dialog>
 				<DialogTrigger asChild>
-					<Button> Add Expediture Docs</Button>
+					<Button>Add Test Document</Button>
 				</DialogTrigger>
 				<DialogContent>
-					<DialogHeader>Add Expediture Docs</DialogHeader>
+					<DialogHeader>Add Test Document</DialogHeader>
 					<div className='my-4'>
 						<strong>Progress</strong>
 						<Progress value={watchShowUploader ? 100 : 50} />
@@ -67,18 +67,18 @@ const AddExpeditureDocs = () => {
 							<UploadButton
 								input={{
 									description: form.getValues('description'),
-									expenditureID: form.getValues('expenditureID'),
+									appointmentID: form.getValues('appointmentID'),
 									showUploader: form.getValues('showUploader'),
 								}}
 								onUploadBegin={() => {
 									setUploading(true);
 								}}
-								endpoint='expenditureDocs'
+								endpoint='appointmentTests'
 								className='w-full ut-button:w-full'
 								onClientUploadComplete={() => {
 									form.reset();
 									toast({
-										title: 'Added Expenditure Document',
+										title: 'Added Test Document',
 									});
 									setUploading(false);
 								}}
@@ -87,7 +87,7 @@ const AddExpeditureDocs = () => {
 									toast({
 										title:
 											fieldErrors.description[0] ||
-											fieldErrors.expenditureID[0] ||
+											fieldErrors.appointmentID[0] ||
 											fieldErrors.showUploader[0] ||
 											error.message,
 										variant: 'destructive',
@@ -110,7 +110,7 @@ const AddExpeditureDocs = () => {
 									name='description'
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Description of the document</FormLabel>
+											<FormLabel>Description of the Test</FormLabel>
 											<FormControl>
 												<Textarea
 													className='resize-none'
@@ -120,9 +120,7 @@ const AddExpeditureDocs = () => {
 													{...field}
 												/>
 											</FormControl>
-											<FormDescription>
-												Description of the document
-											</FormDescription>
+											<FormDescription>Description of the Test</FormDescription>
 											<FormMessage />
 										</FormItem>
 									)}
@@ -131,7 +129,7 @@ const AddExpeditureDocs = () => {
 									disabled={form.formState.isSubmitting || uploading}
 									className='w-full my-2'
 									type='submit'>
-									Add Expenditure Doc
+									Add Test
 								</Button>
 							</form>
 						</Form>
@@ -141,4 +139,4 @@ const AddExpeditureDocs = () => {
 		</div>
 	);
 };
-export default AddExpeditureDocs;
+export default AddAppointmentTest;
