@@ -23,12 +23,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from '@/components/ui/use-toast';
 import { Progress } from '@/components/ui/progress';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { appointmentTestValidationSchema } from '@/lib/schema/appointment-test-schema';
 
-const AddAppointmentTest = () => {
+const AddAppointmentTest = ({ disabled }) => {
 	const { id } = useParams();
+	const router = useRouter();
 	const [uploading, setUploading] = useState(false);
 	const resolver = zodResolver(appointmentTestValidationSchema);
 	const form = useForm({
@@ -54,7 +55,7 @@ const AddAppointmentTest = () => {
 			<div className='mr-auto' />
 			<Dialog>
 				<DialogTrigger asChild>
-					<Button>Add Test Document</Button>
+					<Button disabled={disabled}>Add Test Document</Button>
 				</DialogTrigger>
 				<DialogContent>
 					<DialogHeader>Add Test Document</DialogHeader>
@@ -76,20 +77,16 @@ const AddAppointmentTest = () => {
 								endpoint='appointmentTests'
 								className='w-full ut-button:w-full'
 								onClientUploadComplete={() => {
+									setUploading(false);
 									form.reset();
 									toast({
 										title: 'Added Test Document',
 									});
-									setUploading(false);
+									router.refresh();
 								}}
 								onUploadError={error => {
-									const fieldErrors = error.data?.zodError?.fieldErrors;
 									toast({
-										title:
-											fieldErrors.description[0] ||
-											fieldErrors.appointmentID[0] ||
-											fieldErrors.showUploader[0] ||
-											error.message,
+										title: error.message,
 										variant: 'destructive',
 									});
 									setUploading(false);

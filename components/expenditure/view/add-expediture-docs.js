@@ -24,12 +24,13 @@ import { useForm } from 'react-hook-form';
 import { toast } from '@/components/ui/use-toast';
 import { expenditureDocumentValidationSchema } from '@/lib/schema/expenditure-document-schema';
 import { Progress } from '@/components/ui/progress';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const AddExpeditureDocs = () => {
 	const { id } = useParams();
 	const [uploading, setUploading] = useState(false);
+	const router = useRouter();
 	const resolver = zodResolver(expenditureDocumentValidationSchema);
 	const form = useForm({
 		resolver,
@@ -76,11 +77,12 @@ const AddExpeditureDocs = () => {
 								endpoint='expenditureDocs'
 								className='w-full ut-button:w-full'
 								onClientUploadComplete={() => {
+									setUploading(false);
 									form.reset();
 									toast({
 										title: 'Added Expenditure Document',
 									});
-									setUploading(false);
+									router.refresh();
 								}}
 								onUploadError={error => {
 									const fieldErrors = error.data?.zodError?.fieldErrors;

@@ -6,6 +6,7 @@ import AddPartPayment from '@/components/appointment/bill/payment/add-part-payme
 import PartPaymentDisplay from '@/components/appointment/bill/payment/part-payment-display';
 import ErrorContainer from '@/components/error-container';
 import AddAppointmentTest from '@/components/appointment/bill/tests/add-appointment-test';
+import ShowAppointmentTests from './tests/show-appointment-tests';
 
 const AppointmentBillContainer = ({ appointment, procedures, bills }) => {
 	return (
@@ -13,7 +14,11 @@ const AppointmentBillContainer = ({ appointment, procedures, bills }) => {
 			<AppointmentDetails appointment={appointment} />
 			<h2 className='text-lg text-muted-primary mt-2'>Test Documents</h2>
 			<ClientOnly>
-				<AddAppointmentTest />
+				<AddAppointmentTest disabled={appointment.isBilled} />
+				<ShowAppointmentTests
+					docs={appointment.appointmentTests}
+					disabled={appointment.isBilled}
+				/>
 			</ClientOnly>
 			<h2 className='text-lg text-muted-primary mt-2'>Billing</h2>
 			<ClientOnly>
