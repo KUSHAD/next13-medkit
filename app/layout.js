@@ -8,26 +8,23 @@ import '@uploadthing/react/styles.css';
 const nunito = Nunito({ subsets: ['latin'] });
 
 export const metadata = {
-	title: 'Lions Medkit',
-	description: 'Lions Medkit app for Lions Club of Chakdaha Block',
+	title: 'Next 13 Medkit',
+	description:
+		'Medical Reception App made using next13 app dir, tailwindcss, shadcn-ui, mongodb, prisma, uploadthing and firebase mobile authentication',
 	manifest: '/manifest.json',
 	themeColor: '#2563EB',
-	metadataBase: new URL('https://lions-medkit.vercel.app/'),
+	metadataBase: new URL('https://next13-medkit.vercel.app/'),
 	openGraph: {
-		title: 'Lions Medkit',
-		description: 'Lions Medkit app for Lions Club of Chakdaha Block',
-		url: 'https://lions-medkit-vercel.app',
-		siteName: 'Lions Medkit',
+		title: 'Next 13 Medkit',
+		description:
+			'Medical Reception App made using next13 app dir, tailwindcss, shadcn-ui, mongodb, prisma, uploadthing and firebase mobile authentication',
+		url: 'https://next13-medkit.vercel.app',
+		siteName: 'Next 13 Medkit',
 		locale: 'en_US',
 		type: 'website',
 		authors: ['Kushad Chakraborty'],
 	},
-	keywords: [
-		'lions club',
-		'chakdaha block',
-		'medical application',
-		'lions medkit',
-	],
+	keywords: ['medical application', 'medkit', 'next13-medkit'],
 };
 
 export default function RootLayout({ children }) {

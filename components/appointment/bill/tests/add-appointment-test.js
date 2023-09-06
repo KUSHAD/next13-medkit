@@ -75,7 +75,7 @@ const AddAppointmentTest = ({ disabled }) => {
 									setUploading(true);
 								}}
 								endpoint='appointmentTests'
-								className='w-full ut-button:w-full'
+								className='w-full ut-button:w-full ut-button:bg-primary ut-button:ut-readying:opacity-50 ut-button:ut-readying:cursor-not-allowed ut-uploading:ut-button:opacity-50 ut-uploading:ut-button:cursor-not-allowed '
 								onClientUploadComplete={() => {
 									setUploading(false);
 									form.reset();

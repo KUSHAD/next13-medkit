@@ -1,14 +1,14 @@
 {
-	"theme_color": "#2563EB",
-	"background_color": "#2563EB",
+	"theme_color": "#16A34A",
+	"background_color": "#ffffff",
 	"display": "standalone",
 	"scope": "/",
 	"start_url": "/",
 	"id": "/",
 	"orientation": "portrait",
-	"name": "Lions Medkit",
+	"name": "Next 13 Medkit",
 	"short_name": "Medkit",
-	"description": "Lions Medkit app for Lions Club of Chakdaha Block",
+	"description": "Medical Reception App made using next13 app dir, tailwindcss, shadcn-ui, mongodb, prisma, uploadthing and firebase mobile authentication",
 	"icons": [
 		{
 			"src": "/icon-192x192.png",

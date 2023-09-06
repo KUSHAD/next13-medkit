@@ -1,7 +1,11 @@
 {
-	"name": "lions-medkit",
+	"name": "next13-medkit",
+	"description": "Medical Reception App made using next13 app dir, tailwindcss, shadcn-ui, mongodb, prisma, uploadthing and firebase mobile authentication",
 	"version": "0.1.0",
 	"private": true,
+	"repository": {
+		"url": "https://github.com/KUSHAD/next13-medkit"
+	},
 	"scripts": {
 		"postinstall": "prisma generate",
 		"dev": "next dev",
@@ -50,7 +54,7 @@
 		"react-hook-form": "^7.45.1",
 		"tailwind-merge": "^1.13.2",
 		"tailwindcss-animate": "^1.0.6",
-		"uploadthing": "^5.3.3",
+		"uploadthing": "^5.5.2",
 		"yup": "^1.2.0",
 		"zod": "^3.22.2"
 	},
