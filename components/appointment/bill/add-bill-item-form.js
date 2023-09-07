@@ -1,7 +1,7 @@
 'use client';
 
 import { toast } from '@/components/ui/use-toast';
-import { billValidationSchema } from '@/lib/schema/bill-schema';
+import { billValidationSchema } from '@/lib/schema/appointment/bill-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter, useParams, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';

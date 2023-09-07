@@ -26,7 +26,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { days } from '@/lib/constants/days';
 import { slots } from '@/lib/constants/slots';
-import { scheduleValidationSchema } from '@/lib/schema/schedule-schema';
+import { scheduleValidationSchema } from '@/lib/schema/doctor/schedule-schema';
 
 const AddDoctorSchedule = ({ doctorID }) => {
 	const router = useRouter();

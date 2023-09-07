@@ -40,7 +40,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { attendanceValidationSchema } from '@/lib/schema/attendance-schema';
+import { attendanceValidationSchema } from '@/lib/schema/doctor/attendance-schema';
 
 const AddAttendanceForm = ({ doctors }) => {
 	const validationSchema = attendanceValidationSchema(doctors);

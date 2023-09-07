@@ -1,6 +1,6 @@
 'use client';
 
-import { procedureValidationSchema } from '@/lib/schema/procedure-schema';
+import { procedureValidationSchema } from '@/lib/schema/appointment/procedure-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { toast } from '@/components/ui/use-toast';

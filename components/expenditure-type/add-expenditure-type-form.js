@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { expenditureTypeValidationSchema } from '@/lib/schema/expenditure-type-schema';
+import { expenditureTypeValidationSchema } from '@/lib/schema/expenditure/expenditure-type-schema';
 
 const AddExpenditureTypeForm = () => {
 	const router = useRouter();

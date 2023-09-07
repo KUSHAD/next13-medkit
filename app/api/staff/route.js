@@ -1,5 +1,5 @@
 import prisma from '@/lib/db/prisma';
-import { staffValidationSchema } from '@/lib/schema/staff-schema';
+import { staffValidationSchema } from '@/lib/schema/staff/staff-schema';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {

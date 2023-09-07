@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { staffValidationSchema } from '@/lib/schema/staff-schema';
+import { staffValidationSchema } from '@/lib/schema/staff/staff-schema';
 
 const EditStaffForm = ({ staff }) => {
 	const router = useRouter();

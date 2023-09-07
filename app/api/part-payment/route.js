@@ -1,6 +1,6 @@
 import { getCurrentUser } from '@/lib/actions/get-current-user';
 import prisma from '@/lib/db/prisma';
-import { partPaymentValidationSchema } from '@/lib/schema/part-payment-schema';
+import { partPaymentValidationSchema } from '@/lib/schema/appointment/part-payment-schema';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {

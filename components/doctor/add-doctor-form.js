@@ -25,7 +25,7 @@ import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { specializations } from '@/lib/constants/specializations';
-import { doctorValidationSchema } from '@/lib/schema/doctor-schema';
+import { doctorValidationSchema } from '@/lib/schema/doctor/doctor-schema';
 
 const AddDoctorForm = () => {
 	const router = useRouter();
