@@ -3,6 +3,10 @@ import DoctorsTable from '@/components/doctor/doctors-table';
 import { getDoctors } from '@/lib/actions/get-doctors';
 import ErrorContainer from '@/components/error-container';
 
+export const metadata = {
+	title: 'Manage Doctors',
+};
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 

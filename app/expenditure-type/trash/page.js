@@ -3,6 +3,10 @@ import ErrorContainer from '@/components/error-container';
 import ExpeditureTypeTable from '@/components/expenditure-type/expenditure-type-table';
 import { getTrashedExpenditureTypes } from '@/lib/actions/get-expenditure-types';
 
+export const metadata = {
+	title: 'Trashed Expenditure Types',
+};
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 

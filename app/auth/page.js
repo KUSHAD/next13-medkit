@@ -8,6 +8,10 @@ import {
 	CardTitle,
 } from '@/components/ui/card';
 
+export const metadata = {
+	title: 'Auth',
+};
+
 const Page = () => {
 	return (
 		<div className='grid h-screen place-items-center'>

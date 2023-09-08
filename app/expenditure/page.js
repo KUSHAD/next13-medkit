@@ -4,6 +4,10 @@ import ExpenditureDisplayContainer from '@/components/expenditure/expenditure-di
 import { getExpenditureTypes } from '@/lib/actions/get-expenditure-types';
 import { getExpendituresByDate } from '@/lib/actions/get-expenditures';
 
+export const metadata = {
+	title: 'View Expenditures',
+};
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 

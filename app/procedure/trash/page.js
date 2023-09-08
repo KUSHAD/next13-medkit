@@ -3,6 +3,10 @@ import ClientOnly from '@/components/client-only';
 import ErrorContainer from '@/components/error-container';
 import ProcedureTable from '@/components/procedure/procedure-table';
 
+export const metadata = {
+	title: 'Trashed Procedures',
+};
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 

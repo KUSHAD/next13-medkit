@@ -3,6 +3,10 @@ import ErrorContainer from '@/components/error-container';
 import StaffTable from '@/components/staff/staff-table';
 import { getStaffs } from '@/lib/actions/get-staffs';
 
+export const metadata = {
+	title: 'Manage Staffs',
+};
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
