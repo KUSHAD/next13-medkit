@@ -17,16 +17,29 @@ import ErrorContainer from '@/components/error-container';
 
 const columns = [
 	{
-		accessorKey: 'expenditureType',
-		header: 'Expediture Type',
+		accessorKey: 'doctorName',
+		header: 'Doctor Name',
 	},
 	{
-		accessorKey: 'amount',
-		header: 'Amount',
+		id: 'presentOn',
+		header: 'Present On',
+		cell: ({ row }) => {
+			const attendance = row.original;
+			return attendance.presentOn.join(', ');
+		},
+	},
+
+	{
+		id: 'daysPresent',
+		header: 'Days Present',
+		cell: ({ row }) => {
+			const attendance = row.original;
+			return `${attendance.presentOn.length} day(s)`;
+		},
 	},
 ];
 
-const ExpeditureSumViewer = ({ data }) => {
+const AttendanceReportViewer = ({ data }) => {
 	const table = useReactTable({
 		data,
 		columns,
@@ -37,8 +50,8 @@ const ExpeditureSumViewer = ({ data }) => {
 		<div className='rounded-md border'>
 			{data.length === 0 ? (
 				<ErrorContainer
-					title='No Expenditures Found  in the  selected time period'
-					desc='Add Some expeditures then see their reports here'
+					title='No Attendance Found  in the  selected time period'
+					desc='Add Some Attendances then see their reports here'
 				/>
 			) : (
 				<Table>
@@ -75,12 +88,6 @@ const ExpeditureSumViewer = ({ data }) => {
 										))}
 									</TableRow>
 								))}
-								<TableRow>
-									<TableCell>Total</TableCell>
-									<TableCell>
-										{data.reduce((acc, value) => (acc += value.amount), 0)}
-									</TableCell>
-								</TableRow>
 							</>
 						) : (
 							<TableRow>
@@ -98,4 +105,4 @@ const ExpeditureSumViewer = ({ data }) => {
 	);
 };
 
-export default ExpeditureSumViewer;
+export default AttendanceReportViewer;

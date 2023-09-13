@@ -71,6 +71,77 @@ const Loading = () => {
 					</Table>
 				</AccordionContent>
 			</AccordionItem>
+			<AccordionItem value='attendance'>
+				<AccordionTrigger>Attendance</AccordionTrigger>
+				<AccordionContent>
+					<Table>
+						<TableHeader>
+							<TableRow>
+								<TableHead>Doctor Name</TableHead>
+								<TableHead>Present On</TableHead>
+								<TableHead>Days Present</TableHead>
+							</TableRow>
+						</TableHeader>
+						<TableBody>
+							<TableRow>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+								<TableCell>
+									<Skeleton className='h-4 w-[100px]' />
+								</TableCell>
+							</TableRow>
+						</TableBody>
+					</Table>
+				</AccordionContent>
+			</AccordionItem>
 		</Accordion>
 	);
 };
