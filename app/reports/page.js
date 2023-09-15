@@ -3,6 +3,7 @@ import ReportsDisplayContainer from '@/components/reports/report-display-contain
 import {
 	getAttendanceReports,
 	getExpenditureSum,
+	getPaymentSplits,
 } from '@/lib/actions/get-reports';
 
 export const metadata = {
@@ -15,10 +16,12 @@ export const revalidate = 0;
 const Page = async ({ searchParams }) => {
 	const expenditureSumData = await getExpenditureSum(searchParams);
 	const attendanceReportsData = await getAttendanceReports(searchParams);
+	const paymentSplitData = await getPaymentSplits(searchParams);
 
-	const [expenditureSum, attendanceReports] = await Promise.all([
+	const [expenditureSum, attendanceReports, paymentSplit] = await Promise.all([
 		expenditureSumData,
 		attendanceReportsData,
+		paymentSplitData,
 	]);
 
 	return (

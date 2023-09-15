@@ -27,7 +27,14 @@ export const metadata = {
 		type: 'website',
 		authors: ['Kushad Chakraborty'],
 	},
-	keywords: ['medical application', 'medkit', 'next13-medkit'],
+	keywords: [
+		'medical application',
+		'medkit',
+		'next13-medkit',
+		'next13',
+		'nextjs',
+		'react',
+	],
 };
 
 export default function RootLayout({ children }) {
