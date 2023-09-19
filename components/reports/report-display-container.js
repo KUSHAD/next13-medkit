@@ -9,8 +9,13 @@ import {
 } from '@/components/ui/accordion';
 import ExpenditureSumViewer from '@/components/reports/expenditure-sum-viewer';
 import AttendanceReportViewer from '@/components/reports/attendance-report-viewer';
+import PaymentSplitViewer from '@/components/reports/payment-split-viewer';
 
-const ReportsDisplayContainer = ({ expenditureSum, attendanceReports }) => {
+const ReportsDisplayContainer = ({
+	expenditureSum,
+	attendanceReports,
+	paymentSplit,
+}) => {
 	return (
 		<>
 			<ReportDateRange />
@@ -20,6 +25,12 @@ const ReportsDisplayContainer = ({ expenditureSum, attendanceReports }) => {
 					<AccordionTrigger>Expenditure</AccordionTrigger>
 					<AccordionContent>
 						<ExpenditureSumViewer data={expenditureSum} />
+					</AccordionContent>
+				</AccordionItem>
+				<AccordionItem value='payment-split'>
+					<AccordionTrigger>Payment Splits</AccordionTrigger>
+					<AccordionContent>
+						<PaymentSplitViewer data={paymentSplit} />
 					</AccordionContent>
 				</AccordionItem>
 				<AccordionItem value='attendance'>

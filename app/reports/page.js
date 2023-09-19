@@ -29,6 +29,7 @@ const Page = async ({ searchParams }) => {
 			<ReportsDisplayContainer
 				expenditureSum={expenditureSum}
 				attendanceReports={attendanceReports}
+				paymentSplit={paymentSplit}
 			/>
 		</ClientOnly>
 	);

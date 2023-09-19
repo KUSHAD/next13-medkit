@@ -17,25 +17,45 @@ import ErrorContainer from '@/components/error-container';
 
 const columns = [
 	{
-		accessorKey: 'expenditureType',
-		header: 'Expediture Type',
+		accessorKey: 'procedureName',
+		header: 'Procedure Name',
 	},
 	{
-		accessorKey: 'amount',
-		header: 'Amount',
+		accessorKey: 'treatment',
+		header: 'Treatment',
+	},
+	{
+		accessorKey: 'quantity',
+		header: 'Quantity',
+	},
+	{
+		accessorKey: 'totalAmount',
+		header: 'Total Amount',
+	},
+	{
+		accessorKey: 'officeAmount',
+		header: 'Office Amount',
+	},
+	{
+		accessorKey: 'doctorAmount',
+		header: 'Doctor Amount',
+	},
+	{
+		accessorKey: 'technicianAmount',
+		header: 'Technician Amount',
 	},
 	{
 		id: 'isTrashed',
 		header: 'Status',
 		cell: ({ row }) => {
-			const expeditureSum = row.original;
+			const procedureSplit = row.original;
 
-			return expeditureSum.isTrashed ? 'Trashed' : 'Active';
+			return procedureSplit.isTrashed ? 'Trashed' : 'Active';
 		},
 	},
 ];
 
-const ExpeditureSumViewer = ({ data }) => {
+const PaymentSplitViewer = ({ data }) => {
 	const table = useReactTable({
 		data,
 		columns,
@@ -46,8 +66,8 @@ const ExpeditureSumViewer = ({ data }) => {
 		<div className='rounded-md border'>
 			{data.length === 0 ? (
 				<ErrorContainer
-					title='No Expenditures Found  in the  selected time period'
-					desc='Add Some expeditures then see their reports here'
+					title='No Billed Appointments Found  in the  selected time period'
+					desc='Bill some appointments then see their reports here'
 				/>
 			) : (
 				<Table>
@@ -86,8 +106,30 @@ const ExpeditureSumViewer = ({ data }) => {
 								))}
 								<TableRow>
 									<TableCell>Total</TableCell>
+									<TableCell />
 									<TableCell>
-										{data.reduce((acc, value) => (acc += value.amount), 0)}
+										{data.reduce((acc, value) => (acc += value.quantity), 0)}
+									</TableCell>
+									<TableCell>
+										{data.reduce((acc, value) => (acc += value.totalAmount), 0)}
+									</TableCell>
+									<TableCell>
+										{data.reduce(
+											(acc, value) => (acc += value.officeAmount),
+											0
+										)}
+									</TableCell>
+									<TableCell>
+										{data.reduce(
+											(acc, value) => (acc += value.doctorAmount),
+											0
+										)}
+									</TableCell>
+									<TableCell>
+										{data.reduce(
+											(acc, value) => (acc += value.technicianAmount),
+											0
+										)}
 									</TableCell>
 								</TableRow>
 							</>
@@ -107,4 +149,4 @@ const ExpeditureSumViewer = ({ data }) => {
 	);
 };
 
-export default ExpeditureSumViewer;
+export default PaymentSplitViewer;
