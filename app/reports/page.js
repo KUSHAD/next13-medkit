@@ -2,6 +2,7 @@ import ClientOnly from '@/components/client-only';
 import ReportsDisplayContainer from '@/components/reports/report-display-container';
 import {
 	getAttendanceReports,
+	getDoctorSplits,
 	getExpenditureSum,
 	getPaymentSplits,
 } from '@/lib/actions/get-reports';
@@ -17,12 +18,15 @@ const Page = async ({ searchParams }) => {
 	const expenditureSumData = await getExpenditureSum(searchParams);
 	const attendanceReportsData = await getAttendanceReports(searchParams);
 	const paymentSplitData = await getPaymentSplits(searchParams);
+	const doctorSplitData = await getDoctorSplits(searchParams);
 
-	const [expenditureSum, attendanceReports, paymentSplit] = await Promise.all([
-		expenditureSumData,
-		attendanceReportsData,
-		paymentSplitData,
-	]);
+	const [expenditureSum, attendanceReports, paymentSplit, doctorSplit] =
+		await Promise.all([
+			expenditureSumData,
+			attendanceReportsData,
+			paymentSplitData,
+			doctorSplitData,
+		]);
 
 	return (
 		<ClientOnly>
@@ -30,6 +34,7 @@ const Page = async ({ searchParams }) => {
 				expenditureSum={expenditureSum}
 				attendanceReports={attendanceReports}
 				paymentSplit={paymentSplit}
+				doctorSplit={doctorSplit}
 			/>
 		</ClientOnly>
 	);

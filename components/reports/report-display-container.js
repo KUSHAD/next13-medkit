@@ -10,11 +10,13 @@ import {
 import ExpenditureSumViewer from '@/components/reports/expenditure-sum-viewer';
 import AttendanceReportViewer from '@/components/reports/attendance-report-viewer';
 import PaymentSplitViewer from '@/components/reports/payment-split-viewer';
+import DoctorSplitViewer from '@/components/reports/doctor-split-viwer';
 
 const ReportsDisplayContainer = ({
 	expenditureSum,
 	attendanceReports,
 	paymentSplit,
+	doctorSplit,
 }) => {
 	return (
 		<>
@@ -28,9 +30,15 @@ const ReportsDisplayContainer = ({
 					</AccordionContent>
 				</AccordionItem>
 				<AccordionItem value='payment-split'>
-					<AccordionTrigger>Payment Splits</AccordionTrigger>
+					<AccordionTrigger>Payment Split</AccordionTrigger>
 					<AccordionContent>
 						<PaymentSplitViewer data={paymentSplit} />
+					</AccordionContent>
+				</AccordionItem>
+				<AccordionItem value='doctor-split'>
+					<AccordionTrigger>Doctor Split</AccordionTrigger>
+					<AccordionContent>
+						<DoctorSplitViewer data={doctorSplit} />
 					</AccordionContent>
 				</AccordionItem>
 				<AccordionItem value='attendance'>
