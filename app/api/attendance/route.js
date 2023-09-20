@@ -1,7 +1,7 @@
 import { getCurrentUser } from '@/lib/actions/get-current-user';
 import { getAppointmentDoctors } from '@/lib/actions/get-doctors';
 import prisma from '@/lib/db/prisma';
-import { attendanceValidationSchema } from '@/lib/schema/attendance-schema';
+import { attendanceValidationSchema } from '@/lib/schema/doctor/attendance-schema';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {

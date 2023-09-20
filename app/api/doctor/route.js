@@ -1,6 +1,6 @@
 import { getCurrentUser } from '@/lib/actions/get-current-user';
 import prisma from '@/lib/db/prisma';
-import { doctorValidationSchema } from '@/lib/schema/doctor-schema';
+import { doctorValidationSchema } from '@/lib/schema/doctor/doctor-schema';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {

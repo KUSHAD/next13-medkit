@@ -1,5 +1,5 @@
 import prisma from '@/lib/db/prisma';
-import { authValidationSchema } from '@/lib/schema/auth-schema';
+import { authValidationSchema } from '@/lib/schema/staff/auth-schema';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {

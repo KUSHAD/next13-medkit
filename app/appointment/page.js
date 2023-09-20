@@ -4,6 +4,10 @@ import ClientOnly from '@/components/client-only';
 import { getAppointmentByDate } from '@/lib/actions/get-appointments';
 import { getAppointmentDoctors } from '@/lib/actions/get-doctors';
 
+export const metadata = {
+	title: 'Appointments',
+};
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 

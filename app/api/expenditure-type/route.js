@@ -1,6 +1,6 @@
 import { getCurrentUser } from '@/lib/actions/get-current-user';
 import prisma from '@/lib/db/prisma';
-import { expenditureTypeValidationSchema } from '@/lib/schema/expenditure-type-schema';
+import { expenditureTypeValidationSchema } from '@/lib/schema/expenditure/expenditure-type-schema';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {

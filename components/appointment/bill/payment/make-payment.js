@@ -8,7 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { paymentValidationSchema } from '@/lib/schema/payment-schema';
+import { paymentValidationSchema } from '@/lib/schema/appointment/payment-schema';
 import {
 	Form,
 	FormControl,

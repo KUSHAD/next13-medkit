@@ -1,6 +1,6 @@
 'use client';
 
-import { appointmentValidationSchema } from '@/lib/schema/appointment-schema';
+import { appointmentValidationSchema } from '@/lib/schema/appointment/appointment-schema';
 import { Button } from '@/components/ui/button';
 import {
 	Sheet,

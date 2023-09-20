@@ -25,7 +25,7 @@ import { toast } from '@/components/ui/use-toast';
 import { Progress } from '@/components/ui/progress';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { appointmentTestValidationSchema } from '@/lib/schema/appointment-test-schema';
+import { appointmentTestValidationSchema } from '@/lib/schema/appointment/appointment-test-schema';
 
 const AddAppointmentTest = ({ disabled }) => {
 	const { id } = useParams();

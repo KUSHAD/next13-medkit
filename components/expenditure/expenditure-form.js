@@ -15,7 +15,7 @@ import { format } from 'date-fns';
 import { Calendar } from '@/components/ui/calendar';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { cn } from '@/lib/utils';
-import { expenditureValidationSchema } from '@/lib/schema/expenditure-schema';
+import { expenditureValidationSchema } from '@/lib/schema/expenditure/expenditure-schema';
 
 import {
 	Popover,

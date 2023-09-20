@@ -2,7 +2,7 @@ import { getCurrentUser } from '@/lib/actions/get-current-user';
 import { getAppointmentDoctors } from '@/lib/actions/get-doctors';
 import { getProceduresByTreatment } from '@/lib/actions/get-procedures';
 import prisma from '@/lib/db/prisma';
-import { billValidationSchema } from '@/lib/schema/bill-schema';
+import { billValidationSchema } from '@/lib/schema/appointment/bill-schema';
 import { NextResponse } from 'next/server';
 
 export async function POST(req, { params: { id } }) {

@@ -8,11 +8,14 @@ import '@uploadthing/react/styles.css';
 const nunito = Nunito({ subsets: ['latin'] });
 
 export const metadata = {
-	title: 'Next 13 Medkit',
+	title: {
+		template: '%s | Next13 Medkit',
+		default: 'Next13 Medkit',
+	},
+	manifest: '/manifest.json',
 	description:
 		'Medical Reception App made using next13 app dir, tailwindcss, shadcn-ui, mongodb, prisma, uploadthing and firebase mobile authentication',
-	manifest: '/manifest.json',
-	themeColor: '#2563EB',
+	themeColor: '#16A34A',
 	metadataBase: new URL('https://next13-medkit.vercel.app/'),
 	openGraph: {
 		title: 'Next 13 Medkit',
@@ -24,7 +27,14 @@ export const metadata = {
 		type: 'website',
 		authors: ['Kushad Chakraborty'],
 	},
-	keywords: ['medical application', 'medkit', 'next13-medkit'],
+	keywords: [
+		'medical application',
+		'medkit',
+		'next13-medkit',
+		'next13',
+		'nextjs',
+		'react',
+	],
 };
 
 export default function RootLayout({ children }) {

@@ -3,6 +3,10 @@ import ClientOnly from '@/components/client-only';
 import { getAppointmentByID } from '@/lib/actions/get-appointments';
 import { getProceduresByTreatment } from '@/lib/actions/get-procedures';
 
+export const metadata = {
+	title: 'Bill Appointment',
+};
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 

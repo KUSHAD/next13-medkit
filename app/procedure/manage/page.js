@@ -3,6 +3,10 @@ import ErrorContainer from '@/components/error-container';
 import ProcedureTable from '@/components/procedure/procedure-table';
 import { getProcedures } from '@/lib/actions/get-procedures';
 
+export const metadata = {
+	title: 'Manage Procedures',
+};
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 

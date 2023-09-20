@@ -1,4 +1,5 @@
 import ClientOnly from '@/components/client-only';
+import Footer from '@/components/dashboard/footer';
 import HeroCard from '@/components/dashboard/hero-card';
 import AppBar from '@/components/navbar/app-bar';
 
@@ -7,8 +8,9 @@ const Page = () => {
 		<>
 			<ClientOnly>
 				<AppBar />
+				<HeroCard />
 			</ClientOnly>
-			<HeroCard />
+			<Footer />
 		</>
 	);
 };

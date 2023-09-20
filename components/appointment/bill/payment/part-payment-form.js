@@ -1,5 +1,5 @@
 'use client';
-import { partPaymentValidationSchema } from '@/lib/schema/part-payment-schema';
+import { partPaymentValidationSchema } from '@/lib/schema/appointment/part-payment-schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import {

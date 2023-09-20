@@ -15,7 +15,7 @@ const AppBar = ({
 }) => {
 	const pathname = usePathname();
 	return (
-		<div
+		<header
 			className={cn(
 				'w-full flex flex-row py-2',
 				isSecondary
@@ -41,7 +41,7 @@ const AppBar = ({
 				{title}
 			</div>
 			{pathname === '/' && <ThemeToggle />}
-		</div>
+		</header>
 	);
 };
 

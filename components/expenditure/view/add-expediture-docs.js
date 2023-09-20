@@ -22,7 +22,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from '@/components/ui/use-toast';
-import { expenditureDocumentValidationSchema } from '@/lib/schema/expenditure-document-schema';
+import { expenditureDocumentValidationSchema } from '@/lib/schema/expenditure/expenditure-document-schema';
 import { Progress } from '@/components/ui/progress';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';

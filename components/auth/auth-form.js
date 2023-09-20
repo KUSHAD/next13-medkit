@@ -23,7 +23,7 @@ import {
 } from 'firebase/auth';
 import { firebaseAuth } from '@/lib/db/firebase';
 import { setCookie } from 'cookies-next';
-import { authValidationSchema } from '@/lib/schema/auth-schema';
+import { authValidationSchema } from '@/lib/schema/staff/auth-schema';
 
 const AuthForm = () => {
 	const router = useRouter();
