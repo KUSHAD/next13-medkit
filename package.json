@@ -6,6 +6,15 @@
 	"repository": {
 		"url": "https://github.com/KUSHAD/next13-medkit"
 	},
+	"author": {
+		"email": "kushad.chakraborty@gmail.com",
+		"name": "Kushad Chakraborty"
+	},
+	"bugs": {
+		"email": "kushad.chakraborty@gmail.com",
+		"url": "https://github.com/KUSHAD/next13-medkit/issues"
+	},
+	"license":"Apache-2.0",
 	"scripts": {
 		"postinstall": "prisma generate",
 		"dev": "next dev",
