@@ -7,7 +7,7 @@ License :- [Apache-2.0](./LICENSE)
 
 ## Screenshots
 
-> Video Demo (TODO)
+> [Youtube Video Demo](https://youtu.be/sYs7NJXhrjY)
 
 > Lightmode Dashboard
 > ![Dashboard Light](./showcase/dashboard-light.png)
